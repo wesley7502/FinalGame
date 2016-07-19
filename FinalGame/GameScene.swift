@@ -13,6 +13,21 @@ class GameScene: SKScene {
     var plane: SKSpriteNode!
     var touchLoc: CGPoint!
     var planePos = 3
+    var healthBar: SKSpriteNode!
+    
+    var health: CGFloat = 1.0{
+        didSet{
+            healthBar.xScale = health
+        }
+    }
+    
+    var totalDifficulty = 1       // limits how hard of enemies can come
+    
+    var enemyValueCount = 10   //shows the amount of value and enemy can have
+    
+    var spawnQuene = 0
+    
+    var score = 0
     
     var shooting = false
     
@@ -20,13 +35,15 @@ class GameScene: SKScene {
     
     var checkTouchFinished = false
     
+    var queneArray = [Int]()
+    
     var bulletArray = [Bullet]()
     
     var enemyBulletArray = [EnemyBullet]()
     
-    var squareArray = [Square]()
+    var enemyArray = [Enemy]()
     
-    var enemyArray = [TriangleEnemy]()
+    var queneTimer: Double = 0.0
     
     var touchStarted: Double = 0.0
     
@@ -40,6 +57,8 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         plane = childNodeWithName("plane") as! SKSpriteNode
+        healthBar = childNodeWithName("healthBar") as! SKSpriteNode
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -53,21 +72,29 @@ class GameScene: SKScene {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
-            didTurn = false
             let location  = touch.locationInNode(self)
             let calculateddistance = Double(touchLoc.x - location.x)
             if calculateddistance > 50 && planePos > 1{
                 self.plane.position.x -= 64
                 planePos -= 1
+                if self.plane.position.y < 268{
+                    self.plane.position.y += 35
+                }
                 didTurn = true
             }
             else if calculateddistance < -50 && planePos < 5{
                 self.plane.position.x += 64
                 planePos += 1
+                if self.plane.position.y < 268{
+                    self.plane.position.y += 35
+                }
                 didTurn = true
             }
-            else{
+            if touchLoc.y - location.y > 50 && self.plane.position.y > 32{
+                self.plane.position.y -= 20
+                didTurn = true
             }
+            
             shooting = false
             checkTouchFinished = true
         }
@@ -75,13 +102,13 @@ class GameScene: SKScene {
    
     override func update(currentTime: CFTimeInterval) {
         planeFunctions(currentTime)
-        obstacleFunctions(currentTime)
         enemyFunctions(currentTime)
-        
+        checkDifficulty()
+        checkQuene(currentTime)
     }
     
     func planeFunctions(currentTime: CFTimeInterval){
-        if shooting{
+        if shooting{      //the shooter manager
             if(touchStarted == 0.0){  // starts tap action
                 touchStarted = currentTime
             }
@@ -103,99 +130,89 @@ class GameScene: SKScene {
                     bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                     bullet.removeFromParent()
                 }
-
             }
         }
+        
+        //now manages the movement of the plane
+        if !didTurn{
+            self.plane.position.y -= 0.75
+        }
+        didTurn = false
+        
+        
+        //now manages the plane's Health bar
+        let currentpos = self.plane.position
+        
+        if enemyBulletArray.count != 0{
+            for ebullet in enemyBulletArray{
+                let scanpos = ebullet.position
+                let calculateddistance = sqrt(pow(Double(scanpos.x - currentpos.x),2.0) + pow(Double(scanpos.y - currentpos.y),2.0))
+                if calculateddistance < 28.5{
+                    enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(ebullet)!)
+                    ebullet.removeFromParent()
+                    health -= 0.04
+                }
+                
+            }
+        }
+        
+        if enemyArray.count != 0{    // collision with squares
+            for enemy in enemyArray{
+                let scanpos = enemy.position
+                let calculateddistance = sqrt(pow(Double(scanpos.x - currentpos.x),2.0) + pow(Double(scanpos.y - currentpos.y),2.0))
+                if calculateddistance < 28.5{
+                    enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
+                    enemyValueCount += enemy.difficulty
+                    score += enemy.difficulty
+                    enemy.removeFromParent()
+                    health -= enemy.bodyDamage
+                }
+                
+            }
+        }
+        
+        if currentpos.y < 15 {
+            self.plane.position.y += 150
+            health -= 0.1
+            
+        }
+        
     }
     
-    func obstacleFunctions(currentTime: CFTimeInterval){
-        if squareArray.count == 0{
-            addSquareRow()
-        }
+    
+    func enemyFunctions(currentTime: CFTimeInterval){
+        
         if obstacleStarted == 0.0{
             obstacleStarted = currentTime
         }
-        else if((currentTime - obstacleStarted) > 2.5){
-            addSquareRow()
-            obstacleStarted = 0.0
-        }
-        
 
-        /* First move the squares down, then looks if it got hit but a bullet */
-        if squareArray.count != 0{
-            for square in squareArray{
-                square.position.y -= 3
-                if bulletArray.count != 0{
-                    for bullet in bulletArray{
-                        if abs(square.position.y - bullet.position.y) < 10 && abs(square.position.x - bullet.position.x) < 5{
-                            bullet.removeFromParent()
-                            bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
-                            square.hitPoints -= 1
-                            square.runAction(SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.5))
-                        }
-                    }
-                }
-                if square.hitPoints <= 0{
-                    squareArray.removeAtIndex(squareArray.indexOf(square)!)
-                    square.removeFromParent()
-                }
-                if square.position.y <= -32{
-                    squareArray.removeAtIndex(squareArray.indexOf(square)!)
-                    square.removeFromParent()
-                }
-            }
-        }
-        
-    }
-    
-    func enemyFunctions(currentTime: CFTimeInterval){
-        if enemyArray.count == 0{
-            addNewEnemy()
-        }
-        if(enemyMovementTimer == 0.0){
-            enemyMovementTimer = currentTime
-        }
         for enemy in enemyArray{
-            if currentTime - enemyMovementTimer >= 2.0{
-                repeat{                                         //move the triangle in another direction
-                    let change = Int(arc4random_uniform(3))
-                    switch change{
-                    case 0:
-                        enemy.position.x += 64
-                    case 1:
-                        enemy.position.x -= 64
-                    case 2:
-                        enemy.position.x += 0
-                    default:
-                        break
-                    }
-                }
-                while enemy.position.x < 32 || enemy.position.x > 288
-                enemyShoot(enemy)
-                enemyMovementTimer = 0.0
-            }
-            
+            enemy.enemyAction(currentTime)
             if bulletArray.count != 0{
                 for bullet in bulletArray{
-                    if abs(enemy.position.y - bullet.position.y) < 10 && abs(enemy.position.x - bullet.position.x) < 5{
+                    if abs(enemy.position.y - bullet.position.y) < enemy.size.height/2 && abs(enemy.position.x - bullet.position.x) < enemy.size.width/2 {
                         bullet.removeFromParent()
                         bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                         enemy.hitPoints -= 1
-                        print(enemy.hitPoints)
                         enemy.runAction(SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.5))
                     }
                 }
             }
-            
-            
             if enemy.hitPoints <= 0{
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
+                enemyValueCount += enemy.difficulty
+                score += enemy.difficulty
                 enemy.removeFromParent()
             }
-            
+            if enemy.position.y <= -32{    //squares will erase if below -32
+                enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
+                enemy.removeFromParent()
+                enemyValueCount += enemy.difficulty
+            }
         }
         
-        if enemyBulletArray.count != 0{
+        
+        if enemyBulletArray.count != 0{       // manages the enemy bullet movement
             for bullet in enemyBulletArray{
                 bullet.position.y -= 4
                 if bullet.position.y <= -32{
@@ -206,6 +223,64 @@ class GameScene: SKScene {
             }
         }
         
+    }
+    
+    func checkDifficulty(){
+        if enemyValueCount <= 4{
+        }
+        else{
+            if score > 20 && totalDifficulty < 3 && score != 0{
+                totalDifficulty += 1
+                score = 0
+            }
+            
+            repeat{
+                let chooseEnemyValue = Int(arc4random_uniform(UInt32(totalDifficulty)) + 1)
+                switch chooseEnemyValue{
+                case 1:
+                    queneArray.append(1)
+                    enemyValueCount -= 1
+                case 2:
+                    enemyValueCount -= 2
+                    if enemyValueCount < 0{
+                        enemyValueCount += 2
+                    }
+                    else{
+                        queneArray.append(2)
+                    }
+                    
+                case 3:
+                    enemyValueCount -= 3
+                    if enemyValueCount < 0{
+                        enemyValueCount += 3
+                    }
+                    else{
+                        queneArray.append(3)
+                    }
+                default:
+                    break
+                }
+
+            }
+            while enemyValueCount != 0
+        }
+        
+    }
+    
+    
+    func checkQuene(currentTime: CFTimeInterval){
+        if queneTimer == 0.0{
+            queneTimer = currentTime
+        }
+        else{
+            if(currentTime - queneTimer > 0.7){
+                if(queneArray.count > 0){
+                    addNewEnemy(queneArray[0])
+                    queneArray.removeFirst()
+                    queneTimer = 0.0
+                }
+            }
+        }
     }
     
     /* will add ONE row of squares*/
@@ -221,7 +296,7 @@ class GameScene: SKScene {
                 while(searchArray(controlSquareArray, x: squarePos))
                 controlSquareArray.append(squarePos)
                 squareCounter += 1
-                addNewSquare(squarePos)
+                addNewEnemy(1)
         }
     }
     
@@ -241,16 +316,9 @@ class GameScene: SKScene {
         
     }
     
-    func enemyShoot(foe: TriangleEnemy){
-        let enemyBullet = EnemyBullet()
-        enemyBullet.position = foe.position
-        addChild(enemyBullet)
-        enemyBulletArray.append(enemyBullet)
-    }
-    
     func shoot(currentTime: CFTimeInterval){
             let bulletWatch = currentTime - bulletTimer
-            if bulletWatch >= 0.1 {
+            if bulletWatch >= 0.15 {
                 addNewBullet()
                 bulletTimer = currentTime
             }
@@ -264,19 +332,25 @@ class GameScene: SKScene {
         bulletArray.append(bullet)
     }
     
-    func addNewSquare(squarePos: Int){
-        let square = Square()
-        square.position = CGPoint(x: squarePos * 64 - 32, y: 568)
-        addChild(square)
-        squareArray.append(square)
+    func addNewEnemy(enemyType: Int){
+        var enemyPos = Int(arc4random_uniform(5) + 1)
+        var enemy: Enemy
+        switch enemyType {
+        case 1:
+            enemy = Square()
+            enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 600)
+        case 2:
+            enemy = Triangle(scene: self)
+            enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 600)
+        case 3:
+            enemy = Trapezoid(scene:self)
+            enemyPos = Int(arc4random_uniform(4) + 1)
+            enemy.position = CGPoint(x: enemyPos * 64, y: 500)
+        default:
+            enemy = Square()
+        }
+        addChild(enemy)
+        enemyArray.append(enemy)
     }
     
-    func addNewEnemy(){
-        let triangle = TriangleEnemy()
-        let enemyPos = Int(arc4random_uniform(5) + 1)
-        triangle.position = CGPoint(x: enemyPos * 64 - 32, y: 530)
-        addChild(triangle)
-        enemyArray.append(triangle)
-        
-    }
 }
