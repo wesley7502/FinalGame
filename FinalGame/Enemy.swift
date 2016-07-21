@@ -6,6 +6,8 @@ class Enemy: SKSpriteNode {
     var bodyDamage: CGFloat = 0
     var identity: String = ""
     var difficulty: Int = 0
+    var dead = false
+    var shooting = false
     
     var exists: Bool = false {
         didSet {
@@ -41,6 +43,8 @@ class Enemy: SKSpriteNode {
     func enemyAction(currentTime: CFTimeInterval){
         
     }
+    
+    func stopLazer(){}
     
     func gotHit(bulletArray: [Bullet]) -> Bool{
         if bulletArray.count != 0{

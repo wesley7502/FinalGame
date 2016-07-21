@@ -11,7 +11,7 @@ class Triangle: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "TriangleEnemy")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 64, height: 64), givenName: "triangle", points: 3, bd: 0.04, dif: 2)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 64, height: 64), givenName: "triangle", points: 2, bd: 0.04, dif: 2)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -40,7 +40,7 @@ class Triangle: Enemy{
     }
     
     func enemyShoot(){
-        let enemyBullet = EnemyBullet()
+        let enemyBullet = TriangleBullet()
         enemyBullet.position = self.position
         theScene?.addChild(enemyBullet)
         theScene?.enemyBulletArray.append(enemyBullet)

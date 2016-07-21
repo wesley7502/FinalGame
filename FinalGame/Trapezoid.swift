@@ -13,7 +13,7 @@ class Trapezoid: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Trapezoid-1")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 128, height: 64), givenName: "trapezoid", points: 7, bd : 0.04, dif: 3)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 128, height: 64), givenName: "trapezoid", points: 4, bd : 0.04, dif: 3)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -38,8 +38,8 @@ class Trapezoid: Enemy{
             shooterTimer = currentTime
         }
         
-        if currentTime - enemyMovementTimer >= 4.0{
-            repeat{                                         //move the triangle in another direction
+        if currentTime - enemyMovementTimer >= 6.0{
+            repeat{                                         //move the trapezoid in another direction
                 let change = Int(arc4random_uniform(3))
                 switch change{
                 case 0:
@@ -59,7 +59,7 @@ class Trapezoid: Enemy{
             shots = 0
         }
         else{
-            if currentTime - shooterTimer >= 0.5 && shots != 2{
+            if currentTime - shooterTimer >= 0.5 && shots < 3{
                 enemyShoot()
                 shooterTimer = currentTime
                 shots += 1
@@ -68,13 +68,13 @@ class Trapezoid: Enemy{
     }
     
     func enemyShoot(){
-        let enemyBullet = EnemyBullet()
+        let enemyBullet = TrapezoidBullet()
         enemyBullet.position = self.position
         enemyBullet.position.x -= 32.0
         theScene?.addChild(enemyBullet)
         theScene?.enemyBulletArray.append(enemyBullet)
         
-        let enemyBullet2 = EnemyBullet()
+        let enemyBullet2 = TrapezoidBullet()
         enemyBullet2.position = self.position
         enemyBullet2.position.x += 32.0
         theScene?.addChild(enemyBullet2)

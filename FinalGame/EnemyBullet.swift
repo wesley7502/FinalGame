@@ -2,20 +2,23 @@ import SpriteKit
 
 class EnemyBullet: SKSpriteNode {
     
-    var exists: Bool = true {
+    var damage: CGFloat = 0
+    
+    var exists: Bool = false {
         didSet {
             /* Visibility */
             hidden = !exists
         }
     }
     
-    init() {
-        /* Initialize with 'bubble' asset */
-        let texture = SKTexture(imageNamed: "TriangleBullet")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 25, height: 25))
+    init(texture: SKTexture?, color: UIColor, size: CGSize, d: CGFloat) {
+        
+        super.init(texture: texture, color: color, size: size)
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 1
+        
+        damage = d
         
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -25,4 +28,9 @@ class EnemyBullet: SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+    func bulletAction(){
+        
+    }
+    
 }

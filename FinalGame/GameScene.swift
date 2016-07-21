@@ -21,7 +21,7 @@ class GameScene: SKScene {
         }
     }
     
-    var totalDifficulty = 1       // limits how hard of enemies can come
+    var totalDifficulty = 1      // limits how hard of enemies can come
     
     var enemyValueCount = 10   //shows the amount of value and enemy can have
     
@@ -90,8 +90,12 @@ class GameScene: SKScene {
                 }
                 didTurn = true
             }
-            if touchLoc.y - location.y > 50 && self.plane.position.y > 32{
+            else if touchLoc.y - location.y > 50 && self.plane.position.y > 32{
                 self.plane.position.y -= 20
+                didTurn = true
+            }
+            else if location.y - touchLoc.y > 50 && self.plane.position.y < 268{
+                self.plane.position.y += 35
                 didTurn = true
             }
             
@@ -143,14 +147,17 @@ class GameScene: SKScene {
         //now manages the plane's Health bar
         let currentpos = self.plane.position
         
-        if enemyBulletArray.count != 0{
+        if enemyBulletArray.count != 0{    // collision with enemy bullets
             for ebullet in enemyBulletArray{
-                let scanpos = ebullet.position
-                let calculateddistance = sqrt(pow(Double(scanpos.x - currentpos.x),2.0) + pow(Double(scanpos.y - currentpos.y),2.0))
-                if calculateddistance < 28.5{
-                    enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(ebullet)!)
-                    ebullet.removeFromParent()
-                    health -= 0.04
+                
+                let calculatePlaneY = (self.plane.position.y + self.plane.size.height/2 ) - (ebullet.position.y - ebullet.size.height)  //distance between end bullet and top of plane
+                let calculatePlaneX = abs(self.plane.position.x - ebullet.position.x)
+                if calculatePlaneY > 0 && calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
+                    if(ebullet.damage != 0.001){
+                        enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(ebullet)!)
+                        ebullet.removeFromParent()
+                    }
+                    health -= ebullet.damage
                 }
                 
             }
@@ -199,6 +206,9 @@ class GameScene: SKScene {
                 }
             }
             if enemy.hitPoints <= 0{
+                if enemy.getName() == "lazer" && enemy.shooting == true{
+                    enemy.stopLazer()
+                }
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
                 enemyValueCount += enemy.difficulty
                 score += enemy.difficulty
@@ -214,7 +224,7 @@ class GameScene: SKScene {
         
         if enemyBulletArray.count != 0{       // manages the enemy bullet movement
             for bullet in enemyBulletArray{
-                bullet.position.y -= 4
+                bullet.bulletAction()
                 if bullet.position.y <= -32{
                     enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(bullet)!)
                     bullet.removeFromParent()
@@ -225,12 +235,13 @@ class GameScene: SKScene {
         
     }
     
-    func checkDifficulty(){
+    func checkDifficulty(){  //loads the quene with the specific amount of enemies
         if enemyValueCount <= 4{
         }
         else{
-            if score > 20 && totalDifficulty < 3 && score != 0{
+            if score > 20 && totalDifficulty < 4 && score != 0{  //scales difficulty
                 totalDifficulty += 1
+                enemyValueCount += 2
                 score = 0
             }
             
@@ -257,6 +268,14 @@ class GameScene: SKScene {
                     else{
                         queneArray.append(3)
                     }
+                case 4:
+                    enemyValueCount -= 4
+                    if enemyValueCount < 0{
+                        enemyValueCount += 4
+                    }
+                    else{
+                        queneArray.append(4)
+                    }
                 default:
                     break
                 }
@@ -268,7 +287,7 @@ class GameScene: SKScene {
     }
     
     
-    func checkQuene(currentTime: CFTimeInterval){
+    func checkQuene(currentTime: CFTimeInterval){   //will deposit enemies at a consistent basis
         if queneTimer == 0.0{
             queneTimer = currentTime
         }
@@ -332,7 +351,7 @@ class GameScene: SKScene {
         bulletArray.append(bullet)
     }
     
-    func addNewEnemy(enemyType: Int){
+    func addNewEnemy(enemyType: Int){   //adds an enemy of a specific diffculty
         var enemyPos = Int(arc4random_uniform(5) + 1)
         var enemy: Enemy
         switch enemyType {
@@ -343,9 +362,12 @@ class GameScene: SKScene {
             enemy = Triangle(scene: self)
             enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 600)
         case 3:
-            enemy = Trapezoid(scene:self)
+            enemy = Trapezoid(scene: self)
             enemyPos = Int(arc4random_uniform(4) + 1)
             enemy.position = CGPoint(x: enemyPos * 64, y: 500)
+        case 4:
+            enemy = Lazer(scene: self)
+            enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 500)
         default:
             enemy = Square()
         }
