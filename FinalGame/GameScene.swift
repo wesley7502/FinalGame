@@ -35,7 +35,9 @@ class GameScene: SKScene {
     
     var checkTouchFinished = false
     
-    var queneArray = [Int]()
+    var queneArray = [Int]()   // the array that quenes Enemies and empties out at a constant rate
+    
+    var shooterSpacingArray = [Int]()  //manages the rate at which shooters like Trapezoid and lazer Spawns
     
     var bulletArray = [Bullet]()
     
@@ -43,15 +45,13 @@ class GameScene: SKScene {
     
     var enemyArray = [Enemy]()
     
-    var queneTimer: Double = 0.0
+    var queneTimer: Double = 0.0      //timer that updates the quene
     
-    var touchStarted: Double = 0.0
+    var touchStarted: Double = 0.0   //timer that updates the tap and holding fuctions
     
-    var obstacleStarted: Double = 0.0
+    var bulletTimer: Double = 0.0    // manages bullets
     
-    var enemyMovementTimer: Double = 0.0
-    
-    var bulletTimer: Double = 0.0
+    var difficultyTimer: Double = 0.0 //manages the difficulty increase through time
     
     
     
@@ -75,27 +75,27 @@ class GameScene: SKScene {
             let location  = touch.locationInNode(self)
             let calculateddistance = Double(touchLoc.x - location.x)
             if calculateddistance > 50 && planePos > 1{
-                self.plane.position.x -= 64
+                self.plane.position.x -= 53.33
                 planePos -= 1
                 if self.plane.position.y < 268{
                     self.plane.position.y += 35
                 }
                 didTurn = true
             }
-            else if calculateddistance < -50 && planePos < 5{
-                self.plane.position.x += 64
+            else if calculateddistance < -50 && planePos < 6{
+                self.plane.position.x += 53.33
                 planePos += 1
                 if self.plane.position.y < 268{
                     self.plane.position.y += 35
                 }
                 didTurn = true
             }
-            else if touchLoc.y - location.y > 50 && self.plane.position.y > 32{
+            else if touchLoc.y - location.y > 50 && self.plane.position.y > 32{  //move down
                 self.plane.position.y -= 20
                 didTurn = true
             }
-            else if location.y - touchLoc.y > 50 && self.plane.position.y < 268{
-                self.plane.position.y += 35
+            else if location.y - touchLoc.y > 50 && self.plane.position.y < 268{   //move up
+                self.plane.position.y += 50
                 didTurn = true
             }
             
@@ -107,7 +107,7 @@ class GameScene: SKScene {
     override func update(currentTime: CFTimeInterval) {
         planeFunctions(currentTime)
         enemyFunctions(currentTime)
-        checkDifficulty()
+        checkDifficulty(currentTime)
         checkQuene(currentTime)
     }
     
@@ -121,7 +121,7 @@ class GameScene: SKScene {
             }
         }
         if checkTouchFinished{ //Every time the touch ended, it checks the total time and decides shooting
-            if(currentTime - touchStarted <= 0.1 && !didTurn){
+            if(currentTime - touchStarted <= 0.15 && !didTurn){
                 addNewBullet()
             }
             touchStarted = 0.0
@@ -138,8 +138,11 @@ class GameScene: SKScene {
         }
         
         //now manages the movement of the plane
-        if !didTurn{
-            self.plane.position.y -= 0.75
+        if !didTurn && !shooting{
+            self.plane.position.y -= 1.25
+        }
+        else if shooting{
+            self.plane.position.y -= 0.5
         }
         didTurn = false
         
@@ -189,10 +192,6 @@ class GameScene: SKScene {
     
     func enemyFunctions(currentTime: CFTimeInterval){
         
-        if obstacleStarted == 0.0{
-            obstacleStarted = currentTime
-        }
-
         for enemy in enemyArray{
             enemy.enemyAction(currentTime)
             if bulletArray.count != 0{
@@ -205,13 +204,21 @@ class GameScene: SKScene {
                     }
                 }
             }
-            if enemy.hitPoints <= 0{
+            if enemy.hitPoints <= 0{        //Checks if enemy is dead
                 if enemy.getName() == "lazer" && enemy.shooting == true{
                     enemy.stopLazer()
                 }
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
                 enemyValueCount += enemy.difficulty
                 score += enemy.difficulty
+                
+                if enemy.type == "shooter"{
+                    shooterSpacingArray.removeAtIndex(shooterSpacingArray.indexOf(enemy.lane)!)
+                    if enemy.identity == "trapezoid"{
+                        shooterSpacingArray.removeAtIndex(shooterSpacingArray.indexOf(enemy.lane + 1)!)
+                    }
+                }
+                
                 enemy.removeFromParent()
             }
             if enemy.position.y <= -32{    //squares will erase if below -32
@@ -235,23 +242,30 @@ class GameScene: SKScene {
         
     }
     
-    func checkDifficulty(){  //loads the quene with the specific amount of enemies
+    func checkDifficulty(currentTime: CFTimeInterval){  //loads the quene with the specific amount of enemies
+        var laneCount = shooterSpacingArray.count
+        if(difficultyTimer == 0.0){
+            difficultyTimer = currentTime
+        }
+        print(currentTime - difficultyTimer)
+        
         if enemyValueCount <= 4{
         }
         else{
-            if score > 20 && totalDifficulty < 4 && score != 0{  //scales difficulty
+            if (score > 20 || currentTime - difficultyTimer > 25.0) && totalDifficulty < 4 && score != 0 {  //scales difficulty
                 totalDifficulty += 1
                 enemyValueCount += 2
                 score = 0
+                difficultyTimer = 0.0
             }
             
             repeat{
                 let chooseEnemyValue = Int(arc4random_uniform(UInt32(totalDifficulty)) + 1)
                 switch chooseEnemyValue{
-                case 1:
+                case 1:   //SQUARE
                     queneArray.append(1)
                     enemyValueCount -= 1
-                case 2:
+                case 2:   //TRIANGLE
                     enemyValueCount -= 2
                     if enemyValueCount < 0{
                         enemyValueCount += 2
@@ -260,18 +274,22 @@ class GameScene: SKScene {
                         queneArray.append(2)
                     }
                     
-                case 3:
+                case 3:  //TRAPEZOID
                     enemyValueCount -= 3
-                    if enemyValueCount < 0{
+                    laneCount += 2
+                    if enemyValueCount < 0 || laneCount > 2 {
                         enemyValueCount += 3
+                        laneCount -= 2
                     }
                     else{
                         queneArray.append(3)
                     }
-                case 4:
+                case 4: //LAZER
                     enemyValueCount -= 4
-                    if enemyValueCount < 0{
+                    laneCount += 1
+                    if enemyValueCount < 0 || laneCount > 4{
                         enemyValueCount += 4
+                        laneCount -= 1
                     }
                     else{
                         queneArray.append(4)
@@ -319,7 +337,14 @@ class GameScene: SKScene {
         }
     }
     
-    /* return true if there if x is in arr*/
+    func shoot(currentTime: CFTimeInterval){
+            let bulletWatch = currentTime - bulletTimer
+            if bulletWatch >= 0.15 {
+                addNewBullet()
+                bulletTimer = currentTime
+            }
+    }
+    
     func searchArray(arr: [Int], x: Int) -> Bool{
         if arr.count == 0{
             return false
@@ -332,16 +357,8 @@ class GameScene: SKScene {
             }
         }
         return false
-        
     }
     
-    func shoot(currentTime: CFTimeInterval){
-            let bulletWatch = currentTime - bulletTimer
-            if bulletWatch >= 0.15 {
-                addNewBullet()
-                bulletTimer = currentTime
-            }
-    }
     
     
     func addNewBullet(){
@@ -352,24 +369,36 @@ class GameScene: SKScene {
     }
     
     func addNewEnemy(enemyType: Int){   //adds an enemy of a specific diffculty
-        var enemyPos = Int(arc4random_uniform(5) + 1)
+        var enemyPos = Int(arc4random_uniform(6) + 1)
         var enemy: Enemy
         switch enemyType {
-        case 1:
-            enemy = Square()
-            enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 600)
-        case 2:
-            enemy = Triangle(scene: self)
-            enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 600)
-        case 3:
-            enemy = Trapezoid(scene: self)
-            enemyPos = Int(arc4random_uniform(4) + 1)
-            enemy.position = CGPoint(x: enemyPos * 64, y: 500)
-        case 4:
-            enemy = Lazer(scene: self)
-            enemy.position = CGPoint(x: enemyPos * 64 - 32, y: 500)
+        case 1:                                     //SQUARE
+            enemy = Square(lane: enemyPos)
+            enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.665, y: 600)
+        case 2:                                     //TRIANGLE
+            enemy = Triangle(lane: enemyPos, scene: self)
+            enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.655, y: 600)
+        case 3:                                 //TRAPEZOID
+            repeat{
+                enemyPos = Int(arc4random_uniform(5) + 1)
+            }
+            while searchArray(shooterSpacingArray, x: enemyPos) || searchArray(shooterSpacingArray, x: (enemyPos + 1))
+            shooterSpacingArray.append(enemyPos)
+            shooterSpacingArray.append(enemyPos + 1)
+            
+            enemy = Trapezoid(lane: enemyPos, scene: self)
+            enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33, y: 500)
+        case 4:                                     //LAZER
+            while searchArray(shooterSpacingArray, x: enemyPos){
+                enemyPos = Int(arc4random_uniform(6) + 1)
+            }
+            shooterSpacingArray.append(enemyPos)
+            
+            enemy = Lazer(lane: enemyPos,scene: self)
+            enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.665, y: 500)
+            
         default:
-            enemy = Square()
+            enemy = Square(lane: enemyPos)
         }
         addChild(enemy)
         enemyArray.append(enemy)

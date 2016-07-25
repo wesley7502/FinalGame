@@ -1,6 +1,6 @@
 import SpriteKit
 
-class TriangleBullet: EnemyBullet {
+class CircleBullet: EnemyBullet {
     
     init() {
         /* Initialize with 'bubble' asset */

@@ -34,6 +34,8 @@
 		55796E651D340BB30030E37C /* SKTEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55796E641D340BB30030E37C /* SKTEffects.swift */; };
 		55796E671D340BB80030E37C /* SKTTimingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55796E661D340BB80030E37C /* SKTTimingFunctions.swift */; };
 		55796E691D340BBC0030E37C /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55796E681D340BBC0030E37C /* Vector3.swift */; };
+		558821F21D46C2CF009B1BEC /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F11D46C2CF009B1BEC /* Circle.swift */; };
+		558821F41D46CCBE009B1BEC /* CircleBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F31D46CCBE009B1BEC /* CircleBullet.swift */; };
 		558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */; };
 		558A3BCF1D3FE41D00A2E8E4 /* TrapezoidBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */; };
 		558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */; };
@@ -93,6 +95,8 @@
 		55796E641D340BB30030E37C /* SKTEffects.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTEffects.swift; sourceTree = "<group>"; };
 		55796E661D340BB80030E37C /* SKTTimingFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKTTimingFunctions.swift; sourceTree = "<group>"; };
 		55796E681D340BBC0030E37C /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
+		558821F11D46C2CF009B1BEC /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
+		558821F31D46CCBE009B1BEC /* CircleBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleBullet.swift; sourceTree = "<group>"; };
 		558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleBullet.swift; sourceTree = "<group>"; };
 		558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapezoidBullet.swift; sourceTree = "<group>"; };
 		558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazerBullet.swift; sourceTree = "<group>"; };
@@ -134,6 +138,7 @@
 				5504C3011D36EA6900184648 /* Triangle.swift */,
 				5504C3071D39888700184648 /* Trapezoid.swift */,
 				55A1E50D1D3EC44C005CA54E /* Lazer.swift */,
+				558821F11D46C2CF009B1BEC /* Circle.swift */,
 			);
 			name = Enemies;
 			sourceTree = "<group>";
@@ -231,6 +236,7 @@
 				558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */,
 				558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */,
 				558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */,
+				558821F31D46CCBE009B1BEC /* CircleBullet.swift */,
 			);
 			name = EnemyBullets;
 			sourceTree = "<group>";
@@ -383,12 +389,14 @@
 				5504C3021D36EA6900184648 /* Triangle.swift in Sources */,
 				55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */,
 				55796E611D340BA10030E37C /* SKNode+Extensions.swift in Sources */,
+				558821F41D46CCBE009B1BEC /* CircleBullet.swift in Sources */,
 				55796E5B1D340B8F0030E37C /* SKAction+Extensions.swift in Sources */,
 				558A3BCF1D3FE41D00A2E8E4 /* TrapezoidBullet.swift in Sources */,
 				55796E5D1D340B970030E37C /* SKAction+SpecialEffects.swift in Sources */,
 				558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */,
 				55796E501D340B050030E37C /* CGFloat+Extensions.swift in Sources */,
 				5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */,
+				558821F21D46C2CF009B1BEC /* Circle.swift in Sources */,
 				55796E4B1D340A7D0030E37C /* Bullet.swift in Sources */,
 				55796E651D340BB30030E37C /* SKTEffects.swift in Sources */,
 				55796E591D340B880030E37C /* Int+Extensions.swift in Sources */,

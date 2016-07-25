@@ -8,12 +8,12 @@ class Trapezoid: Enemy{
     
     var theScene: GameScene?
     
-    init(scene: GameScene) {
+    init(lane: Int, scene: GameScene) {
         
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Trapezoid-1")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 128, height: 64), givenName: "trapezoid", points: 4, bd : 0.04, dif: 3)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 106.66, height: 53.33), givenName: "trapezoid", points: 4, bd : 0.04, dif: 3,  sp: 2, ty : "shooter", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -39,20 +39,23 @@ class Trapezoid: Enemy{
         }
         
         if currentTime - enemyMovementTimer >= 6.0{
-            repeat{                                         //move the trapezoid in another direction
+            
+            /*
+            repeat{
                 let change = Int(arc4random_uniform(3))
                 switch change{
                 case 0:
-                    self.position.x += 64
+                    self.position.x += 53.33
                 case 1:
-                    self.position.x -= 64
+                    self.position.x -= 53.33
                 case 2:
                     self.position.x += 0
                 default:
                     break
                 }
             }
-            while self.position.x < 64 || self.position.x > 256
+            while self.position.x < 53.33 || self.position.x > 256
+            */
             enemyShoot()
             enemyMovementTimer = 0.0
             shooterTimer = 0.0
@@ -70,13 +73,13 @@ class Trapezoid: Enemy{
     func enemyShoot(){
         let enemyBullet = TrapezoidBullet()
         enemyBullet.position = self.position
-        enemyBullet.position.x -= 32.0
+        enemyBullet.position.x -= 26.665
         theScene?.addChild(enemyBullet)
         theScene?.enemyBulletArray.append(enemyBullet)
         
         let enemyBullet2 = TrapezoidBullet()
         enemyBullet2.position = self.position
-        enemyBullet2.position.x += 32.0
+        enemyBullet2.position.x += 26.665
         theScene?.addChild(enemyBullet2)
         theScene?.enemyBulletArray.append(enemyBullet2)
     }

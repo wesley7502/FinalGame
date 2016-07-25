@@ -2,10 +2,10 @@ import SpriteKit
 
 class Square: Enemy {
     
-    init() {
+    init(lane: Int) {
         
         let texture = SKTexture(imageNamed: "Square")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 64, height: 64), givenName: "square", points: 5, bd : 0.02, dif: 1)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "square", points: 4, bd : 0.02, dif: 1, sp: 1, ty : "runner", la: lane)
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 1
@@ -22,7 +22,7 @@ class Square: Enemy {
     }
     
     override func enemyAction(currentTime: CFTimeInterval){
-        self.position.y -= 2
+        self.position.y -= 2.5
         
     }
 }

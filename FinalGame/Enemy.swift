@@ -2,10 +2,16 @@ import SpriteKit
 
 class Enemy: SKSpriteNode {
     
-    var hitPoints: Int = 0
-    var bodyDamage: CGFloat = 0
-    var identity: String = ""
-    var difficulty: Int = 0
+    var hitPoints: Int = 0        //health of opponenet
+    var bodyDamage: CGFloat = 0   //body damage of opponent
+    var identity: String = ""  // name of opponent
+    var difficulty: Int = 0   //manages the difficulty level of opponents
+    var spacing: Int = 0     //how much space the enemies takes up
+    var type: String = ""   //if enemy is runner or shooter
+    var lane: Int = 0       //determines the lane of the enemy
+    
+    
+    
     var dead = false
     var shooting = false
     
@@ -16,7 +22,7 @@ class Enemy: SKSpriteNode {
         }
     }
     
-    init(texture: SKTexture?, color: UIColor, size: CGSize, givenName: String, points: Int, bd: CGFloat, dif: Int) {
+    init(texture: SKTexture?, color: UIColor, size: CGSize, givenName: String, points: Int, bd: CGFloat, dif: Int, sp: Int, ty: String, la: Int) {
 
         super.init(texture: texture, color: color, size: size)
         
@@ -30,6 +36,12 @@ class Enemy: SKSpriteNode {
         identity = givenName
         
         difficulty = dif
+        
+        spacing = sp
+        
+        type = ty
+        
+        lane = la
         
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)

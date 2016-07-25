@@ -33,7 +33,7 @@ class LazerBullet: EnemyBullet {
             self.size.height -= calculatePlaneY
         }
         else if self.size.height < 550{
-            self.size.height += 10
+            self.size.height += 12
         }
     }
 }
