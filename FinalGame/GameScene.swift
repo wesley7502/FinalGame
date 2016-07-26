@@ -14,6 +14,11 @@ class GameScene: SKScene {
     var touchLoc: CGPoint!
     var planePos = 3
     var healthBar: SKSpriteNode!
+    var bossKilled = false
+    
+    var bossNumber = 1
+    
+    var bossTrigger = false
     
     var health: CGFloat = 1.0{
         didSet{
@@ -25,9 +30,13 @@ class GameScene: SKScene {
     
     var enemyValueCount = 10   //shows the amount of value and enemy can have
     
+    var tempEnemyValueCount = 10
+    
     var spawnQuene = 0
     
     var score = 0
+    
+    var laneCounter = 0 //tracks the amount of space taken both in the quene and in action
     
     var shooting = false
     
@@ -107,8 +116,10 @@ class GameScene: SKScene {
     override func update(currentTime: CFTimeInterval) {
         planeFunctions(currentTime)
         enemyFunctions(currentTime)
-        checkDifficulty(currentTime)
-        checkQuene(currentTime)
+        if bossTrigger == false{
+            checkDifficulty(currentTime)
+            checkQuene(currentTime)
+        }
     }
     
     func planeFunctions(currentTime: CFTimeInterval){
@@ -166,18 +177,20 @@ class GameScene: SKScene {
             }
         }
         
-        if enemyArray.count != 0{    // collision with squares
+        if enemyArray.count != 0{    // collision with enemies
             for enemy in enemyArray{
                 let scanpos = enemy.position
                 let calculateddistance = sqrt(pow(Double(scanpos.x - currentpos.x),2.0) + pow(Double(scanpos.y - currentpos.y),2.0))
-                if calculateddistance < 28.5{
-                    enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
-                    enemyValueCount += enemy.difficulty
-                    score += enemy.difficulty
-                    enemy.removeFromParent()
-                    health -= enemy.bodyDamage
+                if calculateddistance < (Double(enemy.size.height) / 2 + 25) && enemy.type == "runner" {
+                        enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
+                        enemyValueCount += enemy.difficulty
+                        score += enemy.difficulty
+                        enemy.removeFromParent()
+                        health -= enemy.bodyDamage
                 }
-                
+                else if enemy.type == "target" && calculateddistance < Double(enemy.size.height) / 2 {
+                        health -= enemy.bodyDamage
+                }
             }
         }
         
@@ -197,10 +210,12 @@ class GameScene: SKScene {
             if bulletArray.count != 0{
                 for bullet in bulletArray{
                     if abs(enemy.position.y - bullet.position.y) < enemy.size.height/2 && abs(enemy.position.x - bullet.position.x) < enemy.size.width/2 {
+                        if enemy.type != "target"{
                         bullet.removeFromParent()
                         bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                         enemy.hitPoints -= 1
                         enemy.runAction(SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.5))
+                        }
                     }
                 }
             }
@@ -214,9 +229,16 @@ class GameScene: SKScene {
                 
                 if enemy.type == "shooter"{
                     shooterSpacingArray.removeAtIndex(shooterSpacingArray.indexOf(enemy.lane)!)
+                    laneCounter -= 1
                     if enemy.identity == "trapezoid"{
                         shooterSpacingArray.removeAtIndex(shooterSpacingArray.indexOf(enemy.lane + 1)!)
+                        laneCounter -= 1
                     }
+                }
+                
+                if enemy.type == "boss"{
+                    bossTrigger = false
+                    bossKilled = true
                 }
                 
                 enemy.removeFromParent()
@@ -243,21 +265,31 @@ class GameScene: SKScene {
     }
     
     func checkDifficulty(currentTime: CFTimeInterval){  //loads the quene with the specific amount of enemies
-        var laneCount = shooterSpacingArray.count
         if(difficultyTimer == 0.0){
             difficultyTimer = currentTime
         }
+        if currentTime - difficultyTimer > 30.0 && totalDifficulty < 5 && score != 0 {  //scales difficulty
+            totalDifficulty += 1
+            enemyValueCount += 2
+            tempEnemyValueCount += 2
+            difficultyTimer = 0.0
+            bossKilled = false
+            
+        }
+        else if totalDifficulty == 3 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
+            difficultyTimer = 0.0
+            addBoss(1)
+        }
+        else if totalDifficulty == 5 && currentTime - difficultyTimer > 25 && !bossKilled{
+            difficultyTimer = 0.0
+            addBoss(2)
+        }
+        
         print(currentTime - difficultyTimer)
         
-        if enemyValueCount <= 4{
+        if enemyValueCount <= 4 || bossTrigger{        //if the total space of enemies is < 4, will make more enemies until hits exactly 0
         }
         else{
-            if (score > 20 || currentTime - difficultyTimer > 25.0) && totalDifficulty < 4 && score != 0 {  //scales difficulty
-                totalDifficulty += 1
-                enemyValueCount += 2
-                score = 0
-                difficultyTimer = 0.0
-            }
             
             repeat{
                 let chooseEnemyValue = Int(arc4random_uniform(UInt32(totalDifficulty)) + 1)
@@ -273,26 +305,32 @@ class GameScene: SKScene {
                     else{
                         queneArray.append(2)
                     }
-                    
-                case 3:  //TRAPEZOID
-                    enemyValueCount -= 3
-                    laneCount += 2
-                    if enemyValueCount < 0 || laneCount > 2 {
-                        enemyValueCount += 3
-                        laneCount -= 2
+                case 3: //CIRCLE
+                    enemyValueCount -= 2
+                    if enemyValueCount < 0{
+                        enemyValueCount += 2
                     }
                     else{
                         queneArray.append(3)
                     }
-                case 4: //LAZER
-                    enemyValueCount -= 4
-                    laneCount += 1
-                    if enemyValueCount < 0 || laneCount > 4{
-                        enemyValueCount += 4
-                        laneCount -= 1
+                case 4:  //TRAPEZOID
+                    enemyValueCount -= 3
+                    if enemyValueCount < 0 || laneCounter > 2{
+                        enemyValueCount += 3
                     }
                     else{
                         queneArray.append(4)
+                        laneCounter += 2
+                    }
+                case 5: //LAZER
+                    enemyValueCount -= 4
+                    
+                    if enemyValueCount < 0 || laneCounter > 4{
+                        enemyValueCount += 4
+                    }
+                    else{
+                        queneArray.append(5)
+                        laneCounter += 1
                     }
                 default:
                     break
@@ -375,10 +413,16 @@ class GameScene: SKScene {
         case 1:                                     //SQUARE
             enemy = Square(lane: enemyPos)
             enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.665, y: 600)
+            
         case 2:                                     //TRIANGLE
             enemy = Triangle(lane: enemyPos, scene: self)
             enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.655, y: 600)
-        case 3:                                 //TRAPEZOID
+            
+        case 3:                                 //CIRCLE
+            enemy = Circle(lane: enemyPos, scene: self)
+            enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.655, y: 600)
+            
+        case 4:                                 //TRAPEZOID
             repeat{
                 enemyPos = Int(arc4random_uniform(5) + 1)
             }
@@ -388,7 +432,8 @@ class GameScene: SKScene {
             
             enemy = Trapezoid(lane: enemyPos, scene: self)
             enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33, y: 500)
-        case 4:                                     //LAZER
+            
+        case 5:                                     //LAZER
             while searchArray(shooterSpacingArray, x: enemyPos){
                 enemyPos = Int(arc4random_uniform(6) + 1)
             }
@@ -402,6 +447,34 @@ class GameScene: SKScene {
         }
         addChild(enemy)
         enemyArray.append(enemy)
+    }
+    
+    func addBoss(bosnum: Int){
+        bossTrigger = true
+        var boss: Enemy
+        for enemy in enemyArray{
+            enemy.removeFromParent()
+        }
+        for ebullet in enemyBulletArray{
+            ebullet.removeFromParent()
+        }
+        switch bosnum{
+            case 1:
+                boss = Boss1(lane: 0, scene: self)
+            case 2:
+                boss = Boss2(lane: 0, scene: self)
+            default:
+                boss = Boss1(lane: 0, scene: self)
+        }
+        enemyBulletArray.removeAll()
+        enemyArray.removeAll()
+        queneArray.removeAll()
+        shooterSpacingArray.removeAll()
+        enemyValueCount = tempEnemyValueCount
+        laneCounter = 0
+        boss.position = CGPoint(x: 160, y: 500)
+        addChild(boss)
+        enemyArray.append(boss)
     }
     
 }

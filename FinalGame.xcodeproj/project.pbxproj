@@ -36,6 +36,10 @@
 		55796E691D340BBC0030E37C /* Vector3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55796E681D340BBC0030E37C /* Vector3.swift */; };
 		558821F21D46C2CF009B1BEC /* Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F11D46C2CF009B1BEC /* Circle.swift */; };
 		558821F41D46CCBE009B1BEC /* CircleBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F31D46CCBE009B1BEC /* CircleBullet.swift */; };
+		558821F71D47DE26009B1BEC /* Boss1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F61D47DE26009B1BEC /* Boss1.swift */; };
+		558821F91D480433009B1BEC /* Boss2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F81D480433009B1BEC /* Boss2.swift */; };
+		558821FB1D4809BC009B1BEC /* TargetLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821FA1D4809BC009B1BEC /* TargetLock.swift */; };
+		558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558821FC1D480ED0009B1BEC /* AnimationActions.sks */; };
 		558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */; };
 		558A3BCF1D3FE41D00A2E8E4 /* TrapezoidBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */; };
 		558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */; };
@@ -97,6 +101,10 @@
 		55796E681D340BBC0030E37C /* Vector3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vector3.swift; sourceTree = "<group>"; };
 		558821F11D46C2CF009B1BEC /* Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Circle.swift; sourceTree = "<group>"; };
 		558821F31D46CCBE009B1BEC /* CircleBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleBullet.swift; sourceTree = "<group>"; };
+		558821F61D47DE26009B1BEC /* Boss1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss1.swift; sourceTree = "<group>"; };
+		558821F81D480433009B1BEC /* Boss2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss2.swift; sourceTree = "<group>"; };
+		558821FA1D4809BC009B1BEC /* TargetLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetLock.swift; sourceTree = "<group>"; };
+		558821FC1D480ED0009B1BEC /* AnimationActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = AnimationActions.sks; path = ../AnimationActions.sks; sourceTree = "<group>"; };
 		558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleBullet.swift; sourceTree = "<group>"; };
 		558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapezoidBullet.swift; sourceTree = "<group>"; };
 		558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazerBullet.swift; sourceTree = "<group>"; };
@@ -136,9 +144,9 @@
 				5597D6F71D36A2D500AE2C7C /* Enemy.swift */,
 				55FDAD711D345B8B004E45B7 /* Square.swift */,
 				5504C3011D36EA6900184648 /* Triangle.swift */,
+				558821F11D46C2CF009B1BEC /* Circle.swift */,
 				5504C3071D39888700184648 /* Trapezoid.swift */,
 				55A1E50D1D3EC44C005CA54E /* Lazer.swift */,
-				558821F11D46C2CF009B1BEC /* Circle.swift */,
 			);
 			name = Enemies;
 			sourceTree = "<group>";
@@ -166,10 +174,12 @@
 		55796E151D33FE1A0030E37C /* FinalGame */ = {
 			isa = PBXGroup;
 			children = (
+				558821F51D47DE18009B1BEC /* Bosses */,
 				558A3BCB1D3FDF6D00A2E8E4 /* EnemyBullets */,
 				5504C3061D38029F00184648 /* Enemies */,
 				55796E4C1D340AA50030E37C /* Utils */,
 				55796E161D33FE1A0030E37C /* AppDelegate.swift */,
+				558821FC1D480ED0009B1BEC /* AnimationActions.sks */,
 				55796E181D33FE1A0030E37C /* GameScene.sks */,
 				55796E1A1D33FE1A0030E37C /* GameScene.swift */,
 				55796E1C1D33FE1A0030E37C /* GameViewController.swift */,
@@ -227,6 +237,16 @@
 				55796E541D340B6C0030E37C /* CGPoint+Extensions.swift */,
 			);
 			name = SKTUtils;
+			sourceTree = "<group>";
+		};
+		558821F51D47DE18009B1BEC /* Bosses */ = {
+			isa = PBXGroup;
+			children = (
+				558821F61D47DE26009B1BEC /* Boss1.swift */,
+				558821F81D480433009B1BEC /* Boss2.swift */,
+				558821FA1D4809BC009B1BEC /* TargetLock.swift */,
+			);
+			name = Bosses;
 			sourceTree = "<group>";
 		};
 		558A3BCB1D3FDF6D00A2E8E4 /* EnemyBullets */ = {
@@ -346,6 +366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */,
 				55796E191D33FE1A0030E37C /* GameScene.sks in Resources */,
 				55796E251D33FE1A0030E37C /* LaunchScreen.storyboard in Resources */,
 				55796E491D3409090030E37C /* Assets.xcassets in Resources */,
@@ -398,9 +419,12 @@
 				5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */,
 				558821F21D46C2CF009B1BEC /* Circle.swift in Sources */,
 				55796E4B1D340A7D0030E37C /* Bullet.swift in Sources */,
+				558821F71D47DE26009B1BEC /* Boss1.swift in Sources */,
 				55796E651D340BB30030E37C /* SKTEffects.swift in Sources */,
 				55796E591D340B880030E37C /* Int+Extensions.swift in Sources */,
+				558821FB1D4809BC009B1BEC /* TargetLock.swift in Sources */,
 				55FDAD721D345B8B004E45B7 /* Square.swift in Sources */,
+				558821F91D480433009B1BEC /* Boss2.swift in Sources */,
 				55796E691D340BBC0030E37C /* Vector3.swift in Sources */,
 				55796E5F1D340B9D0030E37C /* SKColor+Extensions.swift in Sources */,
 			);
