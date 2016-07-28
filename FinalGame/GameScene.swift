@@ -8,6 +8,11 @@
 
 import SpriteKit
 
+/* Tracking enum for game state */
+enum GameState {
+    case Tutorial, Suvival
+}
+
 class GameScene: SKScene {
     
     var plane: SKSpriteNode!
@@ -16,7 +21,8 @@ class GameScene: SKScene {
     var healthBar: SKSpriteNode!
     var bossKilled = false
     
-    var bossNumber = 1
+    var state: GameState = .Tutorial
+    var tutorialTimer: Double = 0.0    //times the tutorial
     
     var bossTrigger = false
     
@@ -31,6 +37,8 @@ class GameScene: SKScene {
     var enemyValueCount = 10   //shows the amount of value and enemy can have
     
     var tempEnemyValueCount = 10
+    
+    var bossCounter = 0 //shows the count till the boss fight (to be implemented)
     
     var spawnQuene = 0
     
@@ -114,13 +122,19 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
-        planeFunctions(currentTime)
-        enemyFunctions(currentTime)
-        if bossTrigger == false{
+        
+            planeFunctions(currentTime)
+            enemyFunctions(currentTime)
+            if bossTrigger == false{
             checkDifficulty(currentTime)
             checkQuene(currentTime)
         }
+
+        
     }
+    
+    
+    
     
     func planeFunctions(currentTime: CFTimeInterval){
         if shooting{      //the shooter manager
@@ -205,24 +219,30 @@ class GameScene: SKScene {
     
     func enemyFunctions(currentTime: CFTimeInterval){
         
-        for enemy in enemyArray{
+        for enemy in enemyArray{     //implements enemy bullet detection
             enemy.enemyAction(currentTime)
             if bulletArray.count != 0{
                 for bullet in bulletArray{
-                    if abs(enemy.position.y - bullet.position.y) < enemy.size.height/2 && abs(enemy.position.x - bullet.position.x) < enemy.size.width/2 {
+                    let calculateBulletX = abs(enemy.position.x - bullet.position.x)
+                    let calculateBulletY = abs(enemy.position.y - bullet.position.y)
+                    let disX =  enemy.size.width / 2
+                    let disY = enemy.size.height / 2
+                    
+                    if calculateBulletY < disY && calculateBulletX < disX {
                         if enemy.type != "target"{
                         bullet.removeFromParent()
                         bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                         enemy.hitPoints -= 1
-                        enemy.runAction(SKAction.colorizeWithColor(UIColor.whiteColor(), colorBlendFactor: 1.0, duration: 0.5))
                         }
                     }
                 }
             }
             if enemy.hitPoints <= 0{        //Checks if enemy is dead
+                
                 if enemy.getName() == "lazer" && enemy.shooting == true{
                     enemy.stopLazer()
                 }
+                
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
                 enemyValueCount += enemy.difficulty
                 score += enemy.difficulty

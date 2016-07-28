@@ -40,6 +40,10 @@
 		558821F91D480433009B1BEC /* Boss2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F81D480433009B1BEC /* Boss2.swift */; };
 		558821FB1D4809BC009B1BEC /* TargetLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821FA1D4809BC009B1BEC /* TargetLock.swift */; };
 		558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558821FC1D480ED0009B1BEC /* AnimationActions.sks */; };
+		558822011D492147009B1BEC /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558822001D492147009B1BEC /* MainScene.sks */; };
+		558822031D49231E009B1BEC /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558822021D49231E009B1BEC /* MainScene.swift */; };
+		558822051D494701009B1BEC /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558822041D494701009B1BEC /* TutorialScene.sks */; };
+		558822071D494710009B1BEC /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558822061D494710009B1BEC /* TutorialScene.swift */; };
 		558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */; };
 		558A3BCF1D3FE41D00A2E8E4 /* TrapezoidBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */; };
 		558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */; };
@@ -105,6 +109,10 @@
 		558821F81D480433009B1BEC /* Boss2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss2.swift; sourceTree = "<group>"; };
 		558821FA1D4809BC009B1BEC /* TargetLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetLock.swift; sourceTree = "<group>"; };
 		558821FC1D480ED0009B1BEC /* AnimationActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = AnimationActions.sks; path = ../AnimationActions.sks; sourceTree = "<group>"; };
+		558822001D492147009B1BEC /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MainScene.sks; path = ../MainScene.sks; sourceTree = "<group>"; };
+		558822021D49231E009B1BEC /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		558822041D494701009B1BEC /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
+		558822061D494710009B1BEC /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleBullet.swift; sourceTree = "<group>"; };
 		558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrapezoidBullet.swift; sourceTree = "<group>"; };
 		558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazerBullet.swift; sourceTree = "<group>"; };
@@ -182,6 +190,10 @@
 				558821FC1D480ED0009B1BEC /* AnimationActions.sks */,
 				55796E181D33FE1A0030E37C /* GameScene.sks */,
 				55796E1A1D33FE1A0030E37C /* GameScene.swift */,
+				558822001D492147009B1BEC /* MainScene.sks */,
+				558822021D49231E009B1BEC /* MainScene.swift */,
+				558822041D494701009B1BEC /* TutorialScene.sks */,
+				558822061D494710009B1BEC /* TutorialScene.swift */,
 				55796E1C1D33FE1A0030E37C /* GameViewController.swift */,
 				55796E1E1D33FE1A0030E37C /* Main.storyboard */,
 				55796E231D33FE1A0030E37C /* LaunchScreen.storyboard */,
@@ -371,6 +383,8 @@
 				55796E251D33FE1A0030E37C /* LaunchScreen.storyboard in Resources */,
 				55796E491D3409090030E37C /* Assets.xcassets in Resources */,
 				55796E201D33FE1A0030E37C /* Main.storyboard in Resources */,
+				558822051D494701009B1BEC /* TutorialScene.sks in Resources */,
+				558822011D492147009B1BEC /* MainScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -399,6 +413,7 @@
 				55796E671D340BB80030E37C /* SKTTimingFunctions.swift in Sources */,
 				55796E1D1D33FE1A0030E37C /* GameViewController.swift in Sources */,
 				55796E571D340B830030E37C /* CGVector+Extensions.swift in Sources */,
+				558822071D494710009B1BEC /* TutorialScene.swift in Sources */,
 				558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */,
 				55796E551D340B6C0030E37C /* CGPoint+Extensions.swift in Sources */,
 				55796E171D33FE1A0030E37C /* AppDelegate.swift in Sources */,
@@ -407,6 +422,7 @@
 				5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */,
 				5504C3081D39888700184648 /* Trapezoid.swift in Sources */,
 				55796E4E1D340AFF0030E37C /* MSReferenceNode.swift in Sources */,
+				558822031D49231E009B1BEC /* MainScene.swift in Sources */,
 				5504C3021D36EA6900184648 /* Triangle.swift in Sources */,
 				55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */,
 				55796E611D340BA10030E37C /* SKNode+Extensions.swift in Sources */,
