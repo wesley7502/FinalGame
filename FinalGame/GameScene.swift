@@ -19,7 +19,12 @@ class GameScene: SKScene {
     var touchLoc: CGPoint!
     var planePos = 3
     var healthBar: SKSpriteNode!
+    let fixedDelta: CFTimeInterval = 1.0/60.0
+    var scrollLayer: SKNode!
     var bossKilled = false
+    
+    
+    var scrollSpeed: CGFloat = 80
     
     var state: GameState = .Tutorial
     var tutorialTimer: Double = 0.0    //times the tutorial
@@ -75,6 +80,7 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         plane = childNodeWithName("plane") as! SKSpriteNode
         healthBar = childNodeWithName("healthBar") as! SKSpriteNode
+        scrollLayer = self.childNodeWithName("scrollLayer")
         
     }
     
@@ -126,11 +132,9 @@ class GameScene: SKScene {
             planeFunctions(currentTime)
             enemyFunctions(currentTime)
             if bossTrigger == false{
-            checkDifficulty(currentTime)
-            checkQuene(currentTime)
-        }
-
-        
+                checkDifficulty(currentTime)
+                checkQuene(currentTime)
+            }
     }
     
     
@@ -195,14 +199,16 @@ class GameScene: SKScene {
             for enemy in enemyArray{
                 let scanpos = enemy.position
                 let calculateddistance = sqrt(pow(Double(scanpos.x - currentpos.x),2.0) + pow(Double(scanpos.y - currentpos.y),2.0))
-                if calculateddistance < (Double(enemy.size.height) / 2 + 25) && enemy.type == "runner" {
+                if calculateddistance < (Double(enemy.size.height) / 2 + 25) && enemy.type != "target" {
+                    if enemy.type == "runner"{
                         enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
                         enemyValueCount += enemy.difficulty
                         score += enemy.difficulty
                         enemy.removeFromParent()
-                        health -= enemy.bodyDamage
+                    }
+                    health -= enemy.bodyDamage
                 }
-                else if enemy.type == "target" && calculateddistance < Double(enemy.size.height) / 2 {
+                else if enemy.type == "target" && enemy.shooting == true && calculateddistance < Double(enemy.size.height) / 2 {
                         health -= enemy.bodyDamage
                 }
             }
@@ -296,13 +302,21 @@ class GameScene: SKScene {
             bossKilled = false
             
         }
+        else if totalDifficulty == 1 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
+            difficultyTimer = 0.0
+            addBoss(4)
+        }
+        else if totalDifficulty == 2 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
+            difficultyTimer = 0.0
+            addBoss(3)
+        }
         else if totalDifficulty == 3 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
             difficultyTimer = 0.0
-            addBoss(1)
-        }
-        else if totalDifficulty == 5 && currentTime - difficultyTimer > 25 && !bossKilled{
-            difficultyTimer = 0.0
             addBoss(2)
+        }
+        else if totalDifficulty == 4 && currentTime - difficultyTimer > 25 && !bossKilled{
+            difficultyTimer = 0.0
+            addBoss(1)
         }
         
         print(currentTime - difficultyTimer)
@@ -481,10 +495,21 @@ class GameScene: SKScene {
         switch bosnum{
             case 1:
                 boss = Boss1(lane: 0, scene: self)
+                boss.position = CGPoint(x: 160, y: 500)
             case 2:
                 boss = Boss2(lane: 0, scene: self)
+                boss.position = CGPoint(x: 160, y: 500)
+            case 3:
+                boss = Boss3(lane: 0, scene: self)
+                boss.position = CGPoint(x: 80, y: 500)
+            case 4:
+                boss = Boss4(lane: 0, scene: self)
+                boss.position = CGPoint(x: 80, y: 500)
+            
+            
             default:
                 boss = Boss1(lane: 0, scene: self)
+                boss.position = CGPoint(x: 160, y: 500)
         }
         enemyBulletArray.removeAll()
         enemyArray.removeAll()
@@ -492,9 +517,32 @@ class GameScene: SKScene {
         shooterSpacingArray.removeAll()
         enemyValueCount = tempEnemyValueCount
         laneCounter = 0
-        boss.position = CGPoint(x: 160, y: 500)
         addChild(boss)
         enemyArray.append(boss)
     }
+    
+    func scrollWorld() {
+        /* Scroll World */
+        scrollLayer.position.y -= scrollSpeed * CGFloat(fixedDelta)
+        
+        /* Loop through scroll layer nodes */
+        for ground in scrollLayer.children as! [SKSpriteNode] {
+            
+            /* Get ground node position, convert node position to scene space */
+            let groundPosition = scrollLayer.convertPoint(ground.position, toNode: self)
+            
+            /* Check if ground sprite has left the scene */
+            if groundPosition.x <= -ground.size.height / 2 {
+                
+                /* Reposition ground sprite to the second starting position */
+                let newPosition = CGPointMake( (self.size.width / 2) + ground.size.width, groundPosition.y)
+                
+                /* Convert new node position back to scroll layer space */
+                ground.position = self.convertPoint(newPosition, toNode: scrollLayer)
+            }
+        }
+        
+    }
+
     
 }

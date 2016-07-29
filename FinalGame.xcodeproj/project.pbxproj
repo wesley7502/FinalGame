@@ -10,6 +10,9 @@
 		5504C3021D36EA6900184648 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3011D36EA6900184648 /* Triangle.swift */; };
 		5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3031D36FA4100184648 /* EnemyBullet.swift */; };
 		5504C3081D39888700184648 /* Trapezoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3071D39888700184648 /* Trapezoid.swift */; };
+		554BEF261D4A934800B55FD5 /* Boss3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BEF251D4A934800B55FD5 /* Boss3.swift */; };
+		554BEF281D4AC46A00B55FD5 /* Boss4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BEF271D4AC46A00B55FD5 /* Boss4.swift */; };
+		554BEF2A1D4ACA3D00B55FD5 /* Boss4Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */; };
 		55796E171D33FE1A0030E37C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55796E161D33FE1A0030E37C /* AppDelegate.swift */; };
 		55796E191D33FE1A0030E37C /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 55796E181D33FE1A0030E37C /* GameScene.sks */; };
 		55796E1B1D33FE1A0030E37C /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55796E1A1D33FE1A0030E37C /* GameScene.swift */; };
@@ -73,6 +76,9 @@
 		5504C3011D36EA6900184648 /* Triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		5504C3031D36FA4100184648 /* EnemyBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
 		5504C3071D39888700184648 /* Trapezoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trapezoid.swift; sourceTree = "<group>"; };
+		554BEF251D4A934800B55FD5 /* Boss3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss3.swift; sourceTree = "<group>"; };
+		554BEF271D4AC46A00B55FD5 /* Boss4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss4.swift; sourceTree = "<group>"; };
+		554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss4Bullet.swift; sourceTree = "<group>"; };
 		55796E131D33FE1A0030E37C /* FinalGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55796E161D33FE1A0030E37C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55796E181D33FE1A0030E37C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -256,6 +262,8 @@
 			children = (
 				558821F61D47DE26009B1BEC /* Boss1.swift */,
 				558821F81D480433009B1BEC /* Boss2.swift */,
+				554BEF251D4A934800B55FD5 /* Boss3.swift */,
+				554BEF271D4AC46A00B55FD5 /* Boss4.swift */,
 				558821FA1D4809BC009B1BEC /* TargetLock.swift */,
 			);
 			name = Bosses;
@@ -267,6 +275,7 @@
 				5504C3031D36FA4100184648 /* EnemyBullet.swift */,
 				558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */,
 				558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */,
+				554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */,
 				558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */,
 				558821F31D46CCBE009B1BEC /* CircleBullet.swift */,
 			);
@@ -414,6 +423,7 @@
 				55796E1D1D33FE1A0030E37C /* GameViewController.swift in Sources */,
 				55796E571D340B830030E37C /* CGVector+Extensions.swift in Sources */,
 				558822071D494710009B1BEC /* TutorialScene.swift in Sources */,
+				554BEF281D4AC46A00B55FD5 /* Boss4.swift in Sources */,
 				558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */,
 				55796E551D340B6C0030E37C /* CGPoint+Extensions.swift in Sources */,
 				55796E171D33FE1A0030E37C /* AppDelegate.swift in Sources */,
@@ -421,6 +431,7 @@
 				55796E631D340BA50030E37C /* SKTAudio.swift in Sources */,
 				5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */,
 				5504C3081D39888700184648 /* Trapezoid.swift in Sources */,
+				554BEF2A1D4ACA3D00B55FD5 /* Boss4Bullet.swift in Sources */,
 				55796E4E1D340AFF0030E37C /* MSReferenceNode.swift in Sources */,
 				558822031D49231E009B1BEC /* MainScene.swift in Sources */,
 				5504C3021D36EA6900184648 /* Triangle.swift in Sources */,
@@ -434,6 +445,7 @@
 				55796E501D340B050030E37C /* CGFloat+Extensions.swift in Sources */,
 				5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */,
 				558821F21D46C2CF009B1BEC /* Circle.swift in Sources */,
+				554BEF261D4A934800B55FD5 /* Boss3.swift in Sources */,
 				55796E4B1D340A7D0030E37C /* Bullet.swift in Sources */,
 				558821F71D47DE26009B1BEC /* Boss1.swift in Sources */,
 				55796E651D340BB30030E37C /* SKTEffects.swift in Sources */,

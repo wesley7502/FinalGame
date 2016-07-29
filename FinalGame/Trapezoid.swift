@@ -12,7 +12,7 @@ class Trapezoid: Enemy{
         
         theScene = scene
         
-        let texture = SKTexture(imageNamed: "Trapezoid-1")
+        let texture = SKTexture(imageNamed: "Trapezoid")
         super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 106.66, height: 53.33), givenName: "trapezoid", points: 4, bd : 0.04, dif: 4,  sp: 2, ty : "shooter", la: lane)
         
         
