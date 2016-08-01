@@ -32,7 +32,7 @@ class Triangle: Enemy{
         if(enemyMovementTimer == 0.0){
             enemyMovementTimer = currentTime
         }
-        if currentTime - enemyMovementTimer >= 1.0{
+        if currentTime - enemyMovementTimer >= 1.75{
             enemyShoot()
             enemyMovementTimer = 0.0
         }

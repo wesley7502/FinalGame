@@ -10,7 +10,7 @@ import SpriteKit
 
 /* Tracking enum for game state */
 enum GameState {
-    case Tutorial, Suvival
+    case GameOver, Survival
 }
 
 class GameScene: SKScene {
@@ -21,12 +21,23 @@ class GameScene: SKScene {
     var healthBar: SKSpriteNode!
     let fixedDelta: CFTimeInterval = 1.0/60.0
     var scrollLayer: SKNode!
+    var scoreLabel: SKLabelNode!
     var bossKilled = false
     
     
-    var scrollSpeed: CGFloat = 80
     
-    var state: GameState = .Tutorial
+    var realScore: Int = 0 {
+        didSet {
+            scoreLabel.text = String(realScore)
+        }
+    }
+    
+    var scrollSpeed: CGFloat = 120
+    
+    var state: GameState = .Survival
+    var shouldMove = true
+    
+    
     var tutorialTimer: Double = 0.0    //times the tutorial
     
     var bossTrigger = false
@@ -41,13 +52,13 @@ class GameScene: SKScene {
     
     var enemyValueCount = 10   //shows the amount of value and enemy can have
     
-    var tempEnemyValueCount = 10
+    var tempEnemyValueCount = 10   // helps set the enemy value count
     
-    var bossCounter = 0 //shows the count till the boss fight (to be implemented)
+    var restart: MSButtonNode!
+    
+    var bossCounter = 50.0//shows the count till the boss fight (to be implemented)
     
     var spawnQuene = 0
-    
-    var score = 0
     
     var laneCounter = 0 //tracks the amount of space taken both in the quene and in action
     
@@ -56,6 +67,8 @@ class GameScene: SKScene {
     var didTurn = false
     
     var checkTouchFinished = false
+    
+    var bossAlert = false
     
     var queneArray = [Int]()   // the array that quenes Enemies and empties out at a constant rate
     
@@ -75,6 +88,8 @@ class GameScene: SKScene {
     
     var difficultyTimer: Double = 0.0 //manages the difficulty increase through time
     
+    var bossGeneratorTimer: Double = 0.0 //manages the implementation of bosses
+    
     
     
     override func didMoveToView(view: SKView) {
@@ -82,59 +97,100 @@ class GameScene: SKScene {
         healthBar = childNodeWithName("healthBar") as! SKSpriteNode
         scrollLayer = self.childNodeWithName("scrollLayer")
         
+        scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
+        
+        restart = self.childNodeWithName("restart") as! MSButtonNode
+        
+        restart.selectedHandler = {
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+            
+            /* Hide restart button */
+            
+        }
+        restart.state = .MSButtonNodeStateHidden
+
+        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
+        if shouldMove{
         for touch in touches {
             touchLoc = touch.locationInNode(self)
             shooting = true
         }
+        }
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        if shouldMove{
         
         for touch in touches {
             let location  = touch.locationInNode(self)
             let calculateddistance = Double(touchLoc.x - location.x)
-            if calculateddistance > 50 && planePos > 1{
-                self.plane.position.x -= 53.33
+            if calculateddistance > 65 && planePos > 1{
                 planePos -= 1
                 if self.plane.position.y < 268{
-                    self.plane.position.y += 35
+                    let flipL = SKAction(named: "SlideLeft")!
+                    self.plane.runAction(flipL)
+                }
+                else{
+                    let flipL = SKAction(named: "MoveLeft")!
+                    self.plane.runAction(flipL)
                 }
                 didTurn = true
             }
-            else if calculateddistance < -50 && planePos < 6{
-                self.plane.position.x += 53.33
+            else if calculateddistance < -65 && planePos < 6{
                 planePos += 1
                 if self.plane.position.y < 268{
-                    self.plane.position.y += 35
+                    let flipR = SKAction(named: "SlideRight")!
+                    self.plane.runAction(flipR)
+                }
+                else{
+                    let flipR = SKAction(named: "MoveRight")!
+                    self.plane.runAction(flipR)
                 }
                 didTurn = true
             }
-            else if touchLoc.y - location.y > 50 && self.plane.position.y > 32{  //move down
-                self.plane.position.y -= 20
+            else if touchLoc.y - location.y > 60 && self.plane.position.y > 32{  //move down
+                let flipD = SKAction(named: "MoveDown")!
+                self.plane.runAction(flipD)
                 didTurn = true
             }
-            else if location.y - touchLoc.y > 50 && self.plane.position.y < 268{   //move up
-                self.plane.position.y += 50
+            else if location.y - touchLoc.y > 60 && self.plane.position.y < 268{   //move up
+                let flipU = SKAction(named: "MoveUp")!
+                self.plane.runAction(flipU)
                 didTurn = true
             }
             
             shooting = false
             checkTouchFinished = true
         }
+        }
     }
    
     override func update(currentTime: CFTimeInterval) {
-        
+        if state == .Survival{
             planeFunctions(currentTime)
             enemyFunctions(currentTime)
             if bossTrigger == false{
                 checkDifficulty(currentTime)
                 checkQuene(currentTime)
             }
+            scrollWorld()
+            print(currentTime - bossGeneratorTimer)
+        }
     }
     
     
@@ -203,8 +259,12 @@ class GameScene: SKScene {
                     if enemy.type == "runner"{
                         enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
                         enemyValueCount += enemy.difficulty
-                        score += enemy.difficulty
-                        enemy.removeFromParent()
+                        realScore += enemy.difficulty
+                        let explode = SKAction(named: "Explode")!
+                        let remove = SKAction.removeFromParent()
+                        let sequence = SKAction.sequence([explode,remove])
+                        enemy.runAction(sequence)
+                        
                     }
                     health -= enemy.bodyDamage
                 }
@@ -214,10 +274,21 @@ class GameScene: SKScene {
             }
         }
         
-        if currentpos.y < 15 {
+        if currentpos.y < 15 {    //if touches abyss
             self.plane.position.y += 150
             health -= 0.1
             
+        }
+        
+        if health <= 0{
+            
+            let explode = SKAction(named: "Explode")!
+            let remove = SKAction.removeFromParent()
+            let sequence = SKAction.sequence([explode,remove])
+            self.plane.runAction(sequence)
+            restart.state = .MSButtonNodeStateActive
+            state = .GameOver
+            shouldMove = false
         }
         
     }
@@ -251,7 +322,8 @@ class GameScene: SKScene {
                 
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
                 enemyValueCount += enemy.difficulty
-                score += enemy.difficulty
+                realScore += enemy.difficulty
+                
                 
                 if enemy.type == "shooter"{
                     shooterSpacingArray.removeAtIndex(shooterSpacingArray.indexOf(enemy.lane)!)
@@ -263,11 +335,13 @@ class GameScene: SKScene {
                 }
                 
                 if enemy.type == "boss"{
-                    bossTrigger = false
-                    bossKilled = true
+                    bossReset()
                 }
                 
-                enemy.removeFromParent()
+                let explode = SKAction(named: "Explode")!
+                let remove = SKAction.removeFromParent()
+                let sequence = SKAction.sequence([explode,remove])
+                enemy.runAction(sequence)
             }
             if enemy.position.y <= -32{    //squares will erase if below -32
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
@@ -294,7 +368,29 @@ class GameScene: SKScene {
         if(difficultyTimer == 0.0){
             difficultyTimer = currentTime
         }
-        if currentTime - difficultyTimer > 30.0 && totalDifficulty < 5 && score != 0 {  //scales difficulty
+        if bossGeneratorTimer == 0.0 {
+            bossGeneratorTimer = currentTime
+        }
+        
+        if currentTime - bossGeneratorTimer >= bossCounter{    //decides if to summon boss
+            if bossAlert{
+                let bossNowDecider = Int(arc4random_uniform(5) + 1)
+                if bossNowDecider == 1{
+                    let bossChooser = Int(arc4random_uniform(4) + 1)
+                    addBoss(bossChooser)
+                }
+                else{
+                    bossGeneratorTimer = 0.0
+                }
+            }
+            else{
+                bossAlert = true
+                bossCounter = 10.0
+                bossGeneratorTimer = 0.0
+            }
+        }
+        
+        if currentTime - difficultyTimer > 30.0 && totalDifficulty < 5{  //scales difficulty
             totalDifficulty += 1
             enemyValueCount += 2
             tempEnemyValueCount += 2
@@ -302,24 +398,7 @@ class GameScene: SKScene {
             bossKilled = false
             
         }
-        else if totalDifficulty == 1 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
-            difficultyTimer = 0.0
-            addBoss(4)
-        }
-        else if totalDifficulty == 2 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
-            difficultyTimer = 0.0
-            addBoss(3)
-        }
-        else if totalDifficulty == 3 && currentTime - difficultyTimer > 25 && !bossKilled{   //checks and activates boss fight
-            difficultyTimer = 0.0
-            addBoss(2)
-        }
-        else if totalDifficulty == 4 && currentTime - difficultyTimer > 25 && !bossKilled{
-            difficultyTimer = 0.0
-            addBoss(1)
-        }
         
-        print(currentTime - difficultyTimer)
         
         if enemyValueCount <= 4 || bossTrigger{        //if the total space of enemies is < 4, will make more enemies until hits exactly 0
         }
@@ -521,6 +600,15 @@ class GameScene: SKScene {
         enemyArray.append(boss)
     }
     
+    
+    func bossReset(){
+        bossTrigger = false
+        bossKilled = true
+        bossCounter = 50.0
+        bossGeneratorTimer = 0.0
+    }
+    
+    
     func scrollWorld() {
         /* Scroll World */
         scrollLayer.position.y -= scrollSpeed * CGFloat(fixedDelta)
@@ -532,10 +620,10 @@ class GameScene: SKScene {
             let groundPosition = scrollLayer.convertPoint(ground.position, toNode: self)
             
             /* Check if ground sprite has left the scene */
-            if groundPosition.x <= -ground.size.height / 2 {
+            if groundPosition.y <= -ground.size.height / 2 + 5 {
                 
                 /* Reposition ground sprite to the second starting position */
-                let newPosition = CGPointMake( (self.size.width / 2) + ground.size.width, groundPosition.y)
+                let newPosition = CGPointMake(groundPosition.x, (self.size.height / 2) + ground.size.height)
                 
                 /* Convert new node position back to scroll layer space */
                 ground.position = self.convertPoint(newPosition, toNode: scrollLayer)

@@ -74,31 +74,41 @@ class TutorialScene: SKScene {
         for touch in touches {
             let location  = touch.locationInNode(self)
             let calculateddistance = Double(touchLoc.x - location.x)
-            if calculateddistance > 50 && planePos > 1 && (tutorialState == 1 || unlock){
-                self.plane.position.x -= 53.33
+            if calculateddistance > 65 && planePos > 1 && (tutorialState == 1 || unlock){
                 planePos -= 1
                 if self.plane.position.y < 268{
-                    self.plane.position.y += 35
+                    let flipL = SKAction(named: "SlideLeft")!
+                    self.plane.runAction(flipL)
+                }
+                else{
+                    let flipL = SKAction(named: "MoveLeft")!
+                    self.plane.runAction(flipL)
                 }
                 turnCounter += 1
                 didTurn = true
             }
-            else if calculateddistance < -50 && planePos < 6 && (tutorialState == 1 || unlock){
-                self.plane.position.x += 53.33
+            else if calculateddistance < -65 && planePos < 6 && (tutorialState == 1 || unlock){
                 planePos += 1
                 if self.plane.position.y < 268{
-                    self.plane.position.y += 35
+                    let flipR = SKAction(named: "SlideRight")!
+                    self.plane.runAction(flipR)
+                }
+                else{
+                    let flipR = SKAction(named: "MoveRight")!
+                    self.plane.runAction(flipR)
                 }
                 turnCounter += 1
                 didTurn = true
             }
-            else if touchLoc.y - location.y > 50 && self.plane.position.y > 32 && (tutorialState == 2 || unlock){  //move down
-                self.plane.position.y -= 20
+            else if touchLoc.y - location.y > 60 && self.plane.position.y > 32 && (tutorialState == 2 || unlock){  //move down
+                let flipD = SKAction(named: "MoveDown")!
+                self.plane.runAction(flipD)
                 didTurn = true
                 turnCounter += 1
             }
-            else if location.y - touchLoc.y > 50 && self.plane.position.y < 500 && (tutorialState == 2 || unlock){   //move up
-                self.plane.position.y += 50
+            else if location.y - touchLoc.y > 60 && self.plane.position.y < 500 && (tutorialState == 2 || unlock){   //move up
+                let flipU = SKAction(named: "MoveUp")!
+                self.plane.runAction(flipU)
                 didTurn = true
                 turnCounter += 1
             }
@@ -133,7 +143,7 @@ class TutorialScene: SKScene {
             }
             
         }
-        else if turnCounter >= 4{
+        else if turnCounter > 4{
             stasis = false
             turnCounter = 0
             tutorialTimer = 0.0
@@ -159,10 +169,10 @@ class TutorialScene: SKScene {
                 tutorialLabel.text = "Slide Up and Down"
             }
             else if tutorialState  == 2{
-                tutorialLabel.text = "Tap"
+                tutorialLabel.text = "Tap to Shoot"
             }
             else if tutorialState  == 3{
-                tutorialLabel.text = "Hold"
+                tutorialLabel.text = "Hold to Barrage"
             }
             else if tutorialState == 4{
                 tutorialLabel.text = "Try Everything"
@@ -248,7 +258,10 @@ class TutorialScene: SKScene {
                 let calculateddistance = sqrt(pow(Double(scanpos.x - currentpos.x),2.0) + pow(Double(scanpos.y - currentpos.y),2.0))
                 if calculateddistance < (Double(enemy.size.height) / 2 + 25) && enemy.type == "runner" {
                     enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
-                    enemy.removeFromParent()
+                    let explode = SKAction(named: "Explode")!
+                    let remove = SKAction.removeFromParent()
+                    let sequence = SKAction.sequence([explode,remove])
+                    enemy.runAction(sequence)
                     health -= enemy.bodyDamage
                     addNewSquare()
                     killCount += 1
@@ -287,7 +300,12 @@ class TutorialScene: SKScene {
                 
                 
                 enemyArray.removeAtIndex(enemyArray.indexOf(enemy)!)
-                enemy.removeFromParent()
+                
+                
+                let explode = SKAction(named: "Explode")!
+                let remove = SKAction.removeFromParent()
+                let sequence = SKAction.sequence([explode,remove])
+                enemy.runAction(sequence)
                 addNewSquare()
                 killCount += 1
             }

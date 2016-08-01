@@ -18,7 +18,7 @@ class Boss4: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss4")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 75), givenName: "boss4", points: 80, bd : 0.002, dif: 10, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 75), givenName: "boss4", points: 100, bd : 0.001, dif: 50, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -46,13 +46,21 @@ class Boss4: Enemy{
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-        self.position.y -= 3
+        if self.position.y >= 400{
+            self.position.y -= 0.75
+        }
+        else{
+            self.position.y -= 6
+        }
+        
         if self.position.y <= -25{
             let newPos = Int(arc4random_uniform(6) + 1)
             self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 500)
-            enemyShoot()
+            if hitPoints <= 65{
+                enemyShoot()
+            }
         }
-        if currentTime - shooterTimer > 1 && hitPoints <= 40{
+        if currentTime - shooterTimer > 1 && hitPoints <= 35{
             enemyShoot2()
             shooterTimer = 0.0
         }

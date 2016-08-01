@@ -27,7 +27,7 @@ class CircleBullet: EnemyBullet {
         di = direction
         
         if direction == true{
-            xspeed = -6.0
+            xspeed = -7.0
         }
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -53,7 +53,7 @@ class CircleBullet: EnemyBullet {
         
         
         self.position.y -= yspeed
-        yspeed += 0.4
+        yspeed += 0.3
         
     }
 }

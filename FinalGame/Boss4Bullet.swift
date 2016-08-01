@@ -20,7 +20,7 @@ class Boss4Bullet: EnemyBullet {
     }
     
     override func bulletAction(){
-        self.position.y -= 3
+        self.position.y -= 4
         
     }
 }
