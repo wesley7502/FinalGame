@@ -22,7 +22,8 @@ class GameScene: SKScene {
     let fixedDelta: CFTimeInterval = 1.0/60.0
     var scrollLayer: SKNode!
     var scoreLabel: SKLabelNode!
-    var bossKilled = false
+    var finalScoreLabel: SKLabelNode!
+    var timeScoreLabel: SKLabelNode!
     
     
     
@@ -31,6 +32,8 @@ class GameScene: SKScene {
             scoreLabel.text = String(realScore)
         }
     }
+    
+    var scoreTimer: Double = 0.0      //The timer that will look at the total score
     
     var scrollSpeed: CGFloat = 120
     
@@ -98,6 +101,11 @@ class GameScene: SKScene {
         scrollLayer = self.childNodeWithName("scrollLayer")
         
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
+        
+        finalScoreLabel = childNodeWithName("finalScoreLabel") as! SKLabelNode
+        
+        timeScoreLabel = childNodeWithName("timeScoreLabel") as! SKLabelNode
+        
         
         restart = self.childNodeWithName("restart") as! MSButtonNode
         
@@ -181,6 +189,10 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
+        
+        if scoreTimer == 0.0{
+            scoreTimer = currentTime
+        }
         if state == .Survival{
             planeFunctions(currentTime)
             enemyFunctions(currentTime)
@@ -238,9 +250,9 @@ class GameScene: SKScene {
         if enemyBulletArray.count != 0{    // collision with enemy bullets
             for ebullet in enemyBulletArray{
                 
-                let calculatePlaneY = (self.plane.position.y + self.plane.size.height/2 ) - (ebullet.position.y - ebullet.size.height)  //distance between end bullet and top of plane
+                let calculatePlaneY = abs(self.plane.position.y - ebullet.position.y)  
                 let calculatePlaneX = abs(self.plane.position.x - ebullet.position.x)
-                if calculatePlaneY > 0 && calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
+                if calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
                     if(ebullet.damage != 0.001){
                         enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(ebullet)!)
                         ebullet.removeFromParent()
@@ -279,16 +291,8 @@ class GameScene: SKScene {
             health -= 0.1
             
         }
-        
-        if health <= 0{
-            
-            let explode = SKAction(named: "Explode")!
-            let remove = SKAction.removeFromParent()
-            let sequence = SKAction.sequence([explode,remove])
-            self.plane.runAction(sequence)
-            restart.state = .MSButtonNodeStateActive
-            state = .GameOver
-            shouldMove = false
+    if health <= 0{      //gameOver Function call
+            gameOver(currentTime)
         }
         
     }
@@ -376,7 +380,7 @@ class GameScene: SKScene {
             if bossAlert{
                 let bossNowDecider = Int(arc4random_uniform(5) + 1)
                 if bossNowDecider == 1{
-                    let bossChooser = Int(arc4random_uniform(4) + 1)
+                    let bossChooser = Int(arc4random_uniform(6) + 1)
                     addBoss(bossChooser)
                 }
                 else{
@@ -390,13 +394,11 @@ class GameScene: SKScene {
             }
         }
         
-        if currentTime - difficultyTimer > 30.0 && totalDifficulty < 5{  //scales difficulty
+        if currentTime - difficultyTimer > 30.0 && totalDifficulty < 6{  //scales difficulty
             totalDifficulty += 1
             enemyValueCount += 2
             tempEnemyValueCount += 2
             difficultyTimer = 0.0
-            bossKilled = false
-            
         }
         
         
@@ -435,7 +437,17 @@ class GameScene: SKScene {
                         queneArray.append(4)
                         laneCounter += 2
                     }
-                case 5: //LAZER
+                case 5: //MISSILE
+                    enemyValueCount -= 4
+                    
+                    if enemyValueCount < 0 || laneCounter > 4{
+                        enemyValueCount += 4
+                    }
+                    else{
+                        queneArray.append(5)
+                        laneCounter += 1
+                    }
+                case 6: //LAZER
                     enemyValueCount -= 4
                     
                     if enemyValueCount < 0 || laneCounter > 4{
@@ -545,8 +557,17 @@ class GameScene: SKScene {
             
             enemy = Trapezoid(lane: enemyPos, scene: self)
             enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33, y: 500)
+        case 5:                                     //MISSILE
+            while searchArray(shooterSpacingArray, x: enemyPos){
+                enemyPos = Int(arc4random_uniform(6) + 1)
+            }
+            shooterSpacingArray.append(enemyPos)
             
-        case 5:                                     //LAZER
+            enemy = Missile(lane: enemyPos,scene: self)
+            enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.665, y: 500)
+        
+            
+        case 6:                                     //LAZER
             while searchArray(shooterSpacingArray, x: enemyPos){
                 enemyPos = Int(arc4random_uniform(6) + 1)
             }
@@ -584,8 +605,12 @@ class GameScene: SKScene {
             case 4:
                 boss = Boss4(lane: 0, scene: self)
                 boss.position = CGPoint(x: 80, y: 500)
-            
-            
+            case 5:
+                boss = Boss5(lane: 0, scene: self)
+                boss.position = CGPoint(x: 80, y: 500)
+            case 6:
+                boss = Boss6(lane: 0, scene: self)
+                boss.position = CGPoint(x: 80, y: 500)
             default:
                 boss = Boss1(lane: 0, scene: self)
                 boss.position = CGPoint(x: 160, y: 500)
@@ -603,7 +628,7 @@ class GameScene: SKScene {
     
     func bossReset(){
         bossTrigger = false
-        bossKilled = true
+        bossAlert = false
         bossCounter = 50.0
         bossGeneratorTimer = 0.0
     }
@@ -630,6 +655,29 @@ class GameScene: SKScene {
             }
         }
         
+    }
+    
+    
+    func gameOver(currentTime: CFTimeInterval) {
+        let explode = SKAction(named: "Explode")!
+        let remove = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([explode,remove])
+        self.plane.runAction(sequence)
+        restart.state = .MSButtonNodeStateActive
+        scoreLabel.text = ""
+        finalScoreLabel.text = "Score: \(realScore)"
+        
+        var scoreCalculation = (Int)(currentTime - scoreTimer)
+        var minute = 0
+        while scoreCalculation >= 60 {
+            scoreCalculation -= 60
+            minute += 1
+        }
+        timeScoreLabel.text = "Time: \(minute):\(scoreCalculation)"
+        
+        
+        state = .GameOver
+        shouldMove = false
     }
 
     

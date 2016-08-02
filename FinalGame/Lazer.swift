@@ -14,7 +14,7 @@ class Lazer: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Lazer")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "lazer", points: 4, bd : 0.05, dif: 5, sp: 1, ty : "shooter", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "lazer", points: 4, bd : 0.05, dif: 6, sp: 1, ty : "shooter", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */

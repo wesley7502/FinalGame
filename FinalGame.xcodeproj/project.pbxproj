@@ -10,6 +10,9 @@
 		5504C3021D36EA6900184648 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3011D36EA6900184648 /* Triangle.swift */; };
 		5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3031D36FA4100184648 /* EnemyBullet.swift */; };
 		5504C3081D39888700184648 /* Trapezoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3071D39888700184648 /* Trapezoid.swift */; };
+		551C3EF31D4FC57700DBC76C /* MissileBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF21D4FC57700DBC76C /* MissileBullet.swift */; };
+		551C3EF51D4FF6AF00DBC76C /* Boss5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF41D4FF6AF00DBC76C /* Boss5.swift */; };
+		551C3EF71D5016E800DBC76C /* Boss6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF61D5016E800DBC76C /* Boss6.swift */; };
 		554BEF261D4A934800B55FD5 /* Boss3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BEF251D4A934800B55FD5 /* Boss3.swift */; };
 		554BEF281D4AC46A00B55FD5 /* Boss4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BEF271D4AC46A00B55FD5 /* Boss4.swift */; };
 		554BEF2A1D4ACA3D00B55FD5 /* Boss4Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */; };
@@ -52,6 +55,8 @@
 		558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */; };
 		5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597D6F71D36A2D500AE2C7C /* Enemy.swift */; };
 		55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A1E50D1D3EC44C005CA54E /* Lazer.swift */; };
+		55E110751D5105F7002D0CA3 /* Boss6Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */; };
+		55E110771D5112CB002D0CA3 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110761D5112CB002D0CA3 /* Missile.swift */; };
 		55FDAD721D345B8B004E45B7 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDAD711D345B8B004E45B7 /* Square.swift */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +81,9 @@
 		5504C3011D36EA6900184648 /* Triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		5504C3031D36FA4100184648 /* EnemyBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
 		5504C3071D39888700184648 /* Trapezoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trapezoid.swift; sourceTree = "<group>"; };
+		551C3EF21D4FC57700DBC76C /* MissileBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissileBullet.swift; sourceTree = "<group>"; };
+		551C3EF41D4FF6AF00DBC76C /* Boss5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss5.swift; sourceTree = "<group>"; };
+		551C3EF61D5016E800DBC76C /* Boss6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6.swift; sourceTree = "<group>"; };
 		554BEF251D4A934800B55FD5 /* Boss3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss3.swift; sourceTree = "<group>"; };
 		554BEF271D4AC46A00B55FD5 /* Boss4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss4.swift; sourceTree = "<group>"; };
 		554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss4Bullet.swift; sourceTree = "<group>"; };
@@ -124,6 +132,8 @@
 		558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazerBullet.swift; sourceTree = "<group>"; };
 		5597D6F71D36A2D500AE2C7C /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		55A1E50D1D3EC44C005CA54E /* Lazer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lazer.swift; sourceTree = "<group>"; };
+		55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6Bullet.swift; sourceTree = "<group>"; };
+		55E110761D5112CB002D0CA3 /* Missile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
 		55FDAD711D345B8B004E45B7 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -160,6 +170,7 @@
 				5504C3011D36EA6900184648 /* Triangle.swift */,
 				558821F11D46C2CF009B1BEC /* Circle.swift */,
 				5504C3071D39888700184648 /* Trapezoid.swift */,
+				55E110761D5112CB002D0CA3 /* Missile.swift */,
 				55A1E50D1D3EC44C005CA54E /* Lazer.swift */,
 			);
 			name = Enemies;
@@ -264,6 +275,8 @@
 				558821F81D480433009B1BEC /* Boss2.swift */,
 				554BEF251D4A934800B55FD5 /* Boss3.swift */,
 				554BEF271D4AC46A00B55FD5 /* Boss4.swift */,
+				551C3EF41D4FF6AF00DBC76C /* Boss5.swift */,
+				551C3EF61D5016E800DBC76C /* Boss6.swift */,
 				558821FA1D4809BC009B1BEC /* TargetLock.swift */,
 			);
 			name = Bosses;
@@ -275,9 +288,11 @@
 				5504C3031D36FA4100184648 /* EnemyBullet.swift */,
 				558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */,
 				558A3BCE1D3FE41D00A2E8E4 /* TrapezoidBullet.swift */,
-				554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */,
 				558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */,
 				558821F31D46CCBE009B1BEC /* CircleBullet.swift */,
+				551C3EF21D4FC57700DBC76C /* MissileBullet.swift */,
+				554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */,
+				55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */,
 			);
 			name = EnemyBullets;
 			sourceTree = "<group>";
@@ -421,18 +436,23 @@
 				55796E1B1D33FE1A0030E37C /* GameScene.swift in Sources */,
 				55796E671D340BB80030E37C /* SKTTimingFunctions.swift in Sources */,
 				55796E1D1D33FE1A0030E37C /* GameViewController.swift in Sources */,
+				551C3EF71D5016E800DBC76C /* Boss6.swift in Sources */,
 				55796E571D340B830030E37C /* CGVector+Extensions.swift in Sources */,
 				558822071D494710009B1BEC /* TutorialScene.swift in Sources */,
+				551C3EF31D4FC57700DBC76C /* MissileBullet.swift in Sources */,
 				554BEF281D4AC46A00B55FD5 /* Boss4.swift in Sources */,
 				558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */,
 				55796E551D340B6C0030E37C /* CGPoint+Extensions.swift in Sources */,
 				55796E171D33FE1A0030E37C /* AppDelegate.swift in Sources */,
+				551C3EF51D4FF6AF00DBC76C /* Boss5.swift in Sources */,
 				55796E521D340B190030E37C /* MSButtonNode.swift in Sources */,
 				55796E631D340BA50030E37C /* SKTAudio.swift in Sources */,
 				5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */,
 				5504C3081D39888700184648 /* Trapezoid.swift in Sources */,
+				55E110771D5112CB002D0CA3 /* Missile.swift in Sources */,
 				554BEF2A1D4ACA3D00B55FD5 /* Boss4Bullet.swift in Sources */,
 				55796E4E1D340AFF0030E37C /* MSReferenceNode.swift in Sources */,
+				55E110751D5105F7002D0CA3 /* Boss6Bullet.swift in Sources */,
 				558822031D49231E009B1BEC /* MainScene.swift in Sources */,
 				5504C3021D36EA6900184648 /* Triangle.swift in Sources */,
 				55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */,

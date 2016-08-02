@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Trapezoid: Enemy{
+class Missile: Enemy{
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0
@@ -12,8 +12,8 @@ class Trapezoid: Enemy{
         
         theScene = scene
         
-        let texture = SKTexture(imageNamed: "Trapezoid")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 106.66, height: 53.33), givenName: "trapezoid", points: 4, bd : 0.04, dif: 4,  sp: 2, ty : "shooter", la: lane)
+        let texture = SKTexture(imageNamed: "Missile")
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "missile", points: 4, bd : 0.04, dif: 5,  sp: 2, ty : "shooter", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -39,26 +39,9 @@ class Trapezoid: Enemy{
         }
         
         if currentTime - enemyMovementTimer >= 6.0{
-            
-            /*
-            repeat{
-                let change = Int(arc4random_uniform(3))
-                switch change{
-                case 0:
-                    self.position.x += 53.33
-                case 1:
-                    self.position.x -= 53.33
-                case 2:
-                    self.position.x += 0
-                default:
-                    break
-                }
-            }
-            while self.position.x < 53.33 || self.position.x > 256
-            */
             enemyShoot()
-            enemyMovementTimer = 0.0
             shooterTimer = 0.0
+            enemyMovementTimer = 0.0
             shots = 0
         }
         else{
@@ -72,18 +55,9 @@ class Trapezoid: Enemy{
     
     func enemyShoot(){
         
-        let enemyBullet = TrapezoidBullet()
-        enemyBullet.position = self.position
-        enemyBullet.position.x -= 26.665
-        theScene?.addChild(enemyBullet)
-        theScene?.enemyBulletArray.append(enemyBullet)
+        let leftBulletPos = CGPointMake(self.position.x, self.position.y)
         
-        let enemyBullet2 = TrapezoidBullet()
-        enemyBullet2.position = self.position
-        enemyBullet2.position.x += 26.665
-        theScene?.addChild(enemyBullet2)
-        theScene?.enemyBulletArray.append(enemyBullet2)
-    }
-    
-    
+        let enemyBullet = MissileBullet(ownPos: leftBulletPos, targetPos: theScene!.plane.position)
+        theScene?.addChild(enemyBullet)
+        theScene?.enemyBulletArray.append(enemyBullet)    }
 }

@@ -9,23 +9,15 @@
 import Foundation
 import SpriteKit
 
-class TutorialScene: SKScene {
+class TutorialScene: GameScene {
     
-    var plane: SKSpriteNode!
-    var touchLoc: CGPoint!
-    var planePos = 3
-    var healthBar: SKSpriteNode!
+
     var tutorialLabel: SKLabelNode!
     var turnCounter = 0
     
     var stasis = false //determines if game will "freeze" or not
     
     var unlock = false
-    
-    var tutorialTimer: Double = 0.0    //times the tutorial
-    
-    var bulletTimer: Double = 0.0    // manages bullets
-    var touchStarted: Double = 0.0   //timer that updates the tap and holding fuctions
 
     var breakTime: Double = 1.0
     
@@ -34,23 +26,6 @@ class TutorialScene: SKScene {
     var killCount = 0
     var killtime = false
     
-    var health: CGFloat = 1.0{
-        didSet{
-            healthBar.xScale = health
-        }
-    }
-    
-    var shooting = false
-    
-    var didTurn = false
-    
-    var checkTouchFinished = false
-    
-    var bulletArray = [Bullet]()
-    
-    var enemyBulletArray = [EnemyBullet]()
-    
-    var enemyArray = [Enemy]()
     
     
     
@@ -195,7 +170,7 @@ class TutorialScene: SKScene {
     
     
     
-    func planeFunctions(currentTime: CFTimeInterval){
+    override func planeFunctions(currentTime: CFTimeInterval){
         if shooting{      //the shooter manager
             if(touchStarted == 0.0){  // starts tap action
                 touchStarted = currentTime
@@ -239,9 +214,10 @@ class TutorialScene: SKScene {
         if enemyBulletArray.count != 0{    // collision with enemy bullets
             for ebullet in enemyBulletArray{
                 
-                let calculatePlaneY = (self.plane.position.y + self.plane.size.height/2 ) - (ebullet.position.y - ebullet.size.height)  //distance between end bullet and top of plane
+                let calculatePlaneY = abs(self.plane.position.y - ebullet.position.y)
                 let calculatePlaneX = abs(self.plane.position.x - ebullet.position.x)
-                if calculatePlaneY > 0 && calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
+                if calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
+
                     if(ebullet.damage != 0.001){
                         enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(ebullet)!)
                         ebullet.removeFromParent()
@@ -278,7 +254,7 @@ class TutorialScene: SKScene {
     }
     
     
-    func enemyFunctions(currentTime: CFTimeInterval){
+    override func enemyFunctions(currentTime: CFTimeInterval){
         
         for enemy in enemyArray{     //implements enemy bullet detection
             enemy.enemyAction(currentTime)
@@ -333,27 +309,10 @@ class TutorialScene: SKScene {
     func addNewSquare(){
         let enemyPos = Int(arc4random_uniform(6) + 1)
         let enemy = Square(lane: enemyPos)
-        enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.665, y: 600)
+        enemy.position = CGPoint(x: (Double)(enemyPos) * 53.33 - 26.665, y: 500)
         addChild(enemy)
         enemyArray.append(enemy)
     }
     
     
-    
-    func shoot(currentTime: CFTimeInterval){
-        let bulletWatch = currentTime - bulletTimer
-        if bulletWatch >= 0.15 {
-            addNewBullet()
-            bulletTimer = currentTime
-        }
-    }
-    
-    
-    
-    func addNewBullet(){
-        let bullet = Bullet()
-        bullet.position = self.plane.position
-        addChild(bullet)
-        bulletArray.append(bullet)
-    }
 }
