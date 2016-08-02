@@ -24,6 +24,8 @@ class GameScene: SKScene {
     var scoreLabel: SKLabelNode!
     var finalScoreLabel: SKLabelNode!
     var timeScoreLabel: SKLabelNode!
+    var restart: MSButtonNode!
+    var toMain: MSButtonNode!
     
     
     
@@ -56,8 +58,6 @@ class GameScene: SKScene {
     var enemyValueCount = 10   //shows the amount of value and enemy can have
     
     var tempEnemyValueCount = 10   // helps set the enemy value count
-    
-    var restart: MSButtonNode!
     
     var bossCounter = 50.0//shows the count till the boss fight (to be implemented)
     
@@ -108,6 +108,7 @@ class GameScene: SKScene {
         
         
         restart = self.childNodeWithName("restart") as! MSButtonNode
+        toMain = self.childNodeWithName("toMain") as! MSButtonNode
         
         restart.selectedHandler = {
             /* Grab reference to our SpriteKit view */
@@ -127,6 +128,25 @@ class GameScene: SKScene {
             
         }
         restart.state = .MSButtonNodeStateHidden
+        
+        toMain.selectedHandler = {
+            /* Grab reference to our SpriteKit view */
+            let skView = self.view as SKView!
+            
+            /* Load Game scene */
+            let scene = MainScene(fileNamed:"MainScene") as MainScene!
+            
+            /* Ensure correct aspect mode */
+            scene.scaleMode = .AspectFill
+            
+            /* Restart game scene */
+            skView.presentScene(scene)
+            
+            
+            /* Hide restart button */
+            
+        }
+        toMain.state = .MSButtonNodeStateHidden
 
         
     }
@@ -664,6 +684,9 @@ class GameScene: SKScene {
         let sequence = SKAction.sequence([explode,remove])
         self.plane.runAction(sequence)
         restart.state = .MSButtonNodeStateActive
+        toMain.state = .MSButtonNodeStateActive
+        
+        
         scoreLabel.text = ""
         finalScoreLabel.text = "Score: \(realScore)"
         

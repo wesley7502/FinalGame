@@ -46,8 +46,8 @@
 		558821F91D480433009B1BEC /* Boss2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821F81D480433009B1BEC /* Boss2.swift */; };
 		558821FB1D4809BC009B1BEC /* TargetLock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558821FA1D4809BC009B1BEC /* TargetLock.swift */; };
 		558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558821FC1D480ED0009B1BEC /* AnimationActions.sks */; };
-		558822011D492147009B1BEC /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558822001D492147009B1BEC /* MainScene.sks */; };
-		558822031D49231E009B1BEC /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558822021D49231E009B1BEC /* MainScene.swift */; };
+		558822011D492147009B1BEC /* TitleScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558822001D492147009B1BEC /* TitleScene.sks */; };
+		558822031D49231E009B1BEC /* TitleScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558822021D49231E009B1BEC /* TitleScene.swift */; };
 		558822051D494701009B1BEC /* TutorialScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 558822041D494701009B1BEC /* TutorialScene.sks */; };
 		558822071D494710009B1BEC /* TutorialScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558822061D494710009B1BEC /* TutorialScene.swift */; };
 		558A3BCD1D3FDFAE00A2E8E4 /* TriangleBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */; };
@@ -57,6 +57,10 @@
 		55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A1E50D1D3EC44C005CA54E /* Lazer.swift */; };
 		55E110751D5105F7002D0CA3 /* Boss6Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */; };
 		55E110771D5112CB002D0CA3 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110761D5112CB002D0CA3 /* Missile.swift */; };
+		55E110791D51310E002D0CA3 /* ShopScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 55E110781D51310E002D0CA3 /* ShopScene.sks */; };
+		55E1107B1D513123002D0CA3 /* ShopScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1107A1D513123002D0CA3 /* ShopScene.swift */; };
+		55E1107D1D513D41002D0CA3 /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 55E1107C1D513D41002D0CA3 /* MainScene.sks */; };
+		55E1107F1D513E0D002D0CA3 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1107E1D513E0D002D0CA3 /* MainScene.swift */; };
 		55FDAD721D345B8B004E45B7 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDAD711D345B8B004E45B7 /* Square.swift */; };
 /* End PBXBuildFile section */
 
@@ -123,8 +127,8 @@
 		558821F81D480433009B1BEC /* Boss2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss2.swift; sourceTree = "<group>"; };
 		558821FA1D4809BC009B1BEC /* TargetLock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TargetLock.swift; sourceTree = "<group>"; };
 		558821FC1D480ED0009B1BEC /* AnimationActions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = AnimationActions.sks; path = ../AnimationActions.sks; sourceTree = "<group>"; };
-		558822001D492147009B1BEC /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = MainScene.sks; path = ../MainScene.sks; sourceTree = "<group>"; };
-		558822021D49231E009B1BEC /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		558822001D492147009B1BEC /* TitleScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = TitleScene.sks; path = ../TitleScene.sks; sourceTree = "<group>"; };
+		558822021D49231E009B1BEC /* TitleScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleScene.swift; sourceTree = "<group>"; };
 		558822041D494701009B1BEC /* TutorialScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TutorialScene.sks; sourceTree = "<group>"; };
 		558822061D494710009B1BEC /* TutorialScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TutorialScene.swift; sourceTree = "<group>"; };
 		558A3BCC1D3FDFAE00A2E8E4 /* TriangleBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriangleBullet.swift; sourceTree = "<group>"; };
@@ -134,6 +138,10 @@
 		55A1E50D1D3EC44C005CA54E /* Lazer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lazer.swift; sourceTree = "<group>"; };
 		55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6Bullet.swift; sourceTree = "<group>"; };
 		55E110761D5112CB002D0CA3 /* Missile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
+		55E110781D51310E002D0CA3 /* ShopScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShopScene.sks; sourceTree = "<group>"; };
+		55E1107A1D513123002D0CA3 /* ShopScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopScene.swift; sourceTree = "<group>"; };
+		55E1107C1D513D41002D0CA3 /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
+		55E1107E1D513E0D002D0CA3 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
 		55FDAD711D345B8B004E45B7 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -207,8 +215,12 @@
 				558821FC1D480ED0009B1BEC /* AnimationActions.sks */,
 				55796E181D33FE1A0030E37C /* GameScene.sks */,
 				55796E1A1D33FE1A0030E37C /* GameScene.swift */,
-				558822001D492147009B1BEC /* MainScene.sks */,
-				558822021D49231E009B1BEC /* MainScene.swift */,
+				55E110781D51310E002D0CA3 /* ShopScene.sks */,
+				55E1107A1D513123002D0CA3 /* ShopScene.swift */,
+				55E1107C1D513D41002D0CA3 /* MainScene.sks */,
+				55E1107E1D513E0D002D0CA3 /* MainScene.swift */,
+				558822001D492147009B1BEC /* TitleScene.sks */,
+				558822021D49231E009B1BEC /* TitleScene.swift */,
 				558822041D494701009B1BEC /* TutorialScene.sks */,
 				558822061D494710009B1BEC /* TutorialScene.swift */,
 				55796E1C1D33FE1A0030E37C /* GameViewController.swift */,
@@ -404,11 +416,13 @@
 			files = (
 				558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */,
 				55796E191D33FE1A0030E37C /* GameScene.sks in Resources */,
+				55E1107D1D513D41002D0CA3 /* MainScene.sks in Resources */,
 				55796E251D33FE1A0030E37C /* LaunchScreen.storyboard in Resources */,
 				55796E491D3409090030E37C /* Assets.xcassets in Resources */,
+				55E110791D51310E002D0CA3 /* ShopScene.sks in Resources */,
 				55796E201D33FE1A0030E37C /* Main.storyboard in Resources */,
 				558822051D494701009B1BEC /* TutorialScene.sks in Resources */,
-				558822011D492147009B1BEC /* MainScene.sks in Resources */,
+				558822011D492147009B1BEC /* TitleScene.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,6 +448,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55796E1B1D33FE1A0030E37C /* GameScene.swift in Sources */,
+				55E1107F1D513E0D002D0CA3 /* MainScene.swift in Sources */,
 				55796E671D340BB80030E37C /* SKTTimingFunctions.swift in Sources */,
 				55796E1D1D33FE1A0030E37C /* GameViewController.swift in Sources */,
 				551C3EF71D5016E800DBC76C /* Boss6.swift in Sources */,
@@ -445,6 +460,7 @@
 				55796E551D340B6C0030E37C /* CGPoint+Extensions.swift in Sources */,
 				55796E171D33FE1A0030E37C /* AppDelegate.swift in Sources */,
 				551C3EF51D4FF6AF00DBC76C /* Boss5.swift in Sources */,
+				55E1107B1D513123002D0CA3 /* ShopScene.swift in Sources */,
 				55796E521D340B190030E37C /* MSButtonNode.swift in Sources */,
 				55796E631D340BA50030E37C /* SKTAudio.swift in Sources */,
 				5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */,
@@ -453,7 +469,7 @@
 				554BEF2A1D4ACA3D00B55FD5 /* Boss4Bullet.swift in Sources */,
 				55796E4E1D340AFF0030E37C /* MSReferenceNode.swift in Sources */,
 				55E110751D5105F7002D0CA3 /* Boss6Bullet.swift in Sources */,
-				558822031D49231E009B1BEC /* MainScene.swift in Sources */,
+				558822031D49231E009B1BEC /* TitleScene.swift in Sources */,
 				5504C3021D36EA6900184648 /* Triangle.swift in Sources */,
 				55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */,
 				55796E611D340BA10030E37C /* SKNode+Extensions.swift in Sources */,
