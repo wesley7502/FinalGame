@@ -15,12 +15,18 @@ class MainScene: SKScene {
         
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {
-        
+            
             /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
             
+            var scene = GameScene(fileNamed:"GameScene") as GameScene!
+            
+            
+            if UserState.sharedInstance.didTutorial == false{
             /* Load Game scene */
-            let scene = TutorialScene(fileNamed:"TutorialScene") as TutorialScene!
+               scene = TutorialScene(fileNamed:"TutorialScene") as TutorialScene!
+                UserState.sharedInstance.didTutorial = true
+            }
             
             /* Ensure correct aspect mode */
             scene.scaleMode = .AspectFit

@@ -13,6 +13,8 @@ enum GameState {
     case GameOver, Survival
 }
 
+
+
 class GameScene: SKScene {
     
     var plane: SKSpriteNode!
@@ -52,6 +54,11 @@ class GameScene: SKScene {
             healthBar.xScale = health
         }
     }
+    
+    var damage = UserState.sharedInstance.damage
+    var armor = UserState.sharedInstance.armor
+    
+    
     
     var totalDifficulty = 1      // limits how hard of enemies can come
     
@@ -167,7 +174,7 @@ class GameScene: SKScene {
         for touch in touches {
             let location  = touch.locationInNode(self)
             let calculateddistance = Double(touchLoc.x - location.x)
-            if calculateddistance > 65 && planePos > 1{
+            if calculateddistance > 50 && planePos > 1{
                 planePos -= 1
                 if self.plane.position.y < 268{
                     let flipL = SKAction(named: "SlideLeft")!
@@ -179,7 +186,7 @@ class GameScene: SKScene {
                 }
                 didTurn = true
             }
-            else if calculateddistance < -65 && planePos < 6{
+            else if calculateddistance < -50 && planePos < 6{
                 planePos += 1
                 if self.plane.position.y < 268{
                     let flipR = SKAction(named: "SlideRight")!
@@ -272,12 +279,17 @@ class GameScene: SKScene {
                 
                 let calculatePlaneY = abs(self.plane.position.y - ebullet.position.y)  
                 let calculatePlaneX = abs(self.plane.position.x - ebullet.position.x)
-                if calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
-                    if(ebullet.damage != 0.001){
+                if(ebullet.damage != 0.002){
+                    if calculatePlaneY < self.plane.size.height/2 && calculatePlaneX < self.plane.size.width/2 {
+                        health -= ebullet.damage * CGFloat(1 - ((Double)(armor) * 0.05))
                         enemyBulletArray.removeAtIndex(enemyBulletArray.indexOf(ebullet)!)
                         ebullet.removeFromParent()
                     }
-                    health -= ebullet.damage
+                }
+                else{
+                    if (ebullet.position.y - ebullet.size.height) < (self.plane.position.y + self.plane.size.height/2) && calculatePlaneX < self.plane.size.width/2 {
+                        health -= ebullet.damage * CGFloat(1 - ((Double)(armor) * 0.05))
+                    }
                 }
                 
             }
@@ -298,17 +310,17 @@ class GameScene: SKScene {
                         enemy.runAction(sequence)
                         
                     }
-                    health -= enemy.bodyDamage
+                    health -= enemy.bodyDamage * CGFloat(1 - ((Double)(armor) * 0.05))
                 }
                 else if enemy.type == "target" && enemy.shooting == true && calculateddistance < Double(enemy.size.height) / 2 {
-                        health -= enemy.bodyDamage
+                        health -= enemy.bodyDamage * CGFloat(1 - ((Double)(armor) * 0.05))
                 }
             }
         }
         
         if currentpos.y < 15 {    //if touches abyss
             self.plane.position.y += 150
-            health -= 0.1
+            health -= 0.1 * CGFloat(1 - ((Double)(armor) * 0.05))
             
         }
     if health <= 0{      //gameOver Function call
@@ -333,7 +345,7 @@ class GameScene: SKScene {
                         if enemy.type != "target"{
                         bullet.removeFromParent()
                         bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
-                        enemy.hitPoints -= 1
+                        enemy.hitPoints -= 1 + (Double(damage) * 0.25)
                         }
                     }
                 }
@@ -400,7 +412,7 @@ class GameScene: SKScene {
             if bossAlert{
                 let bossNowDecider = Int(arc4random_uniform(5) + 1)
                 if bossNowDecider == 1{
-                    let bossChooser = Int(arc4random_uniform(6) + 1)
+                   let bossChooser = Int(arc4random_uniform(7) + 1)
                     addBoss(bossChooser)
                 }
                 else{
@@ -474,7 +486,7 @@ class GameScene: SKScene {
                         enemyValueCount += 4
                     }
                     else{
-                        queneArray.append(5)
+                        queneArray.append(6)
                         laneCounter += 1
                     }
                 default:
@@ -631,6 +643,9 @@ class GameScene: SKScene {
             case 6:
                 boss = Boss6(lane: 0, scene: self)
                 boss.position = CGPoint(x: 80, y: 500)
+            case 7:
+                boss = Boss7(lane: 0, scene: self)
+                boss.position = CGPoint(x: 160, y: 500)
             default:
                 boss = Boss1(lane: 0, scene: self)
                 boss.position = CGPoint(x: 160, y: 500)
@@ -686,16 +701,29 @@ class GameScene: SKScene {
         restart.state = .MSButtonNodeStateActive
         toMain.state = .MSButtonNodeStateActive
         
+        enemyBulletArray.removeAll()
+        enemyArray.removeAll()
+        queneArray.removeAll()
+        shooterSpacingArray.removeAll()
+        
+        
+        if UserState.sharedInstance.highScore < realScore{
+            UserState.sharedInstance.highScore = realScore
+        }
         
         scoreLabel.text = ""
-        finalScoreLabel.text = "Score: \(realScore)"
+        finalScoreLabel.text = "Score: \(realScore) High: \(UserState.sharedInstance.highScore)"
         
         var scoreCalculation = (Int)(currentTime - scoreTimer)
+        
         var minute = 0
         while scoreCalculation >= 60 {
             scoreCalculation -= 60
             minute += 1
         }
+        
+        UserState.sharedInstance.coins += (Int)(scoreCalculation) + minute * 50
+        
         timeScoreLabel.text = "Time: \(minute):\(scoreCalculation)"
         
         

@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Boss1: Enemy{
+class Boss1: Enemy{    //Super Massive Boss with bullet rain
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0
@@ -14,7 +14,7 @@ class Boss1: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss1")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 320, height: 100), givenName: "boss1", points: 80, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 320, height: 100), givenName: "boss1", points: 120, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -38,7 +38,7 @@ class Boss1: Enemy{
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-        if hitPoints > 50{
+        if hitPoints > 70{
             if currentTime - enemyMovementTimer >= 0.15{
                 let bulletPos = Int(arc4random_uniform(6) + 1)
                 enemyShoot2(bulletPos)

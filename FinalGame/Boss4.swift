@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Boss4: Enemy{
+class Boss4: Enemy{  //The Runner
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0

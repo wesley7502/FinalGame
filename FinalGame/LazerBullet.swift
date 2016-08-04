@@ -10,7 +10,7 @@ class LazerBullet: EnemyBullet {
         
         /* Initialize with 'bubble' asset */
         let texture = SKTexture(imageNamed: "LazerBullet")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 32, height: 64), d: 0.001)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 32, height: 64), d: 0.002)
         
         self.name = "Lazer Bullet"
         

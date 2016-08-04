@@ -2,7 +2,7 @@ import SpriteKit
 
 class Enemy: SKSpriteNode {
     
-    var hitPoints: Int = 0        //health of opponenet
+    var hitPoints: Double = 0.0        //health of opponenet
     var bodyDamage: CGFloat = 0   //body damage of opponent
     var identity: String = ""  // name of opponent
     var difficulty: Int = 0   //manages the difficulty level of opponents
@@ -22,7 +22,7 @@ class Enemy: SKSpriteNode {
         }
     }
     
-    init(texture: SKTexture?, color: UIColor, size: CGSize, givenName: String, points: Int, bd: CGFloat, dif: Int, sp: Int, ty: String, la: Int) {
+    init(texture: SKTexture?, color: UIColor, size: CGSize, givenName: String, points: Double, bd: CGFloat, dif: Int, sp: Int, ty: String, la: Int) {
 
         super.init(texture: texture, color: color, size: size)
         

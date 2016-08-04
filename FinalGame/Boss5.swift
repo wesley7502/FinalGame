@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Boss5: Enemy{
+class Boss5: Enemy{   //Missle Spammer
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0

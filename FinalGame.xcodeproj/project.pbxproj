@@ -55,12 +55,14 @@
 		558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */; };
 		5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597D6F71D36A2D500AE2C7C /* Enemy.swift */; };
 		55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A1E50D1D3EC44C005CA54E /* Lazer.swift */; };
+		55D352101D529B940043775D /* Boss7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3520F1D529B940043775D /* Boss7.swift */; };
 		55E110751D5105F7002D0CA3 /* Boss6Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */; };
 		55E110771D5112CB002D0CA3 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110761D5112CB002D0CA3 /* Missile.swift */; };
 		55E110791D51310E002D0CA3 /* ShopScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 55E110781D51310E002D0CA3 /* ShopScene.sks */; };
 		55E1107B1D513123002D0CA3 /* ShopScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1107A1D513123002D0CA3 /* ShopScene.swift */; };
 		55E1107D1D513D41002D0CA3 /* MainScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 55E1107C1D513D41002D0CA3 /* MainScene.sks */; };
 		55E1107F1D513E0D002D0CA3 /* MainScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E1107E1D513E0D002D0CA3 /* MainScene.swift */; };
+		55E110811D515121002D0CA3 /* UserState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110801D515121002D0CA3 /* UserState.swift */; };
 		55FDAD721D345B8B004E45B7 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FDAD711D345B8B004E45B7 /* Square.swift */; };
 /* End PBXBuildFile section */
 
@@ -136,12 +138,14 @@
 		558A3BD01D3FE49F00A2E8E4 /* LazerBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LazerBullet.swift; sourceTree = "<group>"; };
 		5597D6F71D36A2D500AE2C7C /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		55A1E50D1D3EC44C005CA54E /* Lazer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lazer.swift; sourceTree = "<group>"; };
+		55D3520F1D529B940043775D /* Boss7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss7.swift; sourceTree = "<group>"; };
 		55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6Bullet.swift; sourceTree = "<group>"; };
 		55E110761D5112CB002D0CA3 /* Missile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
 		55E110781D51310E002D0CA3 /* ShopScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShopScene.sks; sourceTree = "<group>"; };
 		55E1107A1D513123002D0CA3 /* ShopScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopScene.swift; sourceTree = "<group>"; };
 		55E1107C1D513D41002D0CA3 /* MainScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainScene.sks; sourceTree = "<group>"; };
 		55E1107E1D513E0D002D0CA3 /* MainScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainScene.swift; sourceTree = "<group>"; };
+		55E110801D515121002D0CA3 /* UserState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserState.swift; sourceTree = "<group>"; };
 		55FDAD711D345B8B004E45B7 /* Square.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -213,6 +217,7 @@
 				55796E4C1D340AA50030E37C /* Utils */,
 				55796E161D33FE1A0030E37C /* AppDelegate.swift */,
 				558821FC1D480ED0009B1BEC /* AnimationActions.sks */,
+				55E110801D515121002D0CA3 /* UserState.swift */,
 				55796E181D33FE1A0030E37C /* GameScene.sks */,
 				55796E1A1D33FE1A0030E37C /* GameScene.swift */,
 				55E110781D51310E002D0CA3 /* ShopScene.sks */,
@@ -289,6 +294,7 @@
 				554BEF271D4AC46A00B55FD5 /* Boss4.swift */,
 				551C3EF41D4FF6AF00DBC76C /* Boss5.swift */,
 				551C3EF61D5016E800DBC76C /* Boss6.swift */,
+				55D3520F1D529B940043775D /* Boss7.swift */,
 				558821FA1D4809BC009B1BEC /* TargetLock.swift */,
 			);
 			name = Bosses;
@@ -483,6 +489,8 @@
 				558821F21D46C2CF009B1BEC /* Circle.swift in Sources */,
 				554BEF261D4A934800B55FD5 /* Boss3.swift in Sources */,
 				55796E4B1D340A7D0030E37C /* Bullet.swift in Sources */,
+				55D352101D529B940043775D /* Boss7.swift in Sources */,
+				55E110811D515121002D0CA3 /* UserState.swift in Sources */,
 				558821F71D47DE26009B1BEC /* Boss1.swift in Sources */,
 				55796E651D340BB30030E37C /* SKTEffects.swift in Sources */,
 				55796E591D340B880030E37C /* Int+Extensions.swift in Sources */,

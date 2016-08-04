@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Boss3: Enemy{
+class Boss3: Enemy{   //Square Spawner
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0
@@ -18,7 +18,7 @@ class Boss3: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss3")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 53.33), givenName: "boss3", points: 80, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 53.33), givenName: "boss3", points: 70, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -44,8 +44,14 @@ class Boss3: Enemy{
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-        if currentTime - enemyMovementTimer >= 0.75{
-                repeat{
+        if currentTime - enemyMovementTimer >= 1.00{
+            if self.position.x < 100{
+                self.position.x += 53.33
+            }
+            else if self.position.x > 250{
+                self.position.x -= 53.33
+            }
+            else{
                     let change = Int(arc4random_uniform(2))
                     switch change{
                     case 0:
@@ -55,11 +61,10 @@ class Boss3: Enemy{
                     default:
                         break
                     }
-                }
-                while self.position.x < 79 || self.position.x > 241
-            
+            }
+        
                 enemyShoot()
-                if hitPoints < 40 && currentTime - shooterTimer > 1.5{
+                if hitPoints < 35 && currentTime - shooterTimer > 1.5{
                     enemyShoot2()
                     shooterTimer = 0.0
                 }

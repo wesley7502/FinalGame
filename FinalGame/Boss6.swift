@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Boss6: Enemy{
+class Boss6: Enemy{ //The OctoShot
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0

@@ -1,6 +1,6 @@
 import SpriteKit
 
-class Boss2: Enemy{
+class Boss2: Enemy{   //Circle Boss with Lock On Target
     
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0
