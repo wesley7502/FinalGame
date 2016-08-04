@@ -10,7 +10,7 @@ import SpriteKit
 
 /* Tracking enum for game state */
 enum GameState {
-    case GameOver, Survival
+    case GameOver, Survival, Paused
 }
 
 
@@ -24,20 +24,29 @@ class GameScene: SKScene {
     let fixedDelta: CFTimeInterval = 1.0/60.0
     var scrollLayer: SKNode!
     var scoreLabel: SKLabelNode!
+    var distanceLabel: SKLabelNode!
     var finalScoreLabel: SKLabelNode!
-    var timeScoreLabel: SKLabelNode!
+    var distanceScoreLabel: SKLabelNode!
     var restart: MSButtonNode!
     var toMain: MSButtonNode!
+    var pause: MSButtonNode!
     
     
     
     var realScore: Int = 0 {
         didSet {
-            scoreLabel.text = String(realScore)
+            scoreLabel.text = "\(realScore)"
         }
     }
     
-    var scoreTimer: Double = 0.0      //The timer that will look at the total score
+    var distance: Int = 0 {
+        didSet {
+            distanceLabel.text = "\(distance)m"
+        }
+    }
+    
+    
+    var distanceTimer: Double = 0.0      //The timer that manageDistance
     
     var scrollSpeed: CGFloat = 120
     
@@ -59,14 +68,13 @@ class GameScene: SKScene {
     var armor = UserState.sharedInstance.armor
     
     
-    
     var totalDifficulty = 1      // limits how hard of enemies can come
     
     var enemyValueCount = 10   //shows the amount of value and enemy can have
     
     var tempEnemyValueCount = 10   // helps set the enemy value count
     
-    var bossCounter = 50.0//shows the count till the boss fight (to be implemented)
+    var bossCounter = 50.0//shows the count till the boss fight
     
     var spawnQuene = 0
     
@@ -108,14 +116,16 @@ class GameScene: SKScene {
         scrollLayer = self.childNodeWithName("scrollLayer")
         
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
+        distanceLabel = childNodeWithName("distanceLabel") as! SKLabelNode
         
         finalScoreLabel = childNodeWithName("finalScoreLabel") as! SKLabelNode
         
-        timeScoreLabel = childNodeWithName("timeScoreLabel") as! SKLabelNode
+        distanceScoreLabel = childNodeWithName("distanceScoreLabel") as! SKLabelNode
         
         
         restart = self.childNodeWithName("restart") as! MSButtonNode
         toMain = self.childNodeWithName("toMain") as! MSButtonNode
+        pause = self.childNodeWithName("pauseButton") as! MSButtonNode
         
         restart.selectedHandler = {
             /* Grab reference to our SpriteKit view */
@@ -154,13 +164,25 @@ class GameScene: SKScene {
             
         }
         toMain.state = .MSButtonNodeStateHidden
+        
+        pause.selectedHandler = {
+            if self.state == .Survival{
+                self.state = .Paused
+            }
+            else if self.state == .Paused{
+                self.state = .Survival
+            }
+            
+        }
+        restart.state = .MSButtonNodeStateHidden
+        
 
         
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
-        if shouldMove{
+        if state == .Survival{
         for touch in touches {
             touchLoc = touch.locationInNode(self)
             shooting = true
@@ -169,7 +191,7 @@ class GameScene: SKScene {
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        if shouldMove{
+        if state == .Survival{
         
         for touch in touches {
             let location  = touch.locationInNode(self)
@@ -216,10 +238,6 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
-        
-        if scoreTimer == 0.0{
-            scoreTimer = currentTime
-        }
         if state == .Survival{
             planeFunctions(currentTime)
             enemyFunctions(currentTime)
@@ -228,6 +246,7 @@ class GameScene: SKScene {
                 checkQuene(currentTime)
             }
             scrollWorld()
+            manageDistance(currentTime)
             print(currentTime - bossGeneratorTimer)
         }
     }
@@ -515,23 +534,6 @@ class GameScene: SKScene {
         }
     }
     
-    /* will add ONE row of squares*/
-    func addSquareRow(){
-        let numSquares = Int(arc4random_uniform(4) + 1)
-        var controlSquareArray = [Int]()
-        var squarePos = 0
-        var squareCounter = 0
-        while squareCounter < numSquares{
-                repeat{
-                    squarePos = Int(arc4random_uniform(5) + 1)
-                }
-                while(searchArray(controlSquareArray, x: squarePos))
-                controlSquareArray.append(squarePos)
-                squareCounter += 1
-                addNewEnemy(1)
-        }
-    }
-    
     func shoot(currentTime: CFTimeInterval){
             let bulletWatch = currentTime - bulletTimer
             if bulletWatch >= 0.15 {
@@ -692,6 +694,17 @@ class GameScene: SKScene {
         
     }
     
+    func manageDistance(currentTime: CFTimeInterval){
+        if distanceTimer == 0.0{
+            distanceTimer = currentTime
+        }
+        else if currentTime - distanceTimer >= 0.5{
+            distance += 1
+            distanceTimer = 0.0
+        }
+
+    }
+    
     
     func gameOver(currentTime: CFTimeInterval) {
         let explode = SKAction(named: "Explode")!
@@ -700,6 +713,18 @@ class GameScene: SKScene {
         self.plane.runAction(sequence)
         restart.state = .MSButtonNodeStateActive
         toMain.state = .MSButtonNodeStateActive
+        pause.state = .MSButtonNodeStateHidden
+        
+        
+        for enemy in enemyArray{
+            enemy.removeFromParent()
+        }
+        for ebullet in enemyBulletArray{
+            ebullet.removeFromParent()
+        }
+        for bullet in bulletArray{
+            bullet.removeFromParent()
+        }
         
         enemyBulletArray.removeAll()
         enemyArray.removeAll()
@@ -712,23 +737,15 @@ class GameScene: SKScene {
         }
         
         scoreLabel.text = ""
+        distanceLabel.text = ""
         finalScoreLabel.text = "Score: \(realScore) High: \(UserState.sharedInstance.highScore)"
+
         
-        var scoreCalculation = (Int)(currentTime - scoreTimer)
+        UserState.sharedInstance.coins += (Int)(realScore) + (Int)(distance / 10)
         
-        var minute = 0
-        while scoreCalculation >= 60 {
-            scoreCalculation -= 60
-            minute += 1
-        }
-        
-        UserState.sharedInstance.coins += (Int)(scoreCalculation) + minute * 50
-        
-        timeScoreLabel.text = "Time: \(minute):\(scoreCalculation)"
-        
+        distanceScoreLabel.text = "Distance: \(distance)m"
         
         state = .GameOver
-        shouldMove = false
     }
 
     
