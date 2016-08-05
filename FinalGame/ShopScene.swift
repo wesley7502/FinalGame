@@ -6,11 +6,19 @@ class ShopScene: SKScene {
     var buttonBack: MSButtonNode!
     var buyArmor: MSButtonNode!
     var buyDamage: MSButtonNode!
+    var buyBulletSpeed: MSButtonNode!
+    var buyReload: MSButtonNode!
+    
     var coinsLabel: SKLabelNode!
     var armorLabel: SKLabelNode!
     var damageLabel: SKLabelNode!
+    var bulletSpeedLabel: SKLabelNode!
+    var reloadLabel: SKLabelNode!
+    
     var armorBar: SKSpriteNode!
     var damageBar: SKSpriteNode!
+    var bulletSpeedBar: SKSpriteNode!
+    var reloadBar: SKSpriteNode!
       
     
     
@@ -21,17 +29,30 @@ class ShopScene: SKScene {
         buttonBack = self.childNodeWithName("buttonBack") as! MSButtonNode
         buyArmor = self.childNodeWithName("buyArmor") as! MSButtonNode
         buyDamage = self.childNodeWithName("buyDamage") as! MSButtonNode
+        buyBulletSpeed = self.childNodeWithName("buyBulletSpeed") as! MSButtonNode
+        buyReload = self.childNodeWithName("buyReload") as! MSButtonNode
+        
         coinsLabel = self.childNodeWithName("coinsLabel") as! SKLabelNode
         armorLabel = self.childNodeWithName("armorLabel") as! SKLabelNode
         damageLabel = self.childNodeWithName("damageLabel") as! SKLabelNode
+        bulletSpeedLabel = self.childNodeWithName("bulletSpeedLabel") as! SKLabelNode
+        reloadLabel = self.childNodeWithName("reloadLabel") as! SKLabelNode
+        
         armorBar = self.childNodeWithName("armorBar") as! SKSpriteNode
         damageBar = self.childNodeWithName("damageBar") as! SKSpriteNode
+        bulletSpeedBar = self.childNodeWithName("bulletSpeedBar") as! SKSpriteNode
+        reloadBar = self.childNodeWithName("reloadBar") as! SKSpriteNode
         
         coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
         armorLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.armor + 1),2)))"
         damageLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.damage + 1),2)))"
+        bulletSpeedLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.bulletSpeed + 1),2)))"
+        reloadLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.reload + 1),2)))"
+        
         armorBar.xScale = CGFloat(UserState.sharedInstance.armor) / 10.0
         damageBar.xScale = CGFloat(UserState.sharedInstance.damage) / 10.0
+        bulletSpeedBar.xScale = CGFloat(UserState.sharedInstance.bulletSpeed) / 10.0
+        reloadBar.xScale = CGFloat(UserState.sharedInstance.reload) / 10.0
         
         /* Setup restart button selection handler */
         buttonBack.selectedHandler = {
@@ -76,6 +97,33 @@ class ShopScene: SKScene {
                 self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
                 self.damageLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.damage + 1),2)))"
                 self.damageBar.xScale = CGFloat(UserState.sharedInstance.damage) / 10.0
+            }
+        }
+        
+        buyBulletSpeed.selectedHandler = {
+            let bulletSpeedCheck = UserState.sharedInstance.bulletSpeed
+            let coinsCheck = UserState.sharedInstance.coins
+            let canBuy = 100 * (Int)(pow(Double(bulletSpeedCheck + 1),2))
+            if (coinsCheck > canBuy && bulletSpeedCheck < 10){
+                UserState.sharedInstance.bulletSpeed += 1
+                UserState.sharedInstance.coins -= 100 * (Int)(pow(Double(bulletSpeedCheck + 1),2))
+                self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
+                self.bulletSpeedLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.bulletSpeed + 1),2)))"
+                self.bulletSpeedBar.xScale = CGFloat(UserState.sharedInstance.bulletSpeed) / 10.0
+            }
+        }
+        
+        
+        buyReload.selectedHandler = {
+            let reloadCheck = UserState.sharedInstance.reload
+            let coinsCheck = UserState.sharedInstance.coins
+            let canBuy = 100 * (Int)(pow(Double(reloadCheck + 1),2))
+            if (coinsCheck > canBuy && reloadCheck < 10){
+                UserState.sharedInstance.reload += 1
+                UserState.sharedInstance.coins -= 100 * (Int)(pow(Double(reloadCheck + 1),2))
+                self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
+                self.reloadLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.reload + 1),2)))"
+                self.reloadBar.xScale = CGFloat(UserState.sharedInstance.reload) / 10.0
             }
         }
         

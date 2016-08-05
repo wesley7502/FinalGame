@@ -7,6 +7,7 @@
 //
 
 import SpriteKit
+import AVFoundation
 
 /* Tracking enum for game state */
 enum GameState {
@@ -21,6 +22,8 @@ class GameScene: SKScene {
     var touchLoc: CGPoint!
     var planePos = 3
     var healthBar: SKSpriteNode!
+    var bossWarning: SKSpriteNode!
+    
     let fixedDelta: CFTimeInterval = 1.0/60.0
     var scrollLayer: SKNode!
     var scoreLabel: SKLabelNode!
@@ -53,6 +56,9 @@ class GameScene: SKScene {
     var state: GameState = .Survival
     var shouldMove = true
     
+    var bossMusic: AVAudioPlayer!
+    
+    
     
     var tutorialTimer: Double = 0.0    //times the tutorial
     
@@ -66,7 +72,8 @@ class GameScene: SKScene {
     
     var damage = UserState.sharedInstance.damage
     var armor = UserState.sharedInstance.armor
-    
+    var bulletSpeed = UserState.sharedInstance.bulletSpeed
+    var reload = UserState.sharedInstance.reload
     
     var totalDifficulty = 1      // limits how hard of enemies can come
     
@@ -74,7 +81,9 @@ class GameScene: SKScene {
     
     var tempEnemyValueCount = 10   // helps set the enemy value count
     
-    var bossCounter = 50.0//shows the count till the boss fight
+    var bossCounter = 50.0 //shows the count till the boss fight
+    
+    var lastBoss = 0 //makes sure that same bosses dont spawn in a row
     
     var spawnQuene = 0
     
@@ -87,6 +96,8 @@ class GameScene: SKScene {
     var checkTouchFinished = false
     
     var bossAlert = false
+    
+    var bossWarningActive = false
     
     var queneArray = [Int]()   // the array that quenes Enemies and empties out at a constant rate
     
@@ -106,6 +117,8 @@ class GameScene: SKScene {
     
     var difficultyTimer: Double = 0.0 //manages the difficulty increase through time
     
+    var bossDelayTimer: Double = 0.0 //creates the delay for the warning
+    
     var bossGeneratorTimer: Double = 0.0 //manages the implementation of bosses
     
     
@@ -113,6 +126,7 @@ class GameScene: SKScene {
     override func didMoveToView(view: SKView) {
         plane = childNodeWithName("plane") as! SKSpriteNode
         healthBar = childNodeWithName("healthBar") as! SKSpriteNode
+        bossWarning = childNodeWithName("bossAlert") as! SKSpriteNode
         scrollLayer = self.childNodeWithName("scrollLayer")
         
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
@@ -175,6 +189,8 @@ class GameScene: SKScene {
             
         }
         restart.state = .MSButtonNodeStateHidden
+        
+        bossWarning.hidden = true
         
 
         
@@ -270,9 +286,9 @@ class GameScene: SKScene {
             touchStarted = 0.0
             checkTouchFinished = false
         }
-        if bulletArray.count != 0{
+        if bulletArray.count != 0{      //move bullets
             for bullet in bulletArray{
-                bullet.position.y += 10
+                bullet.position.y += 7.0 + ((CGFloat)(bulletSpeed) * 0.5)
                 if bullet.position.y >= 600{
                     bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                     bullet.removeFromParent()
@@ -431,8 +447,10 @@ class GameScene: SKScene {
             if bossAlert{
                 let bossNowDecider = Int(arc4random_uniform(5) + 1)
                 if bossNowDecider == 1{
-                   let bossChooser = Int(arc4random_uniform(7) + 1)
-                    addBoss(bossChooser)
+                    bossWarningActive = true
+                    bossWarning.hidden = false
+                    let flash = SKAction(named: "FlashingRed")!
+                    self.bossWarning.runAction(flash)
                 }
                 else{
                     bossGeneratorTimer = 0.0
@@ -444,6 +462,35 @@ class GameScene: SKScene {
                 bossGeneratorTimer = 0.0
             }
         }
+         if bossWarningActive{
+            if bossDelayTimer == 0.0{
+                bossDelayTimer = currentTime
+            }
+            else if currentTime - bossDelayTimer >= 2.0{
+                bossWarning.hidden = true
+                bossWarningActive = false
+                bossDelayTimer = 0.0
+                var bossChooser: Int
+                repeat{
+                    bossChooser = Int(arc4random_uniform(7) + 1)
+                }
+                while bossChooser == lastBoss
+                lastBoss = bossChooser
+                addBoss(bossChooser)
+                let path = NSBundle.mainBundle().pathForResource("Flaming Days.mp3", ofType:nil)!
+                let url = NSURL(fileURLWithPath: path)
+                
+                do {
+                    let sound = try AVAudioPlayer(contentsOfURL: url)
+                    bossMusic = sound
+                    sound.play()
+                } catch {
+                    // couldn't load file :(
+                }
+
+            }
+        }
+        
         
         if currentTime - difficultyTimer > 30.0 && totalDifficulty < 6{  //scales difficulty
             totalDifficulty += 1
@@ -536,7 +583,7 @@ class GameScene: SKScene {
     
     func shoot(currentTime: CFTimeInterval){
             let bulletWatch = currentTime - bulletTimer
-            if bulletWatch >= 0.15 {
+            if bulletWatch >= (0.4 - (0.03 * (Double)(bulletSpeed))) {
                 addNewBullet()
                 bulletTimer = currentTime
             }
@@ -658,6 +705,8 @@ class GameScene: SKScene {
         shooterSpacingArray.removeAll()
         enemyValueCount = tempEnemyValueCount
         laneCounter = 0
+        
+
         addChild(boss)
         enemyArray.append(boss)
     }
@@ -668,6 +717,10 @@ class GameScene: SKScene {
         bossAlert = false
         bossCounter = 50.0
         bossGeneratorTimer = 0.0
+        if bossMusic != nil {
+            bossMusic.stop()
+            bossMusic = nil
+        }
     }
     
     

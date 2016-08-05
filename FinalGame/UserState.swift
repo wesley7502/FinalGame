@@ -40,6 +40,22 @@ class UserState {
         }
     }
     
+    var bulletSpeed: Int = NSUserDefaults.standardUserDefaults().integerForKey("myBulletSpeed") ?? 0 {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setInteger(damage, forKey:"myBulletSpeed")
+            // Saves to disk immediately, otherwise it will save when it has time
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
+    var reload: Int = NSUserDefaults.standardUserDefaults().integerForKey("myReload") ?? 0 {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setInteger(damage, forKey:"myReload")
+            // Saves to disk immediately, otherwise it will save when it has time
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
     var coins: Int = NSUserDefaults.standardUserDefaults().integerForKey("myCoins") ?? 0 {
         didSet {
             NSUserDefaults.standardUserDefaults().setInteger(coins, forKey:"myCoins")

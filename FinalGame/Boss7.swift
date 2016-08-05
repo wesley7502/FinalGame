@@ -76,7 +76,7 @@ class Boss7: Enemy{    //Super Massive Boss with bullet rain
         var controlSquareArray = [Int]()
         var squarePos = 0
         var squareCounter = 0
-        while squareCounter < 5{
+        while squareCounter < 4{
             repeat{
                 squarePos = Int(arc4random_uniform(6) + 1)
             }
