@@ -29,7 +29,9 @@ class Boss4: Enemy{  //The Runner
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
-        enemyShoot()
+        let enter = SKAction(named: "EpicEnterance")!
+        self.runAction(enter)
+        
         
     }
     

@@ -57,7 +57,8 @@
 		5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5597D6F71D36A2D500AE2C7C /* Enemy.swift */; };
 		55A1E50E1D3EC44C005CA54E /* Lazer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A1E50D1D3EC44C005CA54E /* Lazer.swift */; };
 		55D352101D529B940043775D /* Boss7.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55D3520F1D529B940043775D /* Boss7.swift */; };
-		55DA69521D5523230081A627 /* Flaming Days.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55DA69511D5523230081A627 /* Flaming Days.mp3 */; };
+		55DA69541D55273A0081A627 /* Hoxton Lives.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55DA69531D55273A0081A627 /* Hoxton Lives.mp3 */; };
+		55DA69561D552E310081A627 /* Flaming Days.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55DA69551D552E310081A627 /* Flaming Days.mp3 */; };
 		55E110751D5105F7002D0CA3 /* Boss6Bullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */; };
 		55E110771D5112CB002D0CA3 /* Missile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E110761D5112CB002D0CA3 /* Missile.swift */; };
 		55E110791D51310E002D0CA3 /* ShopScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 55E110781D51310E002D0CA3 /* ShopScene.sks */; };
@@ -145,7 +146,8 @@
 		5597D6F71D36A2D500AE2C7C /* Enemy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
 		55A1E50D1D3EC44C005CA54E /* Lazer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lazer.swift; sourceTree = "<group>"; };
 		55D3520F1D529B940043775D /* Boss7.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss7.swift; sourceTree = "<group>"; };
-		55DA69511D5523230081A627 /* Flaming Days.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Flaming Days.mp3"; sourceTree = "<group>"; };
+		55DA69531D55273A0081A627 /* Hoxton Lives.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Hoxton Lives.mp3"; sourceTree = "<group>"; };
+		55DA69551D552E310081A627 /* Flaming Days.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Flaming Days.mp3"; sourceTree = "<group>"; };
 		55E110741D5105F7002D0CA3 /* Boss6Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6Bullet.swift; sourceTree = "<group>"; };
 		55E110761D5112CB002D0CA3 /* Missile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Missile.swift; sourceTree = "<group>"; };
 		55E110781D51310E002D0CA3 /* ShopScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ShopScene.sks; sourceTree = "<group>"; };
@@ -261,7 +263,8 @@
 				55796E1E1D33FE1A0030E37C /* Main.storyboard */,
 				55796E231D33FE1A0030E37C /* LaunchScreen.storyboard */,
 				55796E481D3409090030E37C /* Assets.xcassets */,
-				55DA69511D5523230081A627 /* Flaming Days.mp3 */,
+				55DA69531D55273A0081A627 /* Hoxton Lives.mp3 */,
+				55DA69551D552E310081A627 /* Flaming Days.mp3 */,
 				55796E4A1D340A7D0030E37C /* Bullet.swift */,
 				55796E261D33FE1A0030E37C /* Info.plist */,
 			);
@@ -471,8 +474,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55DA69541D55273A0081A627 /* Hoxton Lives.mp3 in Resources */,
+				55DA69561D552E310081A627 /* Flaming Days.mp3 in Resources */,
 				558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */,
-				55DA69521D5523230081A627 /* Flaming Days.mp3 in Resources */,
 				55796E191D33FE1A0030E37C /* GameScene.sks in Resources */,
 				55E1107D1D513D41002D0CA3 /* MainScene.sks in Resources */,
 				55796E251D33FE1A0030E37C /* LaunchScreen.storyboard in Resources */,

@@ -32,6 +32,9 @@ class Boss5: Enemy{   //Missle Spammer
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
+        let enter = SKAction(named: "EpicEnterance")!
+        self.runAction(enter)
+        
     }
     
     /* You are required to implement this for your subclass to work */

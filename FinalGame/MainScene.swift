@@ -5,6 +5,7 @@ class MainScene: SKScene {
     /* UI Connections */
     var buttonPlay: MSButtonNode!
     var buttonShop: MSButtonNode!
+    var resetTutorial: MSButtonNode!
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
@@ -12,6 +13,7 @@ class MainScene: SKScene {
         /* Set UI connections */
         buttonPlay = self.childNodeWithName("playButton") as! MSButtonNode
         buttonShop = self.childNodeWithName("shopButton") as! MSButtonNode
+        resetTutorial = self.childNodeWithName("resetTutorial") as! MSButtonNode
         
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {
@@ -56,6 +58,10 @@ class MainScene: SKScene {
             
             /* Start game scene */
             skView.presentScene(scene)
+        }
+        
+        resetTutorial.selectedHandler = {
+            UserState.sharedInstance.didTutorial = false
         }
         
     }

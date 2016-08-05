@@ -24,12 +24,17 @@ class GameScene: SKScene {
     var healthBar: SKSpriteNode!
     var bossWarning: SKSpriteNode!
     
+    var healthBarIndicator: SKSpriteNode!
+    
     let fixedDelta: CFTimeInterval = 1.0/60.0
     var scrollLayer: SKNode!
+    
     var scoreLabel: SKLabelNode!
     var distanceLabel: SKLabelNode!
     var finalScoreLabel: SKLabelNode!
     var distanceScoreLabel: SKLabelNode!
+    var coinsEarnedLabel: SKLabelNode!
+    
     var restart: MSButtonNode!
     var toMain: MSButtonNode!
     var pause: MSButtonNode!
@@ -57,6 +62,9 @@ class GameScene: SKScene {
     var shouldMove = true
     
     var bossMusic: AVAudioPlayer!
+    var backgroundMusic: AVAudioPlayer!
+    var backgroundMusicIsPlaying = false
+    var bossMusicIsPlaying = false
     
     
     
@@ -69,6 +77,8 @@ class GameScene: SKScene {
             healthBar.xScale = health
         }
     }
+    
+    
     
     var damage = UserState.sharedInstance.damage
     var armor = UserState.sharedInstance.armor
@@ -127,19 +137,26 @@ class GameScene: SKScene {
         plane = childNodeWithName("plane") as! SKSpriteNode
         healthBar = childNodeWithName("healthBar") as! SKSpriteNode
         bossWarning = childNodeWithName("bossAlert") as! SKSpriteNode
+        healthBarIndicator = childNodeWithName("healthBarIndicator") as! SKSpriteNode
         scrollLayer = self.childNodeWithName("scrollLayer")
         
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
         distanceLabel = childNodeWithName("distanceLabel") as! SKLabelNode
         
         finalScoreLabel = childNodeWithName("finalScoreLabel") as! SKLabelNode
-        
         distanceScoreLabel = childNodeWithName("distanceScoreLabel") as! SKLabelNode
+        coinsEarnedLabel = childNodeWithName("coinsEarnedLabel") as! SKLabelNode
         
         
         restart = self.childNodeWithName("restart") as! MSButtonNode
         toMain = self.childNodeWithName("toMain") as! MSButtonNode
         pause = self.childNodeWithName("pauseButton") as! MSButtonNode
+        
+        
+        finalScoreLabel.text = ""
+        distanceScoreLabel.text = ""
+        coinsEarnedLabel.text = ""
+    
         
         restart.selectedHandler = {
             /* Grab reference to our SpriteKit view */
@@ -186,11 +203,45 @@ class GameScene: SKScene {
             else if self.state == .Paused{
                 self.state = .Survival
             }
+            if self.backgroundMusic != nil {
+                if self.backgroundMusicIsPlaying{
+                    self.backgroundMusic.pause()
+                    self.backgroundMusicIsPlaying = false
+                }
+                else{
+                    self.backgroundMusic.play()
+                    self.backgroundMusicIsPlaying = true
+                }
+                
+            }
+            if self.bossMusic != nil {
+                if self.bossMusicIsPlaying{
+                    self.bossMusic.pause()
+                    self.bossMusicIsPlaying =  false
+                }
+                else{
+                    self.bossMusic.play()
+                    self.bossMusicIsPlaying = true
+                }
+                
+            }
             
         }
         restart.state = .MSButtonNodeStateHidden
         
         bossWarning.hidden = true
+        
+        let path = NSBundle.mainBundle().pathForResource("Hoxton Lives.mp3", ofType:nil)!   //background music
+        let url = NSURL(fileURLWithPath: path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            backgroundMusic = sound
+            sound.play()
+            backgroundMusicIsPlaying = true
+        } catch {
+            // couldn't load file :(
+        }
         
 
         
@@ -354,8 +405,7 @@ class GameScene: SKScene {
         }
         
         if currentpos.y < 15 {    //if touches abyss
-            self.plane.position.y += 150
-            health -= 0.1 * CGFloat(1 - ((Double)(armor) * 0.05))
+            health = 0
             
         }
     if health <= 0{      //gameOver Function call
@@ -477,17 +527,6 @@ class GameScene: SKScene {
                 while bossChooser == lastBoss
                 lastBoss = bossChooser
                 addBoss(bossChooser)
-                let path = NSBundle.mainBundle().pathForResource("Flaming Days.mp3", ofType:nil)!
-                let url = NSURL(fileURLWithPath: path)
-                
-                do {
-                    let sound = try AVAudioPlayer(contentsOfURL: url)
-                    bossMusic = sound
-                    sound.play()
-                } catch {
-                    // couldn't load file :(
-                }
-
             }
         }
         
@@ -676,28 +715,28 @@ class GameScene: SKScene {
         switch bosnum{
             case 1:
                 boss = Boss1(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 500)
+                boss.position = CGPoint(x: 160, y: 700)
             case 2:
                 boss = Boss2(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 500)
+                boss.position = CGPoint(x: 160, y: 700)
             case 3:
                 boss = Boss3(lane: 0, scene: self)
-                boss.position = CGPoint(x: 80, y: 500)
+                boss.position = CGPoint(x: 80, y: 700)
             case 4:
                 boss = Boss4(lane: 0, scene: self)
-                boss.position = CGPoint(x: 80, y: 500)
+                boss.position = CGPoint(x: 80, y: 700)
             case 5:
                 boss = Boss5(lane: 0, scene: self)
-                boss.position = CGPoint(x: 80, y: 500)
+                boss.position = CGPoint(x: 80, y: 700)
             case 6:
                 boss = Boss6(lane: 0, scene: self)
-                boss.position = CGPoint(x: 80, y: 500)
+                boss.position = CGPoint(x: 80, y: 700)
             case 7:
                 boss = Boss7(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 500)
+                boss.position = CGPoint(x: 160, y: 700)
             default:
                 boss = Boss1(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 500)
+                boss.position = CGPoint(x: 160, y: 700)
         }
         enemyBulletArray.removeAll()
         enemyArray.removeAll()
@@ -705,6 +744,25 @@ class GameScene: SKScene {
         shooterSpacingArray.removeAll()
         enemyValueCount = tempEnemyValueCount
         laneCounter = 0
+        
+        if backgroundMusic != nil {
+            backgroundMusic.stop()
+            backgroundMusic = nil
+            backgroundMusicIsPlaying = false
+        }
+        
+        let path = NSBundle.mainBundle().pathForResource("Flaming Days.mp3", ofType:nil)!
+        let url = NSURL(fileURLWithPath: path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            bossMusic = sound
+            sound.play()
+            bossMusicIsPlaying = true
+        } catch {
+            // couldn't load file :(
+        }
+
         
 
         addChild(boss)
@@ -720,7 +778,21 @@ class GameScene: SKScene {
         if bossMusic != nil {
             bossMusic.stop()
             bossMusic = nil
+            bossMusicIsPlaying = false
         }
+        
+        
+        let path = NSBundle.mainBundle().pathForResource("Hoxton Lives.mp3", ofType:nil)!   //background music
+        let url = NSURL(fileURLWithPath: path)
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            backgroundMusic = sound
+            sound.play()
+            backgroundMusicIsPlaying = true
+        } catch {
+            // couldn't load file :(
+        }
+
     }
     
     
@@ -783,6 +855,17 @@ class GameScene: SKScene {
         enemyArray.removeAll()
         queneArray.removeAll()
         shooterSpacingArray.removeAll()
+        healthBarIndicator.removeFromParent()
+        
+        
+        if bossMusic != nil {
+            bossMusic.stop()
+            bossMusic = nil
+        }
+        if backgroundMusic != nil {
+            backgroundMusic.stop()
+            backgroundMusic = nil
+        }
         
         
         if UserState.sharedInstance.highScore < realScore{
@@ -793,8 +876,11 @@ class GameScene: SKScene {
         distanceLabel.text = ""
         finalScoreLabel.text = "Score: \(realScore) High: \(UserState.sharedInstance.highScore)"
 
+        let coinsEarned = (Int)(realScore) + (Int)(distance / 10)
+        UserState.sharedInstance.coins += coinsEarned
+        coinsEarnedLabel.text = "Coins Earned: \(coinsEarned)"
         
-        UserState.sharedInstance.coins += (Int)(realScore) + (Int)(distance / 10)
+        
         
         distanceScoreLabel.text = "Distance: \(distance)m"
         
