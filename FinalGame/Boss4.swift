@@ -8,6 +8,7 @@ class Boss4: Enemy{  //The Runner
     var targetLane: Int = 0
     var di = true
     var squareLane = 0
+    var maxHitPoints: Double = 0
     
     var turns = true  //go right if true go left if false
     
@@ -18,11 +19,15 @@ class Boss4: Enemy{  //The Runner
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss4")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 75), givenName: "boss4", points: 100, bd : 0.001, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 75), givenName: "boss4", points: 120, bd : 0.002, dif: 50, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 3
+        
+        hitPoints += Double(theScene!.bossLevel) * 80.0
+        
+        maxHitPoints = hitPoints
         
         squareLane = lane
         
@@ -58,11 +63,11 @@ class Boss4: Enemy{  //The Runner
         if self.position.y <= -25{
             let newPos = Int(arc4random_uniform(6) + 1)
             self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 500)
-            if hitPoints <= 65{
+            if hitPoints <= (maxHitPoints * 3)/2{
                 enemyShoot()
             }
         }
-        if currentTime - shooterTimer > 1 && hitPoints <= 35{
+        if currentTime - shooterTimer > 1 && hitPoints <= maxHitPoints / 3{
             enemyShoot2()
             shooterTimer = 0.0
         }

@@ -8,6 +8,7 @@ class Boss3: Enemy{   //Square Spawner
     var targetLane: Int = 0
     var di = true
     var squareLane = 0
+    var maxHitPoints: Double = 0.0
     
     var turns = true  //go right if true go left if false
     
@@ -23,6 +24,10 @@ class Boss3: Enemy{   //Square Spawner
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 3
+        
+        hitPoints += Double(theScene!.bossLevel) * 50.0
+        
+        maxHitPoints = hitPoints
         
         squareLane = lane
         
@@ -67,7 +72,7 @@ class Boss3: Enemy{   //Square Spawner
             }
         
                 enemyShoot()
-                if hitPoints < 35 && currentTime - shooterTimer > 1.5{
+                if hitPoints < maxHitPoints / 2 && currentTime - shooterTimer > 1.5{
                     enemyShoot2()
                     shooterTimer = 0.0
                 }

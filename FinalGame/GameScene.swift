@@ -34,6 +34,7 @@ class GameScene: SKScene {
     var finalScoreLabel: SKLabelNode!
     var distanceScoreLabel: SKLabelNode!
     var coinsEarnedLabel: SKLabelNode!
+    var pauseLabel: SKLabelNode!
     
     var restart: MSButtonNode!
     var toMain: MSButtonNode!
@@ -95,6 +96,8 @@ class GameScene: SKScene {
     
     var lastBoss = 0 //makes sure that same bosses dont spawn in a row
     
+    var bossLevel = 0 //Increase the hitpoints of the boss to make things more exciting
+    
     var spawnQuene = 0
     
     var laneCounter = 0 //tracks the amount of space taken both in the quene and in action
@@ -146,6 +149,7 @@ class GameScene: SKScene {
         finalScoreLabel = childNodeWithName("finalScoreLabel") as! SKLabelNode
         distanceScoreLabel = childNodeWithName("distanceScoreLabel") as! SKLabelNode
         coinsEarnedLabel = childNodeWithName("coinsEarnedLabel") as! SKLabelNode
+        pauseLabel = childNodeWithName("pauseLabel") as! SKLabelNode
         
         
         restart = self.childNodeWithName("restart") as! MSButtonNode
@@ -156,6 +160,7 @@ class GameScene: SKScene {
         finalScoreLabel.text = ""
         distanceScoreLabel.text = ""
         coinsEarnedLabel.text = ""
+        pauseLabel.text = ""
     
         
         restart.selectedHandler = {
@@ -199,9 +204,11 @@ class GameScene: SKScene {
         pause.selectedHandler = {
             if self.state == .Survival{
                 self.state = .Paused
+                self.pauseLabel.text = "Paused"
             }
             else if self.state == .Paused{
                 self.state = .Survival
+                self.pauseLabel.text = ""
             }
             if self.backgroundMusic != nil {
                 if self.backgroundMusicIsPlaying{
@@ -237,6 +244,7 @@ class GameScene: SKScene {
         do {
             let sound = try AVAudioPlayer(contentsOfURL: url)
             backgroundMusic = sound
+            sound.numberOfLoops = -1
             sound.play()
             backgroundMusicIsPlaying = true
         } catch {
@@ -273,6 +281,8 @@ class GameScene: SKScene {
                     let flipL = SKAction(named: "MoveLeft")!
                     self.plane.runAction(flipL)
                 }
+                
+
                 didTurn = true
             }
             else if calculateddistance < -50 && planePos < 6{
@@ -537,6 +547,9 @@ class GameScene: SKScene {
             tempEnemyValueCount += 2
             difficultyTimer = 0.0
         }
+        else if currentTime -  difficultyTimer > 45.0 && totalDifficulty == 6{
+            enemyValueCount += 4
+        }
         
         
         if enemyValueCount <= 4 || bossTrigger{        //if the total space of enemies is < 4, will make more enemies until hits exactly 0
@@ -649,6 +662,8 @@ class GameScene: SKScene {
         bullet.position = self.plane.position
         addChild(bullet)
         bulletArray.append(bullet)
+        let flapSFX = SKAction.playSoundFileNamed("shoot.mp3", waitForCompletion: false)
+        self.runAction(flapSFX)
     }
     
     func addNewEnemy(enemyType: Int){   //adds an enemy of a specific diffculty
@@ -757,6 +772,7 @@ class GameScene: SKScene {
         do {
             let sound = try AVAudioPlayer(contentsOfURL: url)
             bossMusic = sound
+            sound.numberOfLoops = -1
             sound.play()
             bossMusicIsPlaying = true
         } catch {
@@ -781,12 +797,14 @@ class GameScene: SKScene {
             bossMusicIsPlaying = false
         }
         
+        bossLevel += 1
         
         let path = NSBundle.mainBundle().pathForResource("Hoxton Lives.mp3", ofType:nil)!   //background music
         let url = NSURL(fileURLWithPath: path)
         do {
             let sound = try AVAudioPlayer(contentsOfURL: url)
             backgroundMusic = sound
+            sound.numberOfLoops = -1
             sound.play()
             backgroundMusicIsPlaying = true
         } catch {

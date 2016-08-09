@@ -65,7 +65,7 @@ class UserState {
     }
     
     
-    var didTutorial: Bool = NSUserDefaults.standardUserDefaults().boolForKey("myDamage") ?? false {
+    var didTutorial: Bool = NSUserDefaults.standardUserDefaults().boolForKey("didTutorial") ?? false {
         didSet {
             NSUserDefaults.standardUserDefaults().setBool(didTutorial, forKey:"didTutorial")
             // Saves to disk immediately, otherwise it will save when it has time

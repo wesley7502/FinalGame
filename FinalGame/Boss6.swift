@@ -5,6 +5,7 @@ class Boss6: Enemy{ //The OctoShot
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0
     var interval = 2.0
+    var maxHitPoints: Double = 0.0
     
     
     var theScene: GameScene?
@@ -14,11 +15,15 @@ class Boss6: Enemy{ //The OctoShot
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss6")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss6", points: 60, bd : 0.001, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss6", points: 120, bd : 0.001, dif: 50, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 3
+        
+        hitPoints += Double(theScene!.bossLevel) * 50.0
+        
+        maxHitPoints = hitPoints
         
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -41,13 +46,17 @@ class Boss6: Enemy{ //The OctoShot
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-       
-        self.position.y -= 1
+        if self.position.y > 113.6{
+            self.position.y -= 0.75
+        }
+        else{
+            self.position.y -= 5
+        }
         if self.position.y <= -25{
             let newPos = Int(arc4random_uniform(6) + 1)
             self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 500)
         }
-        if currentTime - enemyMovementTimer >= 4{
+        if currentTime - enemyMovementTimer >= 3{
             repeat{
                 let change = Int(arc4random_uniform(2))
                 switch change{
@@ -63,9 +72,9 @@ class Boss6: Enemy{ //The OctoShot
             enemyMovementTimer = 0.0
         }
         
-        if currentTime - shooterTimer > 2{
+        if currentTime - shooterTimer > interval{
             enemyShoot()
-            if hitPoints <= 30{
+            if hitPoints <= maxHitPoints/2{
                 interval = 1.5
                 enemyShoot2()
             }

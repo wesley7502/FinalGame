@@ -6,6 +6,7 @@ class Boss1: Enemy{    //Super Massive Boss with bullet rain
     var shooterTimer: Double = 0.0
     var shots: Int = 0
     var targetLane: Int = 0
+    var maxHitPoints: Double = 0
     
     var theScene: GameScene?
     
@@ -19,6 +20,10 @@ class Boss1: Enemy{    //Super Massive Boss with bullet rain
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 3
+        
+        hitPoints += Double(theScene!.bossLevel) * 80.0
+        
+        maxHitPoints = hitPoints
         
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -41,7 +46,7 @@ class Boss1: Enemy{    //Super Massive Boss with bullet rain
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-        if hitPoints > 70{
+        if hitPoints > maxHitPoints/2{
             if currentTime - enemyMovementTimer >= 0.15{
                 let bulletPos = Int(arc4random_uniform(6) + 1)
                 enemyShoot2(bulletPos)

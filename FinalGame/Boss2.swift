@@ -7,6 +7,7 @@ class Boss2: Enemy{   //Circle Boss with Lock On Target
     var shots: Int = 0
     var targetLane: Int = 0
     var di = true
+    var maxHitPoints: Double = 0.0
     
     var turns = true  //go right if true go left if false
     
@@ -17,7 +18,7 @@ class Boss2: Enemy{   //Circle Boss with Lock On Target
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss2")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 160), givenName: "boss2", points: 80, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 160), givenName: "boss2", points: 100, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -25,6 +26,10 @@ class Boss2: Enemy{   //Circle Boss with Lock On Target
         
         /* Set anchor point to bottom-left */
         anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        hitPoints += Double(theScene!.bossLevel) * 50.0
+        
+        maxHitPoints = hitPoints
         
         let enter = SKAction(named: "EpicEnterance")!
         self.runAction(enter)
@@ -57,7 +62,7 @@ class Boss2: Enemy{   //Circle Boss with Lock On Target
                 enemyShoot()
                 enemyMovementTimer = 0.0
         }
-        if hitPoints < 50{
+        if hitPoints < maxHitPoints/2 {
             if(currentTime - shooterTimer >= 2){
                 enemyShoot2()
                 shooterTimer = 0.0

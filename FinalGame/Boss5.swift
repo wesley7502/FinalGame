@@ -9,6 +9,7 @@ class Boss5: Enemy{   //Missle Spammer
     var goRight = true
     var squareLane = 0
     var interval = 0.5
+    var maxHitPoints: Double =  0.0
     
     
     
@@ -26,6 +27,10 @@ class Boss5: Enemy{   //Missle Spammer
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 3
+        
+        hitPoints += Double(theScene!.bossLevel) * 50.0
+        
+        maxHitPoints = hitPoints
         
         squareLane = lane
         
@@ -58,7 +63,7 @@ class Boss5: Enemy{   //Missle Spammer
                 self.position.x -= 53.33
             }
             
-            if hitPoints > 30{
+            if hitPoints > maxHitPoints/2{
                 enemyShoot()
             }
             else{

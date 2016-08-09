@@ -1,4 +1,5 @@
 import SpriteKit
+import AVFoundation
 
 class ShopScene: SKScene {
     
@@ -19,11 +20,14 @@ class ShopScene: SKScene {
     var damageBar: SKSpriteNode!
     var bulletSpeedBar: SKSpriteNode!
     var reloadBar: SKSpriteNode!
+    
+    var backgroundMusic: AVAudioPlayer!
       
     
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+    
         
         /* Set UI connections */
         buttonBack = self.childNodeWithName("buttonBack") as! MSButtonNode
@@ -49,13 +53,45 @@ class ShopScene: SKScene {
         bulletSpeedLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.bulletSpeed + 1),2)))"
         reloadLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.reload + 1),2)))"
         
+        if UserState.sharedInstance.armor == 10{
+            self.armorLabel.text = "FULL"
+        }
+        if UserState.sharedInstance.damage == 10{
+            self.damageLabel.text = "FULL"
+        }
+        if UserState.sharedInstance.bulletSpeed == 10{
+            self.bulletSpeedLabel.text = "FULL"
+        }
+        if UserState.sharedInstance.reload == 10{
+            self.reloadLabel.text = "FULL"
+        }
+        
         armorBar.xScale = CGFloat(UserState.sharedInstance.armor) / 10.0
         damageBar.xScale = CGFloat(UserState.sharedInstance.damage) / 10.0
         bulletSpeedBar.xScale = CGFloat(UserState.sharedInstance.bulletSpeed) / 10.0
         reloadBar.xScale = CGFloat(UserState.sharedInstance.reload) / 10.0
         
+        
+        let path = NSBundle.mainBundle().pathForResource("Sunset Shop.mp3", ofType:nil)!
+        let url = NSURL(fileURLWithPath: path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            backgroundMusic = sound
+            sound.play()
+        } catch {
+            // couldn't load file :(
+        }
+        
+        
         /* Setup restart button selection handler */
         buttonBack.selectedHandler = {
+            
+            
+            if self.backgroundMusic != nil {
+                self.backgroundMusic.stop()
+                self.backgroundMusic = nil
+            }
             
             /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!
@@ -83,6 +119,9 @@ class ShopScene: SKScene {
                 UserState.sharedInstance.coins -= 100 * (Int)(pow(Double(armorCheck + 1),2))
                 self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
                 self.armorLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.armor + 1),2)))"
+                if UserState.sharedInstance.armor == 10{
+                    self.armorLabel.text = "FULL"
+                }
                 self.armorBar.xScale = CGFloat(UserState.sharedInstance.armor) / 10.0
             }
         }
@@ -96,6 +135,9 @@ class ShopScene: SKScene {
                 UserState.sharedInstance.coins -= 100 * (Int)(pow(Double(damageCheck + 1),2))
                 self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
                 self.damageLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.damage + 1),2)))"
+                if UserState.sharedInstance.damage == 10{
+                    self.damageLabel.text = "FULL"
+                }
                 self.damageBar.xScale = CGFloat(UserState.sharedInstance.damage) / 10.0
             }
         }
@@ -109,6 +151,9 @@ class ShopScene: SKScene {
                 UserState.sharedInstance.coins -= 100 * (Int)(pow(Double(bulletSpeedCheck + 1),2))
                 self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
                 self.bulletSpeedLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.bulletSpeed + 1),2)))"
+                if UserState.sharedInstance.bulletSpeed == 10{
+                    self.bulletSpeedLabel.text = "FULL"
+                }
                 self.bulletSpeedBar.xScale = CGFloat(UserState.sharedInstance.bulletSpeed) / 10.0
             }
         }
@@ -123,6 +168,9 @@ class ShopScene: SKScene {
                 UserState.sharedInstance.coins -= 100 * (Int)(pow(Double(reloadCheck + 1),2))
                 self.coinsLabel.text = "Coins: \(UserState.sharedInstance.coins)"
                 self.reloadLabel.text = "\(100 * (Int)(pow(Double(UserState.sharedInstance.reload + 1),2)))"
+                if UserState.sharedInstance.reload == 10{
+                    self.reloadLabel.text = "FULL"
+                }
                 self.reloadBar.xScale = CGFloat(UserState.sharedInstance.reload) / 10.0
             }
         }
