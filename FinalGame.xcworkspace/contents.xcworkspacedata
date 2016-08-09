@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:FinalGame.xcodeproj">
+      location = "group:/Users/Tsai/Desktop/MakeSchool/FinalGame/Silver Flight.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

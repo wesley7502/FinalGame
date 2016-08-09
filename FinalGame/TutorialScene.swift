@@ -99,21 +99,34 @@ class TutorialScene: GameScene {
         }
         else if killtime{
             if killCount >= 5{
-                /* Grab reference to our SpriteKit view */
-                let skView = self.view as SKView!
                 
-                /* Load Game scene */
-                let scene = GameScene(fileNamed:"GameScene") as GameScene!
+                tutorialLabel.text = "Lets Begin the Flight!"
                 
-                /* Ensure correct aspect mode */
-                scene.scaleMode = .AspectFit
+                let wait = SKAction.waitForDuration(3.0)
                 
-                /* Show debug */
-                skView.showsDrawCount = true
-                skView.showsFPS = true
+                let transition =  SKAction.runBlock({
                 
-                /* Start game scene */
-                skView.presentScene(scene)
+                    /* Grab reference to our SpriteKit view */
+                    let skView = self.view as SKView!
+                
+                    /* Load Game scene */
+                    let scene = GameScene(fileNamed:"GameScene") as GameScene!
+                
+                    /* Ensure correct aspect mode */
+                    scene.scaleMode = .AspectFit
+                
+                    /* Show debug */
+                    skView.showsDrawCount = true
+                    skView.showsFPS = true
+                
+                    /* Start game scene */
+                    skView.presentScene(scene)
+                })
+                
+                let sequence = SKAction.sequence([wait,transition])
+                self.runAction(sequence)
+                
+                
                 
             }
             

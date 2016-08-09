@@ -12,18 +12,26 @@ class TitleScene: SKScene {
         
         /* Set UI connections */
         buttonPlay = self.childNodeWithName("playbutton") as! MSButtonNode
+    
         
-        let path = NSBundle.mainBundle().pathForResource("Brixton Decision.mp3", ofType:nil)!
-        let url = NSURL(fileURLWithPath: path)
+        let songDelay = SKAction.waitForDuration(3)
+        let playSong = SKAction.runBlock({
         
-        do {
-            let sound = try AVAudioPlayer(contentsOfURL: url)
-            titleMusic = sound
-            sound.numberOfLoops = -1
-            sound.play()
-        } catch {
-            // couldn't load file :(
-        }
+                let path = NSBundle.mainBundle().pathForResource("Brixton Decision.mp3", ofType:nil)!
+                let url = NSURL(fileURLWithPath: path)
+                
+                do {
+                    let sound = try AVAudioPlayer(contentsOfURL: url)
+                    self.titleMusic = sound
+                    sound.numberOfLoops = -1
+                    sound.play()
+                } catch {
+                // couldn't load file :(
+                }
+        })
+        
+        let transition = SKAction.sequence([songDelay,playSong])
+        self.runAction(transition)
         
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {

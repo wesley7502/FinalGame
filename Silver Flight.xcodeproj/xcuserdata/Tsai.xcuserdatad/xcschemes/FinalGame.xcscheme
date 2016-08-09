@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "55796E121D33FE1A0030E37C"
-               BuildableName = "FinalGame.app"
-               BlueprintName = "FinalGame"
-               ReferencedContainer = "container:FinalGame.xcodeproj">
+               BuildableName = "Silver Flight.app"
+               BlueprintName = "Silver Flight"
+               ReferencedContainer = "container:Silver Flight.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "55796E2A1D33FE1B0030E37C"
-               BuildableName = "FinalGameTests.xctest"
-               BlueprintName = "FinalGameTests"
-               ReferencedContainer = "container:FinalGame.xcodeproj">
+               BuildableName = "Silver Flight.xctest"
+               BlueprintName = "Silver FlightTests"
+               ReferencedContainer = "container:Silver Flight.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "55796E351D33FE1B0030E37C"
-               BuildableName = "FinalGameUITests.xctest"
-               BlueprintName = "FinalGameUITests"
-               ReferencedContainer = "container:FinalGame.xcodeproj">
+               BuildableName = "Silver Flight.xctest"
+               BlueprintName = "Silver FlightUITests"
+               ReferencedContainer = "container:Silver Flight.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -53,9 +53,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "55796E121D33FE1A0030E37C"
-            BuildableName = "FinalGame.app"
-            BlueprintName = "FinalGame"
-            ReferencedContainer = "container:FinalGame.xcodeproj">
+            BuildableName = "Silver Flight.app"
+            BlueprintName = "Silver Flight"
+            ReferencedContainer = "container:Silver Flight.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +76,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "55796E121D33FE1A0030E37C"
-            BuildableName = "FinalGame.app"
-            BlueprintName = "FinalGame"
-            ReferencedContainer = "container:FinalGame.xcodeproj">
+            BuildableName = "Silver Flight.app"
+            BlueprintName = "Silver Flight"
+            ReferencedContainer = "container:Silver Flight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +95,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "55796E121D33FE1A0030E37C"
-            BuildableName = "FinalGame.app"
-            BlueprintName = "FinalGame"
-            ReferencedContainer = "container:FinalGame.xcodeproj">
+            BuildableName = "Silver Flight.app"
+            BlueprintName = "Silver Flight"
+            ReferencedContainer = "container:Silver Flight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

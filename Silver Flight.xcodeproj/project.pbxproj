@@ -104,7 +104,7 @@
 		554BEF251D4A934800B55FD5 /* Boss3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss3.swift; sourceTree = "<group>"; };
 		554BEF271D4AC46A00B55FD5 /* Boss4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss4.swift; sourceTree = "<group>"; };
 		554BEF291D4ACA3D00B55FD5 /* Boss4Bullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss4Bullet.swift; sourceTree = "<group>"; };
-		55796E131D33FE1A0030E37C /* FinalGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FinalGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		55796E131D33FE1A0030E37C /* Silver Flight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Silver Flight.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55796E161D33FE1A0030E37C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55796E181D33FE1A0030E37C /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		55796E1A1D33FE1A0030E37C /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -112,10 +112,10 @@
 		55796E1F1D33FE1A0030E37C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		55796E241D33FE1A0030E37C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		55796E261D33FE1A0030E37C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55796E2B1D33FE1B0030E37C /* FinalGameTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalGameTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55796E2B1D33FE1B0030E37C /* Silver Flight.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Silver Flight.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55796E2F1D33FE1B0030E37C /* FinalGameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameTests.swift; sourceTree = "<group>"; };
 		55796E311D33FE1B0030E37C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		55796E361D33FE1B0030E37C /* FinalGameUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FinalGameUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		55796E361D33FE1B0030E37C /* Silver Flight.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Silver Flight.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55796E3A1D33FE1B0030E37C /* FinalGameUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinalGameUITests.swift; sourceTree = "<group>"; };
 		55796E3C1D33FE1B0030E37C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55796E481D3409090030E37C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -240,9 +240,9 @@
 		55796E141D33FE1A0030E37C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				55796E131D33FE1A0030E37C /* FinalGame.app */,
-				55796E2B1D33FE1B0030E37C /* FinalGameTests.xctest */,
-				55796E361D33FE1B0030E37C /* FinalGameUITests.xctest */,
+				55796E131D33FE1A0030E37C /* Silver Flight.app */,
+				55796E2B1D33FE1B0030E37C /* Silver Flight.xctest */,
+				55796E361D33FE1B0030E37C /* Silver Flight.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -376,9 +376,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		55796E121D33FE1A0030E37C /* FinalGame */ = {
+		55796E121D33FE1A0030E37C /* Silver Flight */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55796E3F1D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "FinalGame" */;
+			buildConfigurationList = 55796E3F1D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "Silver Flight" */;
 			buildPhases = (
 				C12EB9F5DE0AD8C47267DFE7 /* [CP] Check Pods Manifest.lock */,
 				55796E0F1D33FE1A0030E37C /* Sources */,
@@ -391,14 +391,14 @@
 			);
 			dependencies = (
 			);
-			name = FinalGame;
+			name = "Silver Flight";
 			productName = FinalGame;
-			productReference = 55796E131D33FE1A0030E37C /* FinalGame.app */;
+			productReference = 55796E131D33FE1A0030E37C /* Silver Flight.app */;
 			productType = "com.apple.product-type.application";
 		};
-		55796E2A1D33FE1B0030E37C /* FinalGameTests */ = {
+		55796E2A1D33FE1B0030E37C /* Silver FlightTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55796E421D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "FinalGameTests" */;
+			buildConfigurationList = 55796E421D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "Silver FlightTests" */;
 			buildPhases = (
 				41117F06EB78BFACBA312005 /* [CP] Check Pods Manifest.lock */,
 				55796E271D33FE1B0030E37C /* Sources */,
@@ -412,14 +412,14 @@
 			dependencies = (
 				55796E2D1D33FE1B0030E37C /* PBXTargetDependency */,
 			);
-			name = FinalGameTests;
+			name = "Silver FlightTests";
 			productName = FinalGameTests;
-			productReference = 55796E2B1D33FE1B0030E37C /* FinalGameTests.xctest */;
+			productReference = 55796E2B1D33FE1B0030E37C /* Silver Flight.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		55796E351D33FE1B0030E37C /* FinalGameUITests */ = {
+		55796E351D33FE1B0030E37C /* Silver FlightUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 55796E451D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "FinalGameUITests" */;
+			buildConfigurationList = 55796E451D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "Silver FlightUITests" */;
 			buildPhases = (
 				BF7DD8F564924D33F3B2B453 /* [CP] Check Pods Manifest.lock */,
 				55796E321D33FE1B0030E37C /* Sources */,
@@ -432,9 +432,9 @@
 			dependencies = (
 				55796E381D33FE1B0030E37C /* PBXTargetDependency */,
 			);
-			name = FinalGameUITests;
+			name = "Silver FlightUITests";
 			productName = FinalGameUITests;
-			productReference = 55796E361D33FE1B0030E37C /* FinalGameUITests.xctest */;
+			productReference = 55796E361D33FE1B0030E37C /* Silver Flight.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -461,7 +461,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 55796E0E1D33FE1A0030E37C /* Build configuration list for PBXProject "FinalGame" */;
+			buildConfigurationList = 55796E0E1D33FE1A0030E37C /* Build configuration list for PBXProject "Silver Flight" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -474,9 +474,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				55796E121D33FE1A0030E37C /* FinalGame */,
-				55796E2A1D33FE1B0030E37C /* FinalGameTests */,
-				55796E351D33FE1B0030E37C /* FinalGameUITests */,
+				55796E121D33FE1A0030E37C /* Silver Flight */,
+				55796E2A1D33FE1B0030E37C /* Silver FlightTests */,
+				55796E351D33FE1B0030E37C /* Silver FlightUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -718,12 +718,12 @@
 /* Begin PBXTargetDependency section */
 		55796E2D1D33FE1B0030E37C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 55796E121D33FE1A0030E37C /* FinalGame */;
+			target = 55796E121D33FE1A0030E37C /* Silver Flight */;
 			targetProxy = 55796E2C1D33FE1B0030E37C /* PBXContainerItemProxy */;
 		};
 		55796E381D33FE1B0030E37C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 55796E121D33FE1A0030E37C /* FinalGame */;
+			target = 55796E121D33FE1A0030E37C /* Silver Flight */;
 			targetProxy = 55796E371D33FE1B0030E37C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -843,7 +843,7 @@
 				INFOPLIST_FILE = FinalGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGame;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Silver Flight";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -858,7 +858,7 @@
 				INFOPLIST_FILE = FinalGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGame;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Silver Flight";
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -872,8 +872,8 @@
 				INFOPLIST_FILE = FinalGameTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGameTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinalGame.app/FinalGame";
+				PRODUCT_NAME = "Silver Flight";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Silver Flight.app/Silver Flight";
 			};
 			name = Debug;
 		};
@@ -885,8 +885,8 @@
 				INFOPLIST_FILE = FinalGameTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGameTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/FinalGame.app/FinalGame";
+				PRODUCT_NAME = "Silver Flight";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Silver Flight.app/Silver Flight";
 			};
 			name = Release;
 		};
@@ -898,7 +898,7 @@
 				INFOPLIST_FILE = FinalGameUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGameUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Silver Flight";
 				TEST_TARGET_NAME = FinalGame;
 			};
 			name = Debug;
@@ -910,7 +910,7 @@
 				INFOPLIST_FILE = FinalGameUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGameUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Silver Flight";
 				TEST_TARGET_NAME = FinalGame;
 			};
 			name = Release;
@@ -918,7 +918,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		55796E0E1D33FE1A0030E37C /* Build configuration list for PBXProject "FinalGame" */ = {
+		55796E0E1D33FE1A0030E37C /* Build configuration list for PBXProject "Silver Flight" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55796E3D1D33FE1B0030E37C /* Debug */,
@@ -927,7 +927,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55796E3F1D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "FinalGame" */ = {
+		55796E3F1D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "Silver Flight" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55796E401D33FE1B0030E37C /* Debug */,
@@ -936,7 +936,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55796E421D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "FinalGameTests" */ = {
+		55796E421D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "Silver FlightTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55796E431D33FE1B0030E37C /* Debug */,
@@ -945,7 +945,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		55796E451D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "FinalGameUITests" */ = {
+		55796E451D33FE1B0030E37C /* Build configuration list for PBXNativeTarget "Silver FlightUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				55796E461D33FE1B0030E37C /* Debug */,

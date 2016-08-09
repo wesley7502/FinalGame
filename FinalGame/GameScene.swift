@@ -909,7 +909,7 @@ class GameScene: SKScene {
         
         
         
-        distanceScoreLabel.text = "Distance: \(distance)m High:\(UserState.sharedInstance.highDistance)"
+        distanceScoreLabel.text = "Distance: \(distance)m High:\(UserState.sharedInstance.highDistance)m"
         
         state = .GameOver
     }
