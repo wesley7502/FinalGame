@@ -78,6 +78,7 @@ class ShopScene: SKScene {
         do {
             let sound = try AVAudioPlayer(contentsOfURL: url)
             backgroundMusic = sound
+            sound.numberOfLoops = -1
             sound.play()
         } catch {
             // couldn't load file :(

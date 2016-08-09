@@ -63,7 +63,7 @@ class Boss4: Enemy{  //The Runner
         if self.position.y <= -25{
             let newPos = Int(arc4random_uniform(6) + 1)
             self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 500)
-            if hitPoints <= (maxHitPoints * 3)/2{
+            if hitPoints <= (maxHitPoints * 2)/3{
                 enemyShoot()
             }
         }

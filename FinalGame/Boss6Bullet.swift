@@ -6,7 +6,7 @@ class Boss6Bullet: EnemyBullet {
     init(di: Int) {
         /* Initialize with 'bubble' asset */
         let texture = SKTexture(imageNamed: "TriangleBullet")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 25, height: 25), d: 0.01)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 25, height: 25), d: 0.02)
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 1

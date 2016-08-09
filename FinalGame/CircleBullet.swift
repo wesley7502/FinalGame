@@ -6,7 +6,7 @@ class CircleBullet: EnemyBullet {
     
     var planePos: CGPoint = CGPoint(x: 0,y: 0)
     
-    var xspeed: CGFloat = 5.0
+    var xspeed: CGFloat = 6.0
     
     var yspeed: CGFloat = 0
     
@@ -27,7 +27,7 @@ class CircleBullet: EnemyBullet {
         di = direction
         
         if direction == true{
-            xspeed = -5.0
+            xspeed = -6.0
         }
         
         /* Set Z-Position, ensure it's on top of grid */

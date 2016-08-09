@@ -92,13 +92,15 @@ class GameScene: SKScene {
     
     var tempEnemyValueCount = 10   // helps set the enemy value count
     
+    var newEnemySpawnWhen = 30.0 // finds the delay for new enemies
+    
     var bossCounter = 50.0 //shows the count till the boss fight
     
     var lastBoss = 0 //makes sure that same bosses dont spawn in a row
     
     var bossLevel = 0 //Increase the hitpoints of the boss to make things more exciting
     
-    var spawnQuene = 0
+    var spawnQuene = 0  //Checks the number of enemies in the spawn
     
     var laneCounter = 0 //tracks the amount of space taken both in the quene and in action
     
@@ -414,7 +416,7 @@ class GameScene: SKScene {
             }
         }
         
-        if currentpos.y < 15 {    //if touches abyss
+        if currentpos.y < 32 {    //if touches abyss
             health = 0
             
         }
@@ -541,13 +543,14 @@ class GameScene: SKScene {
         }
         
         
-        if currentTime - difficultyTimer > 30.0 && totalDifficulty < 6{  //scales difficulty
+        if currentTime - difficultyTimer > newEnemySpawnWhen && totalDifficulty < 6{  //scales difficulty
             totalDifficulty += 1
             enemyValueCount += 2
             tempEnemyValueCount += 2
             difficultyTimer = 0.0
+            newEnemySpawnWhen += 30.0
         }
-        else if currentTime -  difficultyTimer > 45.0 && totalDifficulty == 6{
+        else if currentTime -  difficultyTimer > 50.0 && totalDifficulty == 6{
             enemyValueCount += 4
         }
         
@@ -858,6 +861,8 @@ class GameScene: SKScene {
         toMain.state = .MSButtonNodeStateActive
         pause.state = .MSButtonNodeStateHidden
         
+        health = 0.0
+        
         
         for enemy in enemyArray{
             enemy.removeFromParent()
@@ -890,6 +895,10 @@ class GameScene: SKScene {
             UserState.sharedInstance.highScore = realScore
         }
         
+        if UserState.sharedInstance.highDistance < distance{
+            UserState.sharedInstance.highDistance = distance
+        }
+        
         scoreLabel.text = ""
         distanceLabel.text = ""
         finalScoreLabel.text = "Score: \(realScore) High: \(UserState.sharedInstance.highScore)"
@@ -900,7 +909,7 @@ class GameScene: SKScene {
         
         
         
-        distanceScoreLabel.text = "Distance: \(distance)m"
+        distanceScoreLabel.text = "Distance: \(distance)m High:\(UserState.sharedInstance.highDistance)"
         
         state = .GameOver
     }

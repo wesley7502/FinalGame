@@ -5,7 +5,7 @@ class TrapezoidBullet: EnemyBullet {
     init() {
         /* Initialize with 'bubble' asset */
         let texture = SKTexture(imageNamed: "TrapezoidBullet")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 25, height: 32), d: 0.01)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 25, height: 32), d: 0.03)
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 1

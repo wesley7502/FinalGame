@@ -1,4 +1,5 @@
 import SpriteKit
+import AVFoundation
 
 class MainScene: SKScene {
     
@@ -6,6 +7,7 @@ class MainScene: SKScene {
     var buttonPlay: MSButtonNode!
     var buttonShop: MSButtonNode!
     var resetTutorial: MSButtonNode!
+    var mainMusic: AVAudioPlayer!
     
     
     override func didMoveToView(view: SKView) {
@@ -16,11 +18,26 @@ class MainScene: SKScene {
         buttonShop = self.childNodeWithName("shopButton") as! MSButtonNode
         resetTutorial = self.childNodeWithName("resetTutorial") as! MSButtonNode
         
+        let path = NSBundle.mainBundle().pathForResource("Purple Expansion.mp3", ofType:nil)!
+        let url = NSURL(fileURLWithPath: path)
+        
+        do {
+            let sound = try AVAudioPlayer(contentsOfURL: url)
+            mainMusic = sound
+            sound.numberOfLoops = -1
+            sound.play()
+        } catch {
+            // couldn't load file :(
+        }
+        
 
         
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {
-            
+            if self.mainMusic != nil {
+                self.mainMusic.stop()
+                self.mainMusic = nil
+            }
             
             let moveUp = SKAction.moveToY(710, duration: 1)
             let moveDown = SKAction.moveToY(-142, duration: 1)
@@ -62,6 +79,11 @@ class MainScene: SKScene {
         }
         
         buttonShop.selectedHandler = {
+            
+            if self.mainMusic != nil {
+                self.mainMusic.stop()
+                self.mainMusic = nil
+            }
             
             /* Grab reference to our SpriteKit view */
             let skView = self.view as SKView!

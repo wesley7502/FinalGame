@@ -5,7 +5,7 @@ class Square: Enemy {
     init(lane: Int) {
         
         let texture = SKTexture(imageNamed: "Square")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "square", points: 7, bd : 0.04, dif: 1, sp: 1, ty : "runner", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "square", points: 8, bd : 0.04, dif: 1, sp: 1, ty : "runner", la: lane)
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 1

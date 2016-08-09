@@ -13,7 +13,7 @@ class Circle: Enemy{
         theScene = scene
     
         let texture = SKTexture(imageNamed: "CircleEnemy")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "circle", points: 5, bd: 0.06, dif: 3, sp: 1, ty : "runner", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "circle", points: 7, bd: 0.06, dif: 3, sp: 1, ty : "runner", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */

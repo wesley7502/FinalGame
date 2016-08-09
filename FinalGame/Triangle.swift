@@ -11,7 +11,7 @@ class Triangle: Enemy{
         theScene = scene
         
         let texture = SKTexture(imageNamed: "TriangleEnemy")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "triangle", points: 2, bd: 0.04, dif: 2, sp: 1, ty : "runner", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "triangle", points: 3, bd: 0.06, dif: 2, sp: 1, ty : "runner", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -32,7 +32,7 @@ class Triangle: Enemy{
         if(enemyMovementTimer == 0.0){
             enemyMovementTimer = currentTime
         }
-        if currentTime - enemyMovementTimer >= 1.75{
+        if currentTime - enemyMovementTimer >= 1.5{
             enemyShoot()
             enemyMovementTimer = 0.0
         }

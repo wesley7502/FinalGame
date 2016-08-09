@@ -24,6 +24,14 @@ class UserState {
         }
     }
     
+    var highDistance: Int = NSUserDefaults.standardUserDefaults().integerForKey("myHighDistance") ?? 0 {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setInteger(highScore, forKey:"myHighDistance")
+            // Saves to disk immediately, otherwise it will save when it has time
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
+    
     var armor: Int = NSUserDefaults.standardUserDefaults().integerForKey("myArmor") ?? 0 {
         didSet {
             NSUserDefaults.standardUserDefaults().setInteger(armor, forKey:"myArmor")
