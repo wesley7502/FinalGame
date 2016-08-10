@@ -8,6 +8,7 @@
 
 import SpriteKit
 import AVFoundation
+import GameKit
 
 /* Tracking enum for game state */
 enum GameState {
@@ -16,7 +17,7 @@ enum GameState {
 
 
 
-class GameScene: SKScene {
+class GameScene: SKScene,  GKGameCenterControllerDelegate{
     
     var plane: SKSpriteNode!
     var touchLoc: CGPoint!
@@ -43,6 +44,10 @@ class GameScene: SKScene {
     var restart: MSButtonNode!
     var toMain: MSButtonNode!
     var pause: MSButtonNode!
+    var gameCenterButton: MSButtonNode!
+    
+    var gameCenterAchievements = [String: GKAchievement]()
+
     
     
     
@@ -173,6 +178,8 @@ class GameScene: SKScene {
         restart = self.childNodeWithName("restart") as! MSButtonNode
         toMain = self.childNodeWithName("toMain") as! MSButtonNode
         pause = self.childNodeWithName("pauseButton") as! MSButtonNode
+        gameCenterButton = self.childNodeWithName("gameCenterButton") as! MSButtonNode
+        
         
         
         finalScoreLabel.text = ""
@@ -257,7 +264,13 @@ class GameScene: SKScene {
             }
             
         }
-        restart.state = .MSButtonNodeStateHidden
+        
+        gameCenterButton.selectedHandler = {
+            self.showGameCenter()
+        }
+        gameCenterButton.state = .MSButtonNodeStateHidden
+
+        
         
         bossWarning.hidden = true
         bossHealthBar.hidden = true
@@ -575,7 +588,7 @@ class GameScene: SKScene {
             }
             else{
                 bossAlert = true
-                bossCounter = 10.0
+                bossCounter = 7.5
                 bossGeneratorTimer = 0.0
             }
         }
@@ -932,6 +945,17 @@ class GameScene: SKScene {
 
     }
     
+    func showGameCenter() {
+        
+        let gameCenterViewController = GKGameCenterViewController()
+        gameCenterViewController.gameCenterDelegate = self
+        
+        let vc:UIViewController = self.view!.window!.rootViewController!
+        vc.presentViewController(gameCenterViewController, animated: true, completion:nil)
+        
+    }
+    
+    
     
     func gameOver(currentTime: CFTimeInterval) {
         let explode = SKAction(named: "Explode")!
@@ -940,7 +964,9 @@ class GameScene: SKScene {
         self.plane.runAction(sequence)
         restart.state = .MSButtonNodeStateActive
         toMain.state = .MSButtonNodeStateActive
+        gameCenterButton.state = .MSButtonNodeStateActive
         pause.state = .MSButtonNodeStateHidden
+  
         
         health = 0.0
         
@@ -982,6 +1008,7 @@ class GameScene: SKScene {
         if UserState.sharedInstance.highDistance < distance{
             UserState.sharedInstance.highDistance = distance
         }
+        self.saveHighScore("559468204968", score: UserState.sharedInstance.highScore)
         
         scoreLabel.text = ""
         distanceLabel.text = ""
@@ -996,6 +1023,43 @@ class GameScene: SKScene {
         distanceScoreLabel.text = "Distance: \(distance)m High:\(UserState.sharedInstance.highDistance)m"
         
         state = .GameOver
+    }
+
+    func gameCenterViewControllerDidFinish(gameCenterViewController: GKGameCenterViewController) {
+        
+        gameCenterViewController.dismissViewControllerAnimated(true, completion: nil)
+        self.gameCenterAchievements.removeAll()
+        
+    }
+    
+    func saveHighScore(identifier:String, score:Int) {
+        
+        /*
+         self.saveHighScore("Your leaderboardID", score: playerScore)
+         playerScore is your Int variable that holds the players score.
+         
+         */
+        
+        
+        if GKLocalPlayer.localPlayer().authenticated {
+            
+            let scoreReporter = GKScore(leaderboardIdentifier: identifier)
+            
+            scoreReporter.value = Int64(score)
+            
+            let scoreArray:[GKScore] = [scoreReporter]
+            
+            GKScore.reportScores(scoreArray, withCompletionHandler: {
+                error -> Void in
+                
+                if error != nil {
+                    print("Error")
+                } else {
+                    
+                    
+                }
+            })
+        }
     }
 
     

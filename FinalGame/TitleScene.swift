@@ -1,5 +1,6 @@
 import SpriteKit
 import AVFoundation
+import GameKit
 
 class TitleScene: SKScene {
     
@@ -33,6 +34,8 @@ class TitleScene: SKScene {
         let transition = SKAction.sequence([songDelay,playSong])
         self.runAction(transition)
         
+        authenticateLocalPlayer()
+        
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {
             
@@ -59,5 +62,24 @@ class TitleScene: SKScene {
         }
         
     }
+    
+    //This function checks if the player is logged in or not. If not, it will prompt the user to login into gamecenter.
+    func authenticateLocalPlayer() {
+        
+        let localPlayer = GKLocalPlayer.localPlayer()
+        localPlayer.authenticateHandler = { (viewController, error) -> Void in
+            
+            if viewController != nil {
+                
+                let vc:UIViewController = self.view!.window!.rootViewController!
+                vc.presentViewController(viewController!, animated: true, completion: nil)
+                
+            } else {
+                
+                
+            }
+        }
+    }
+    
     
 }

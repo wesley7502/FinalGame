@@ -14,6 +14,7 @@
 		5510B9191D5B97FE00B43D26 /* EnemyDeath.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5510B9181D5B97FD00B43D26 /* EnemyDeath.mp3 */; };
 		5510B91B1D5BA01A00B43D26 /* woosh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5510B91A1D5BA01A00B43D26 /* woosh.wav */; };
 		5510B91D1D5BBDCD00B43D26 /* purchase.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5510B91C1D5BBDCD00B43D26 /* purchase.wav */; };
+		5510B91F1D5BE1B900B43D26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5510B91E1D5BE1B900B43D26 /* ViewController.swift */; };
 		551C3EF31D4FC57700DBC76C /* MissileBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF21D4FC57700DBC76C /* MissileBullet.swift */; };
 		551C3EF51D4FF6AF00DBC76C /* Boss5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF41D4FF6AF00DBC76C /* Boss5.swift */; };
 		551C3EF71D5016E800DBC76C /* Boss6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF61D5016E800DBC76C /* Boss6.swift */; };
@@ -104,6 +105,7 @@
 		5510B9181D5B97FD00B43D26 /* EnemyDeath.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyDeath.mp3; sourceTree = "<group>"; };
 		5510B91A1D5BA01A00B43D26 /* woosh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = woosh.wav; sourceTree = "<group>"; };
 		5510B91C1D5BBDCD00B43D26 /* purchase.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = purchase.wav; sourceTree = "<group>"; };
+		5510B91E1D5BE1B900B43D26 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		551C3EF21D4FC57700DBC76C /* MissileBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissileBullet.swift; sourceTree = "<group>"; };
 		551C3EF41D4FF6AF00DBC76C /* Boss5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss5.swift; sourceTree = "<group>"; };
 		551C3EF61D5016E800DBC76C /* Boss6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6.swift; sourceTree = "<group>"; };
@@ -234,7 +236,7 @@
 		55796E0A1D33FE1A0030E37C = {
 			isa = PBXGroup;
 			children = (
-				55796E151D33FE1A0030E37C /* FinalGame */,
+				55796E151D33FE1A0030E37C /* Silver Flight */,
 				55796E2E1D33FE1B0030E37C /* FinalGameTests */,
 				55796E391D33FE1B0030E37C /* FinalGameUITests */,
 				55796E141D33FE1A0030E37C /* Products */,
@@ -253,7 +255,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		55796E151D33FE1A0030E37C /* FinalGame */ = {
+		55796E151D33FE1A0030E37C /* Silver Flight */ = {
 			isa = PBXGroup;
 			children = (
 				558821F51D47DE18009B1BEC /* Bosses */,
@@ -261,6 +263,7 @@
 				5504C3061D38029F00184648 /* Enemies */,
 				55796E4C1D340AA50030E37C /* Utils */,
 				55796E161D33FE1A0030E37C /* AppDelegate.swift */,
+				5510B91E1D5BE1B900B43D26 /* ViewController.swift */,
 				558821FC1D480ED0009B1BEC /* AnimationActions.sks */,
 				55E110801D515121002D0CA3 /* UserState.swift */,
 				55796E181D33FE1A0030E37C /* GameScene.sks */,
@@ -289,6 +292,7 @@
 				55796E4A1D340A7D0030E37C /* Bullet.swift */,
 				55796E261D33FE1A0030E37C /* Info.plist */,
 			);
+			name = "Silver Flight";
 			path = FinalGame;
 			sourceTree = "<group>";
 		};
@@ -458,7 +462,7 @@
 				TargetAttributes = {
 					55796E121D33FE1A0030E37C = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = GRG4T5L45N;
+						DevelopmentTeam = 3F2627K47P;
 					};
 					55796E2A1D33FE1B0030E37C = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -691,6 +695,7 @@
 				558A3BCF1D3FE41D00A2E8E4 /* TrapezoidBullet.swift in Sources */,
 				55796E5D1D340B970030E37C /* SKAction+SpecialEffects.swift in Sources */,
 				558A3BD11D3FE49F00A2E8E4 /* LazerBullet.swift in Sources */,
+				5510B91F1D5BE1B900B43D26 /* ViewController.swift in Sources */,
 				55796E501D340B050030E37C /* CGFloat+Extensions.swift in Sources */,
 				5597D6F81D36A2D500AE2C7C /* Enemy.swift in Sources */,
 				558821F21D46C2CF009B1BEC /* Circle.swift in Sources */,
@@ -854,7 +859,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FinalGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGame;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.SilverFlight;
 				PRODUCT_NAME = "Silver Flight";
 				PROVISIONING_PROFILE = "";
 			};
@@ -869,7 +874,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = FinalGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.FinalGame;
+				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.SilverFlight;
 				PRODUCT_NAME = "Silver Flight";
 				PROVISIONING_PROFILE = "";
 			};
