@@ -27,7 +27,7 @@ class ShopScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
-    
+        
         
         /* Set UI connections */
         buttonBack = self.childNodeWithName("buttonBack") as! MSButtonNode
@@ -124,6 +124,8 @@ class ShopScene: SKScene {
                     self.armorLabel.text = "FULL"
                 }
                 self.armorBar.xScale = CGFloat(UserState.sharedInstance.armor) / 10.0
+                let buySound = SKAction.playSoundFileNamed("purchase.wav", waitForCompletion: false)
+                self.runAction(buySound)
             }
         }
         
@@ -140,6 +142,8 @@ class ShopScene: SKScene {
                     self.damageLabel.text = "FULL"
                 }
                 self.damageBar.xScale = CGFloat(UserState.sharedInstance.damage) / 10.0
+                let buySound = SKAction.playSoundFileNamed("purchase.wav", waitForCompletion: false)
+                self.runAction(buySound)
             }
         }
         
@@ -156,6 +160,8 @@ class ShopScene: SKScene {
                     self.bulletSpeedLabel.text = "FULL"
                 }
                 self.bulletSpeedBar.xScale = CGFloat(UserState.sharedInstance.bulletSpeed) / 10.0
+                let buySound = SKAction.playSoundFileNamed("purchase.wav", waitForCompletion: false)
+                self.runAction(buySound)
             }
         }
         
@@ -173,6 +179,8 @@ class ShopScene: SKScene {
                     self.reloadLabel.text = "FULL"
                 }
                 self.reloadBar.xScale = CGFloat(UserState.sharedInstance.reload) / 10.0
+                let buySound = SKAction.playSoundFileNamed("purchase.wav", waitForCompletion: false)
+                self.runAction(buySound)
             }
         }
         

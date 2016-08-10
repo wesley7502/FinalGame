@@ -9,8 +9,7 @@ class Boss5: Enemy{   //Missle Spammer
     var goRight = true
     var squareLane = 0
     var interval = 0.5
-    var maxHitPoints: Double =  0.0
-    
+
     
     
     var turns = true  //go right if true go left if false

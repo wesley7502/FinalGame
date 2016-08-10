@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "TitleScreen.png",
+      "filename" : "bossHealthBar.png",
       "scale" : "1x"
     },
     {

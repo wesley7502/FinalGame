@@ -3,6 +3,7 @@ import SpriteKit
 class Enemy: SKSpriteNode {
     
     var hitPoints: Double = 0.0        //health of opponenet
+    var maxHitPoints: Double = 0.0 //max health of opponenet
     var bodyDamage: CGFloat = 0   //body damage of opponent
     var identity: String = ""  // name of opponent
     var difficulty: Int = 0   //manages the difficulty level of opponents

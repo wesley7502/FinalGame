@@ -8,7 +8,7 @@ class Boss4: Enemy{  //The Runner
     var targetLane: Int = 0
     var di = true
     var squareLane = 0
-    var maxHitPoints: Double = 0
+
     
     var turns = true  //go right if true go left if false
     
@@ -53,16 +53,16 @@ class Boss4: Enemy{  //The Runner
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-        if self.position.y >= 400{
-            self.position.y -= 0.75
+        if self.position.y >= 410{
+            self.position.y -= 0.85
         }
         else{
-            self.position.y -= 6
+            self.position.y -= 7
         }
         
         if self.position.y <= -25{
             let newPos = Int(arc4random_uniform(6) + 1)
-            self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 500)
+            self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 510)
             if hitPoints <= (maxHitPoints * 2)/3{
                 enemyShoot()
             }

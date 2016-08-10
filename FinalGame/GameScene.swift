@@ -25,6 +25,10 @@ class GameScene: SKScene {
     var bossWarning: SKSpriteNode!
     
     var healthBarIndicator: SKSpriteNode!
+    var healthT: SKSpriteNode!
+    
+    var bossHealthBar: SKSpriteNode!
+    var bossHealthBarIndicator: SKSpriteNode!
     
     let fixedDelta: CFTimeInterval = 1.0/60.0
     var scrollLayer: SKNode!
@@ -92,7 +96,7 @@ class GameScene: SKScene {
     
     var tempEnemyValueCount = 10   // helps set the enemy value count
     
-    var newEnemySpawnWhen = 30.0 // finds the delay for new enemies
+    var newEnemySpawnWhen = 20.0 // finds the delay for new enemies
     
     var bossCounter = 50.0 //shows the count till the boss fight
     
@@ -103,6 +107,12 @@ class GameScene: SKScene {
     var spawnQuene = 0  //Checks the number of enemies in the spawn
     
     var laneCounter = 0 //tracks the amount of space taken both in the quene and in action
+    
+    var pauseStartTime = -1.0 //makes so that the pause button doesn't interfere with main things
+    
+    var pauseEndTime = -1.0 //used to find the end of the pause
+    
+    var pauseTime = 0.0 //the time where the game is paused
     
     var shooting = false
     
@@ -143,7 +153,13 @@ class GameScene: SKScene {
         healthBar = childNodeWithName("healthBar") as! SKSpriteNode
         bossWarning = childNodeWithName("bossAlert") as! SKSpriteNode
         healthBarIndicator = childNodeWithName("healthBarIndicator") as! SKSpriteNode
+        healthT = childNodeWithName("healthT") as! SKSpriteNode
         scrollLayer = self.childNodeWithName("scrollLayer")
+        
+        
+        bossHealthBar = childNodeWithName("bossHealthBar") as! SKSpriteNode
+        bossHealthBarIndicator = childNodeWithName("bossHealthBarIndicator") as! SKSpriteNode
+        
         
         scoreLabel = childNodeWithName("scoreLabel") as! SKLabelNode
         distanceLabel = childNodeWithName("distanceLabel") as! SKLabelNode
@@ -207,12 +223,17 @@ class GameScene: SKScene {
             if self.state == .Survival{
                 self.state = .Paused
                 self.pauseLabel.text = "Paused"
+                self.pauseStartTime = 0.0
             }
             else if self.state == .Paused{
                 self.state = .Survival
                 self.pauseLabel.text = ""
+                self.pauseEndTime = 0.0
             }
-            if self.backgroundMusic != nil {
+            
+            
+            
+            if self.backgroundMusic != nil {   //music shift
                 if self.backgroundMusicIsPlaying{
                     self.backgroundMusic.pause()
                     self.backgroundMusicIsPlaying = false
@@ -239,6 +260,8 @@ class GameScene: SKScene {
         restart.state = .MSButtonNodeStateHidden
         
         bossWarning.hidden = true
+        bossHealthBar.hidden = true
+        bossHealthBarIndicator.hidden = true
         
         let path = NSBundle.mainBundle().pathForResource("Hoxton Lives.mp3", ofType:nil)!   //background music
         let url = NSURL(fileURLWithPath: path)
@@ -275,7 +298,7 @@ class GameScene: SKScene {
             let calculateddistance = Double(touchLoc.x - location.x)
             if calculateddistance > 50 && planePos > 1{
                 planePos -= 1
-                if self.plane.position.y < 268{
+                if self.plane.position.y < 290{
                     let flipL = SKAction(named: "SlideLeft")!
                     self.plane.runAction(flipL)
                 }
@@ -283,13 +306,15 @@ class GameScene: SKScene {
                     let flipL = SKAction(named: "MoveLeft")!
                     self.plane.runAction(flipL)
                 }
+                let woosh = SKAction.playSoundFileNamed("woosh.wav", waitForCompletion: false)
+                self.runAction(woosh)
                 
 
                 didTurn = true
             }
             else if calculateddistance < -50 && planePos < 6{
                 planePos += 1
-                if self.plane.position.y < 268{
+                if self.plane.position.y < 290{
                     let flipR = SKAction(named: "SlideRight")!
                     self.plane.runAction(flipR)
                 }
@@ -297,16 +322,22 @@ class GameScene: SKScene {
                     let flipR = SKAction(named: "MoveRight")!
                     self.plane.runAction(flipR)
                 }
+                let woosh = SKAction.playSoundFileNamed("woosh.wav", waitForCompletion: false)
+                self.runAction(woosh)
                 didTurn = true
             }
             else if touchLoc.y - location.y > 60 && self.plane.position.y > 32{  //move down
                 let flipD = SKAction(named: "MoveDown")!
                 self.plane.runAction(flipD)
+                let woosh = SKAction.playSoundFileNamed("woosh.wav", waitForCompletion: false)
+                self.runAction(woosh)
                 didTurn = true
             }
-            else if location.y - touchLoc.y > 60 && self.plane.position.y < 268{   //move up
+            else if location.y - touchLoc.y > 60 && self.plane.position.y < 290{   //move up
                 let flipU = SKAction(named: "MoveUp")!
                 self.plane.runAction(flipU)
+                let woosh = SKAction.playSoundFileNamed("woosh.wav", waitForCompletion: false)
+                self.runAction(woosh)
                 didTurn = true
             }
             
@@ -317,7 +348,11 @@ class GameScene: SKScene {
     }
    
     override func update(currentTime: CFTimeInterval) {
+        
+        pauseFunction(currentTime)
+        
         if state == .Survival{
+            
             planeFunctions(currentTime)
             enemyFunctions(currentTime)
             if bossTrigger == false{
@@ -328,6 +363,9 @@ class GameScene: SKScene {
             manageDistance(currentTime)
             print(currentTime - bossGeneratorTimer)
         }
+        
+        
+        
     }
     
     
@@ -405,6 +443,8 @@ class GameScene: SKScene {
                         let explode = SKAction(named: "Explode")!
                         let remove = SKAction.removeFromParent()
                         let sequence = SKAction.sequence([explode,remove])
+                        let flapSFX = SKAction.playSoundFileNamed("EnemyDeath.mp3", waitForCompletion: false)
+                        self.runAction(flapSFX)
                         enemy.runAction(sequence)
                         
                     }
@@ -443,6 +483,10 @@ class GameScene: SKScene {
                         bullet.removeFromParent()
                         bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                         enemy.hitPoints -= 1 + (Double(damage) * 0.25)
+                            if enemy.type == "boss"{
+                                bossHealthBar.xScale = (CGFloat)(enemy.hitPoints / enemy.maxHitPoints)
+                            }
+                            
                         }
                     }
                 }
@@ -472,6 +516,8 @@ class GameScene: SKScene {
                 }
                 
                 let explode = SKAction(named: "Explode")!
+                let flapSFX = SKAction.playSoundFileNamed("EnemyDeath.mp3", waitForCompletion: false)
+                self.runAction(flapSFX)
                 let remove = SKAction.removeFromParent()
                 let sequence = SKAction.sequence([explode,remove])
                 enemy.runAction(sequence)
@@ -504,11 +550,20 @@ class GameScene: SKScene {
         if bossGeneratorTimer == 0.0 {
             bossGeneratorTimer = currentTime
         }
+        if pauseTime > 0.0{
+            difficultyTimer += pauseTime
+            bossGeneratorTimer += pauseTime
+            queneTimer += pauseTime
+            pauseStartTime = -1.0
+            pauseEndTime = -1.0
+            pauseTime = 0.0
+        }
+        
         
         if currentTime - bossGeneratorTimer >= bossCounter{    //decides if to summon boss
             if bossAlert{
                 let bossNowDecider = Int(arc4random_uniform(5) + 1)
-                if bossNowDecider == 1{
+                if bossNowDecider == 1 {
                     bossWarningActive = true
                     bossWarning.hidden = false
                     let flash = SKAction(named: "FlashingRed")!
@@ -548,7 +603,7 @@ class GameScene: SKScene {
             enemyValueCount += 2
             tempEnemyValueCount += 2
             difficultyTimer = 0.0
-            newEnemySpawnWhen += 30.0
+            newEnemySpawnWhen += 20.0
         }
         else if currentTime -  difficultyTimer > 50.0 && totalDifficulty == 6{
             enemyValueCount += 4
@@ -635,6 +690,20 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    
+    func pauseFunction(currentTime: CFTimeInterval){
+        if pauseStartTime == 0.0{
+            pauseStartTime = currentTime
+        }
+        if pauseEndTime == 0.0{
+            pauseEndTime = currentTime
+            pauseTime = pauseEndTime - pauseStartTime
+        }
+        
+    }
+    
+    
     
     func shoot(currentTime: CFTimeInterval){
             let bulletWatch = currentTime - bulletTimer
@@ -733,13 +802,13 @@ class GameScene: SKScene {
         switch bosnum{
             case 1:
                 boss = Boss1(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 700)
+                boss.position = CGPoint(x: 160, y: 670)
             case 2:
                 boss = Boss2(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 700)
+                boss.position = CGPoint(x: 160, y: 650)
             case 3:
                 boss = Boss3(lane: 0, scene: self)
-                boss.position = CGPoint(x: 80, y: 700)
+                boss.position = CGPoint(x: 80, y: 670)
             case 4:
                 boss = Boss4(lane: 0, scene: self)
                 boss.position = CGPoint(x: 80, y: 700)
@@ -751,10 +820,10 @@ class GameScene: SKScene {
                 boss.position = CGPoint(x: 80, y: 700)
             case 7:
                 boss = Boss7(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 700)
+                boss.position = CGPoint(x: 160, y: 670)
             default:
                 boss = Boss1(lane: 0, scene: self)
-                boss.position = CGPoint(x: 160, y: 700)
+                boss.position = CGPoint(x: 160, y: 670)
         }
         enemyBulletArray.removeAll()
         enemyArray.removeAll()
@@ -763,7 +832,16 @@ class GameScene: SKScene {
         enemyValueCount = tempEnemyValueCount
         laneCounter = 0
         
-        if backgroundMusic != nil {
+        
+        bossHealthBar.hidden = false
+        bossHealthBarIndicator.hidden = false
+            
+        
+        bossHealthBarIndicator.hidden = false
+        
+        bossHealthBar.xScale = (CGFloat)(boss.hitPoints / boss.maxHitPoints)
+        
+        if backgroundMusic != nil {    //shifts music
             backgroundMusic.stop()
             backgroundMusic = nil
             backgroundMusicIsPlaying = false
@@ -801,6 +879,9 @@ class GameScene: SKScene {
         }
         
         bossLevel += 1
+        
+        bossHealthBar.hidden = true
+        bossHealthBarIndicator.hidden = true
         
         let path = NSBundle.mainBundle().pathForResource("Hoxton Lives.mp3", ofType:nil)!   //background music
         let url = NSURL(fileURLWithPath: path)
@@ -879,6 +960,9 @@ class GameScene: SKScene {
         queneArray.removeAll()
         shooterSpacingArray.removeAll()
         healthBarIndicator.removeFromParent()
+        bossHealthBar.removeFromParent()
+        bossHealthBarIndicator.removeFromParent()
+        healthT.removeFromParent()
         
         
         if bossMusic != nil {

@@ -11,6 +11,9 @@
 		5504C3021D36EA6900184648 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3011D36EA6900184648 /* Triangle.swift */; };
 		5504C3041D36FA4100184648 /* EnemyBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3031D36FA4100184648 /* EnemyBullet.swift */; };
 		5504C3081D39888700184648 /* Trapezoid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5504C3071D39888700184648 /* Trapezoid.swift */; };
+		5510B9191D5B97FE00B43D26 /* EnemyDeath.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5510B9181D5B97FD00B43D26 /* EnemyDeath.mp3 */; };
+		5510B91B1D5BA01A00B43D26 /* woosh.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5510B91A1D5BA01A00B43D26 /* woosh.wav */; };
+		5510B91D1D5BBDCD00B43D26 /* purchase.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5510B91C1D5BBDCD00B43D26 /* purchase.wav */; };
 		551C3EF31D4FC57700DBC76C /* MissileBullet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF21D4FC57700DBC76C /* MissileBullet.swift */; };
 		551C3EF51D4FF6AF00DBC76C /* Boss5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF41D4FF6AF00DBC76C /* Boss5.swift */; };
 		551C3EF71D5016E800DBC76C /* Boss6.swift in Sources */ = {isa = PBXBuildFile; fileRef = 551C3EF61D5016E800DBC76C /* Boss6.swift */; };
@@ -98,6 +101,9 @@
 		5504C3011D36EA6900184648 /* Triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Triangle.swift; sourceTree = "<group>"; };
 		5504C3031D36FA4100184648 /* EnemyBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyBullet.swift; sourceTree = "<group>"; };
 		5504C3071D39888700184648 /* Trapezoid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trapezoid.swift; sourceTree = "<group>"; };
+		5510B9181D5B97FD00B43D26 /* EnemyDeath.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = EnemyDeath.mp3; sourceTree = "<group>"; };
+		5510B91A1D5BA01A00B43D26 /* woosh.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = woosh.wav; sourceTree = "<group>"; };
+		5510B91C1D5BBDCD00B43D26 /* purchase.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = purchase.wav; sourceTree = "<group>"; };
 		551C3EF21D4FC57700DBC76C /* MissileBullet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MissileBullet.swift; sourceTree = "<group>"; };
 		551C3EF41D4FF6AF00DBC76C /* Boss5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss5.swift; sourceTree = "<group>"; };
 		551C3EF61D5016E800DBC76C /* Boss6.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Boss6.swift; sourceTree = "<group>"; };
@@ -277,6 +283,9 @@
 				55A036911D596B4C00954AD7 /* Brixton Decision.mp3 */,
 				55A0368F1D59672900954AD7 /* Purple Expansion.mp3 */,
 				55A036821D58F6B100954AD7 /* shoot.mp3 */,
+				5510B91A1D5BA01A00B43D26 /* woosh.wav */,
+				5510B91C1D5BBDCD00B43D26 /* purchase.wav */,
+				5510B9181D5B97FD00B43D26 /* EnemyDeath.mp3 */,
 				55796E4A1D340A7D0030E37C /* Bullet.swift */,
 				55796E261D33FE1A0030E37C /* Info.plist */,
 			);
@@ -486,15 +495,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5510B9191D5B97FE00B43D26 /* EnemyDeath.mp3 in Resources */,
 				55DA69541D55273A0081A627 /* Hoxton Lives.mp3 in Resources */,
 				55DA69561D552E310081A627 /* Flaming Days.mp3 in Resources */,
 				558821FD1D480ED0009B1BEC /* AnimationActions.sks in Resources */,
 				55796E191D33FE1A0030E37C /* GameScene.sks in Resources */,
+				5510B91B1D5BA01A00B43D26 /* woosh.wav in Resources */,
 				55A036831D58F6B100954AD7 /* shoot.mp3 in Resources */,
 				55E1107D1D513D41002D0CA3 /* MainScene.sks in Resources */,
 				55A036921D596B4C00954AD7 /* Brixton Decision.mp3 in Resources */,
 				55796E251D33FE1A0030E37C /* LaunchScreen.storyboard in Resources */,
 				55796E491D3409090030E37C /* Assets.xcassets in Resources */,
+				5510B91D1D5BBDCD00B43D26 /* purchase.wav in Resources */,
 				55A036901D59672900954AD7 /* Purple Expansion.mp3 in Resources */,
 				55E110791D51310E002D0CA3 /* ShopScene.sks in Resources */,
 				55A0368C1D59529600954AD7 /* Sunset Shop.mp3 in Resources */,

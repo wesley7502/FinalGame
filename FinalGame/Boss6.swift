@@ -5,8 +5,7 @@ class Boss6: Enemy{ //The OctoShot
     var enemyMovementTimer: Double = 0.0
     var shooterTimer: Double = 0.0
     var interval = 2.0
-    var maxHitPoints: Double = 0.0
-    
+
     
     var theScene: GameScene?
     
@@ -46,7 +45,7 @@ class Boss6: Enemy{ //The OctoShot
         if(shooterTimer == 0.0){
             shooterTimer = currentTime
         }
-        if self.position.y > 113.6{
+        if self.position.y > 150{
             self.position.y -= 0.75
         }
         else{
@@ -54,7 +53,7 @@ class Boss6: Enemy{ //The OctoShot
         }
         if self.position.y <= -25{
             let newPos = Int(arc4random_uniform(6) + 1)
-            self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 500)
+            self.position = CGPoint(x: (Double)(newPos) * 53.33 - 26.665, y: 530)
         }
         if currentTime - enemyMovementTimer >= 3{
             repeat{

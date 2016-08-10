@@ -19,7 +19,7 @@ class TutorialScene: GameScene {
     
     var unlock = false
 
-    var breakTime: Double = 1.0
+    var breakTime: Double = 2.5
     
     var tutorialState = 0
 
@@ -152,6 +152,7 @@ class TutorialScene: GameScene {
             
             if tutorialState  == 0{
                 tutorialLabel.text = "Slide Left and Right"
+                breakTime = 1.0
             }
             else if tutorialState  == 1{
                 tutorialLabel.text = "Slide Up and Down"
@@ -163,7 +164,7 @@ class TutorialScene: GameScene {
                 tutorialLabel.text = "Hold to Barrage"
             }
             else if tutorialState == 4{
-                tutorialLabel.text = "Try Everything"
+                tutorialLabel.text = "Keep Moving!"
                 unlock = true
                 breakTime += 4
             }

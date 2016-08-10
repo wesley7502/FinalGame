@@ -7,6 +7,7 @@ class MainScene: SKScene {
     var buttonPlay: MSButtonNode!
     var buttonShop: MSButtonNode!
     var resetTutorial: MSButtonNode!
+    var background: SKSpriteNode!
     var mainMusic: AVAudioPlayer!
     
     
@@ -17,6 +18,8 @@ class MainScene: SKScene {
         buttonPlay = self.childNodeWithName("playButton") as! MSButtonNode
         buttonShop = self.childNodeWithName("shopButton") as! MSButtonNode
         resetTutorial = self.childNodeWithName("resetTutorial") as! MSButtonNode
+        background = self.childNodeWithName("background") as! SKSpriteNode
+        
         
         let path = NSBundle.mainBundle().pathForResource("Purple Expansion.mp3", ofType:nil)!
         let url = NSURL(fileURLWithPath: path)
@@ -34,10 +37,6 @@ class MainScene: SKScene {
         
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {
-            if self.mainMusic != nil {
-                self.mainMusic.stop()
-                self.mainMusic = nil
-            }
             
             let moveUp = SKAction.moveToY(710, duration: 1)
             let moveDown = SKAction.moveToY(-142, duration: 1)
@@ -51,6 +50,11 @@ class MainScene: SKScene {
             let wait = SKAction.waitForDuration(1)
             
             let loadGame = SKAction.runBlock({
+                if self.mainMusic != nil {
+                    self.mainMusic.stop()
+                    self.mainMusic = nil
+                }
+                
                 /* Grab reference to our SpriteKit view */
                 let skView = self.view as SKView!
                 
@@ -80,6 +84,21 @@ class MainScene: SKScene {
         
         buttonShop.selectedHandler = {
             
+            self.background.texture = SKTexture(imageNamed: "ShopBackground")
+            
+            let moveUp = SKAction.moveToY(710, duration: 1)
+            let moveDown = SKAction.moveToY(-142, duration: 1)
+            
+            self.buttonPlay.runAction(moveUp)
+            self.buttonShop.runAction(moveDown)
+            self.resetTutorial.runAction(moveDown)
+            
+            
+            
+            let wait = SKAction.waitForDuration(1)
+            
+            let loadGame = SKAction.runBlock({
+                
             if self.mainMusic != nil {
                 self.mainMusic.stop()
                 self.mainMusic = nil
@@ -100,6 +119,11 @@ class MainScene: SKScene {
             
             /* Start game scene */
             skView.presentScene(scene)
+            })
+            let transition = SKAction.sequence([wait,loadGame])
+            self.runAction(transition)
+
+            
         }
         
         resetTutorial.selectedHandler = {

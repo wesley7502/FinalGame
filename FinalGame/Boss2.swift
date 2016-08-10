@@ -7,7 +7,7 @@ class Boss2: Enemy{   //Circle Boss with Lock On Target
     var shots: Int = 0
     var targetLane: Int = 0
     var di = true
-    var maxHitPoints: Double = 0.0
+
     
     var turns = true  //go right if true go left if false
     

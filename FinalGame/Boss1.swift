@@ -6,7 +6,6 @@ class Boss1: Enemy{    //Super Massive Boss with bullet rain
     var shooterTimer: Double = 0.0
     var shots: Int = 0
     var targetLane: Int = 0
-    var maxHitPoints: Double = 0
     
     var theScene: GameScene?
     
