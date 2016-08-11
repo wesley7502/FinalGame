@@ -21,7 +21,7 @@ class Boss5: Enemy{   //Missle Spammer
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss5")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss5", points: 60, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss5", points: 60, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */

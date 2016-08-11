@@ -24,7 +24,7 @@ class Boss7: Enemy{    //Super Massive Boss with bullet rain
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss7")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 320, height: 100), givenName: "boss7", points: 120, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 320, height: 100), givenName: "boss7", points: 120, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -93,7 +93,7 @@ class Boss7: Enemy{    //Super Massive Boss with bullet rain
             squareCounter += 1
             let enemyBullet = Square(lane: 0)
             
-            enemyBullet.position = CGPoint(x: (Double)(squarePos) * 53.33 - 26.665, y: 500)
+            enemyBullet.position = CGPoint(x: (Double)(squarePos) * 53.33 - 26.665, y: 470)
             
             theScene?.addChild(enemyBullet)
             theScene?.enemyArray.append(enemyBullet)

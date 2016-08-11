@@ -38,8 +38,8 @@ class MainScene: SKScene {
         /* Setup restart button selection handler */
         buttonPlay.selectedHandler = {
             
-            let moveUp = SKAction.moveToY(710, duration: 1)
-            let moveDown = SKAction.moveToY(-142, duration: 1)
+            let moveUp = SKAction.moveToY(710, duration: 0.75)
+            let moveDown = SKAction.moveToY(-142, duration: 0.75)
             
             self.buttonPlay.runAction(moveUp)
             self.buttonShop.runAction(moveDown)
@@ -47,7 +47,7 @@ class MainScene: SKScene {
                 
         
             
-            let wait = SKAction.waitForDuration(1)
+            let wait = SKAction.waitForDuration(0.75)
             
             let loadGame = SKAction.runBlock({
                 if self.mainMusic != nil {
@@ -86,8 +86,8 @@ class MainScene: SKScene {
             
             self.background.texture = SKTexture(imageNamed: "ShopBackground")
             
-            let moveUp = SKAction.moveToY(710, duration: 1)
-            let moveDown = SKAction.moveToY(-142, duration: 1)
+            let moveUp = SKAction.moveToY(710, duration: 0.75)
+            let moveDown = SKAction.moveToY(-142, duration: 0.75)
             
             self.buttonPlay.runAction(moveUp)
             self.buttonShop.runAction(moveDown)
@@ -95,7 +95,7 @@ class MainScene: SKScene {
             
             
             
-            let wait = SKAction.waitForDuration(1)
+            let wait = SKAction.waitForDuration(0.75)
             
             let loadGame = SKAction.runBlock({
                 

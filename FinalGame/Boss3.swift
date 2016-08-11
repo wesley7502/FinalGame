@@ -19,7 +19,7 @@ class Boss3: Enemy{   //Square Spawner
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss3")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 53.33), givenName: "boss3", points: 70, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 53.33), givenName: "boss3", points: 70, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */

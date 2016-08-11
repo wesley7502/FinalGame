@@ -81,7 +81,7 @@ class TutorialScene: GameScene {
                 didTurn = true
                 turnCounter += 1
             }
-            else if location.y - touchLoc.y > 60 && self.plane.position.y < 500 && (tutorialState == 2 || unlock){   //move up
+            else if location.y - touchLoc.y > 60 && self.plane.position.y < 290 && (tutorialState == 2 || unlock){   //move up
                 let flipU = SKAction(named: "MoveUp")!
                 self.plane.runAction(flipU)
                 didTurn = true

@@ -9,8 +9,13 @@ class TitleScene: SKScene {
     var titleMusic: AVAudioPlayer!
     
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
         
+        self.view?.showsFPS = false
+        self.view?.showsNodeCount = false
+        self.view?.showsDrawCount = false
+        self.view?.showsFields = false
+        
+        /* Setup your scene here */
         /* Set UI connections */
         buttonPlay = self.childNodeWithName("playbutton") as! MSButtonNode
     

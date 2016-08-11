@@ -154,6 +154,13 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
     
     
     override func didMoveToView(view: SKView) {
+        
+        
+        self.view?.showsFPS = false
+        self.view?.showsNodeCount = false
+        self.view?.showsDrawCount = false
+        self.view?.showsFields = false
+        
         plane = childNodeWithName("plane") as! SKSpriteNode
         healthBar = childNodeWithName("healthBar") as! SKSpriteNode
         bossWarning = childNodeWithName("bossAlert") as! SKSpriteNode
@@ -374,7 +381,6 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
             }
             scrollWorld()
             manageDistance(currentTime)
-            print(currentTime - bossGeneratorTimer)
         }
         
         
@@ -412,7 +418,7 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
         
         //now manages the movement of the plane
         if !didTurn && !shooting{
-            self.plane.position.y -= 1.25
+            self.plane.position.y -= 1.15
         }
         else if shooting{
             self.plane.position.y -= 0.5

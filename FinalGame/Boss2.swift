@@ -18,7 +18,7 @@ class Boss2: Enemy{   //Circle Boss with Lock On Target
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss2")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 160), givenName: "boss2", points: 100, bd : 0, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 160, height: 160), givenName: "boss2", points: 100, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */

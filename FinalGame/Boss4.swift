@@ -19,7 +19,7 @@ class Boss4: Enemy{  //The Runner
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss4")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 75), givenName: "boss4", points: 120, bd : 0.002, dif: 50, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 75), givenName: "boss4", points: 120, bd : 0.003, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */

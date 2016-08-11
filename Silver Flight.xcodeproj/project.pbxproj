@@ -855,13 +855,14 @@
 			baseConfigurationReference = B49F0DAFB87DB9717DE8932C /* Pods-FinalGame.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jenn-Yuan Tsai (3F2627K47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jenn-Yuan Tsai (3F2627K47P)";
 				INFOPLIST_FILE = FinalGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.SilverFlight;
 				PRODUCT_NAME = "Silver Flight";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "889685fd-8b9c-47d2-a000-03a83fcff85d";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -870,13 +871,14 @@
 			baseConfigurationReference = 6F2747C96E85776B962AEEDA /* Pods-FinalGame.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jenn-Yuan Tsai (3F2627K47P)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jenn-Yuan Tsai (3F2627K47P)";
 				INFOPLIST_FILE = FinalGame/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.flagicepic.SilverFlight;
 				PRODUCT_NAME = "Silver Flight";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "889685fd-8b9c-47d2-a000-03a83fcff85d";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
