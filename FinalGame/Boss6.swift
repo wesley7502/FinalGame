@@ -14,13 +14,13 @@ class Boss6: Enemy{ //The OctoShot
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss6")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss6", points: 120, bd : 0.001, dif: 75, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss6", points: 100, bd : 0.001, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
         zPosition = 3
         
-        hitPoints += Double(theScene!.bossLevel) * 50.0
+        hitPoints += Double(theScene!.bossLevel) * 60.0
         
         maxHitPoints = hitPoints
         

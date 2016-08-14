@@ -31,6 +31,12 @@ class TutorialScene: GameScene {
     
     
     override func didMoveToView(view: SKView) {
+        self.view?.showsFPS = false
+        self.view?.showsNodeCount = false
+        self.view?.showsDrawCount = false
+        self.view?.showsFields = false
+        
+        
         plane = childNodeWithName("plane") as! SKSpriteNode
         healthBar = childNodeWithName("healthbar") as! SKSpriteNode
         tutorialLabel = childNodeWithName("tutoriallabel") as! SKLabelNode
@@ -51,7 +57,7 @@ class TutorialScene: GameScene {
             let calculateddistance = Double(touchLoc.x - location.x)
             if calculateddistance > 65 && planePos > 1 && (tutorialState == 1 || unlock){
                 planePos -= 1
-                if self.plane.position.y < 268{
+                if self.plane.position.y < 560{
                     let flipL = SKAction(named: "SlideLeft")!
                     self.plane.runAction(flipL)
                 }
@@ -64,7 +70,7 @@ class TutorialScene: GameScene {
             }
             else if calculateddistance < -65 && planePos < 6 && (tutorialState == 1 || unlock){
                 planePos += 1
-                if self.plane.position.y < 268{
+                if self.plane.position.y < 560{
                     let flipR = SKAction(named: "SlideRight")!
                     self.plane.runAction(flipR)
                 }
@@ -81,7 +87,7 @@ class TutorialScene: GameScene {
                 didTurn = true
                 turnCounter += 1
             }
-            else if location.y - touchLoc.y > 60 && self.plane.position.y < 290 && (tutorialState == 2 || unlock){   //move up
+            else if location.y - touchLoc.y > 60 && self.plane.position.y < 560 && (tutorialState == 2 || unlock){   //move up
                 let flipU = SKAction(named: "MoveUp")!
                 self.plane.runAction(flipU)
                 didTurn = true
@@ -131,7 +137,7 @@ class TutorialScene: GameScene {
             }
             
         }
-        else if turnCounter > 4{
+        else if turnCounter > 3{
             stasis = false
             turnCounter = 0
             tutorialTimer = 0.0
@@ -214,10 +220,10 @@ class TutorialScene: GameScene {
         
         //now manages the movement of the plane
         if !didTurn && !shooting && !stasis{
-            self.plane.position.y -= 1.25
+            self.plane.position.y -= 0.65
         }
         else if shooting && !stasis{
-            self.plane.position.y -= 0.5
+            self.plane.position.y -= 0.25
         }
         didTurn = false
         

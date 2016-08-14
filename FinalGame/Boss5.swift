@@ -8,7 +8,7 @@ class Boss5: Enemy{   //Missle Spammer
     var targetLane: Int = 0
     var goRight = true
     var squareLane = 0
-    var interval = 0.5
+    var interval = 0.85
 
     
     
@@ -21,7 +21,7 @@ class Boss5: Enemy{   //Missle Spammer
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss5")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss5", points: 60, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 53.33, height: 53.33), givenName: "boss5", points: 70, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -68,7 +68,7 @@ class Boss5: Enemy{   //Missle Spammer
             else{
             
                 enemyShoot2()
-                interval = 0.75
+                interval = 1.0
             }
             enemyMovementTimer = 0.0
         }

@@ -15,7 +15,6 @@ class TitleScene: SKScene {
         self.view?.showsDrawCount = false
         self.view?.showsFields = false
         
-        /* Setup your scene here */
         /* Set UI connections */
         buttonPlay = self.childNodeWithName("playbutton") as! MSButtonNode
     

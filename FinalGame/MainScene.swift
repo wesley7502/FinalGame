@@ -13,6 +13,10 @@ class MainScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        self.view?.showsFPS = false
+        self.view?.showsNodeCount = false
+        self.view?.showsDrawCount = false
+        self.view?.showsFields = false
         
         /* Set UI connections */
         buttonPlay = self.childNodeWithName("playButton") as! MSButtonNode

@@ -24,7 +24,7 @@ class Boss7: Enemy{    //Super Massive Boss with bullet rain
         theScene = scene
         
         let texture = SKTexture(imageNamed: "Boss7")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 320, height: 100), givenName: "boss7", points: 120, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 320, height: 100), givenName: "boss7", points: 110, bd : 0, dif: 75, sp: 6, ty : "boss", la: lane)
         
         
         /* Set Z-Position, ensure it's on top of grid */
@@ -59,7 +59,7 @@ class Boss7: Enemy{    //Super Massive Boss with bullet rain
             }
         }
         else{
-            if currentTime - enemyMovementTimer >= 0.9{
+            if currentTime - enemyMovementTimer >= 1.5{
                 enemyShoot2()
                 enemyMovementTimer = 0.0
             }

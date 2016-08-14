@@ -155,7 +155,6 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
     
     override func didMoveToView(view: SKView) {
         
-        
         self.view?.showsFPS = false
         self.view?.showsNodeCount = false
         self.view?.showsDrawCount = false
@@ -408,7 +407,7 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
         }
         if bulletArray.count != 0{      //move bullets
             for bullet in bulletArray{
-                bullet.position.y += 7.0 + ((CGFloat)(bulletSpeed) * 0.5)
+                bullet.position.y += 6.0 + ((CGFloat)(bulletSpeed) * 0.6)
                 if bullet.position.y >= 600{
                     bulletArray.removeAtIndex(bulletArray.indexOf(bullet)!)
                     bullet.removeFromParent()
@@ -418,10 +417,10 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
         
         //now manages the movement of the plane
         if !didTurn && !shooting{
-            self.plane.position.y -= 1.15
+            self.plane.position.y -= 0.65
         }
         else if shooting{
-            self.plane.position.y -= 0.5
+            self.plane.position.y -= 0.25
         }
         didTurn = false
         
@@ -726,7 +725,7 @@ class GameScene: SKScene,  GKGameCenterControllerDelegate{
     
     func shoot(currentTime: CFTimeInterval){
             let bulletWatch = currentTime - bulletTimer
-            if bulletWatch >= (0.4 - (0.03 * (Double)(bulletSpeed))) {
+            if bulletWatch >= (0.35 - (0.022 * (Double)(reload))) {
                 addNewBullet()
                 bulletTimer = currentTime
             }

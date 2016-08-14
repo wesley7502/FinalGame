@@ -11,7 +11,7 @@ class TargetLock: Enemy {
         
         /* Initialize with 'bubble' asset */
         let texture = SKTexture(imageNamed: "TargetLock")
-        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 72, height: 72), givenName: "targetlock", points: 10, bd: 0.005, dif: 2, sp: 1, ty : "target", la: lane)
+        super.init(texture: texture, color: UIColor.clearColor(), size: CGSize(width: 72, height: 72), givenName: "targetlock", points: 10, bd: 0.008, dif: 2, sp: 1, ty : "target", la: lane)
         
         self.name = "TargetLock"
         
